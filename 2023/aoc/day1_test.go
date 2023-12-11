@@ -6,10 +6,10 @@ import (
 	"testing"
 )
 
-//go:embed data/2023_1_P1_example.txt
+//go:embed data/2023_01_example1.txt
 var DAY1_EXAMPLE1 string
 
-//go:embed data/2023_1_P2_example.txt
+//go:embed data/2023_01_example2.txt
 var DAY1_EXAMPLE2 string
 
 func TestParseInput(t *testing.T) {

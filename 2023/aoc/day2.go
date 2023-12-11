@@ -25,7 +25,7 @@ var REQUIRED_RED_CUBES = 12
 var REQUIRED_BLUE_CUBES = 14
 var REQUIRED_GREEN_CUBES = 13
 
-//go:embed data/2023_2.txt
+//go:embed data/2023_02.txt
 var DAY2_DATA string
 
 func ParseGame(input string) (int, []SetCubes) {

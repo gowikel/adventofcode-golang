@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-//go:embed data/2023_03_E1.txt
+//go:embed data/2023_03_example.txt
 var DAY3_EXAMPLE_DATA string
 
 type GetPointsTestCase struct {

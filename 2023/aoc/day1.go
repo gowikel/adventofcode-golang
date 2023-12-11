@@ -14,7 +14,7 @@ var NUMBER = regexp.MustCompile(`\d`)
 var STARTS_WITH_WORD_NUMBER = regexp.MustCompile(`^(one|two|three|four|five|six|seven|eight|nine|zero)`)
 var NOT_A_NUMBER = regexp.MustCompile(`\D`)
 
-//go:embed data/2023_1.txt
+//go:embed data/2023_01.txt
 var DAY1_DATA string
 
 // ParseInput takes a string and returns a slice of ints, ignoring
