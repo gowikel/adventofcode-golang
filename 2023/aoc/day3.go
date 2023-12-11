@@ -1,15 +1,14 @@
-package main
+package aoc
 
 import (
 	_ "embed"
 	"fmt"
 	"regexp"
-	"runtime"
 	"strings"
 )
 
 //go:embed data/2023_03.txt
-var data string
+var DAY3_DATA string
 
 func GetPoints(input string) [][2]int {
 	result := make([][2]int, 0)
@@ -130,7 +129,7 @@ func LocateNumbers(input string, ranges [][3]int) [][3]int {
 	return result
 }
 
-func Part1(data string) int {
+func Day3Part1(data string) int {
 	points := GetPoints(data)
 	ranges := GetRanges(data, points)
 	numberRanges := LocateNumbers(data, ranges)
@@ -173,7 +172,7 @@ func GetGears(input string) [][2]int {
 	return result
 }
 
-func Part2(data string) int {
+func Day3Part2(data string) int {
 	lines := strings.Split(data, "\n")
 	potentialGears := GetGears(data)
 
@@ -214,11 +213,8 @@ func Part2(data string) int {
 	return result
 }
 
-func main() {
-	p1Sol := Part1(data)
-	p2Sol := Part2(data)
-
-	fmt.Printf("Part 1: %d\n", p1Sol)
-	fmt.Printf("Part 2: %d\n", p2Sol)
-	fmt.Printf("%v\n", runtime.Version())
+func Day3() {
+	fmt.Printf("- Day 03\n")
+	fmt.Printf("  Part 1: %d\n", Day3Part1(DAY3_DATA))
+	fmt.Printf("  Part 2: %d\n", Day3Part2(DAY3_DATA))
 }

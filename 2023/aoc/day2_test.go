@@ -1,13 +1,10 @@
-package main
+package aoc
 
 import (
 	_ "embed"
 	"reflect"
 	"testing"
 )
-
-//go:embed data/2023_2_P1_example.txt
-var example1 string
 
 func TestParseGame(t *testing.T) {
 	t.Run("Parses the game ID correctly", func(t *testing.T) {

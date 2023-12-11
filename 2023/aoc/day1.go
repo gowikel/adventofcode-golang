@@ -1,4 +1,4 @@
-package main
+package aoc
 
 import (
 	"bufio"
@@ -15,7 +15,7 @@ var STARTS_WITH_WORD_NUMBER = regexp.MustCompile(`^(one|two|three|four|five|six|
 var NOT_A_NUMBER = regexp.MustCompile(`\D`)
 
 //go:embed data/2023_1.txt
-var data string
+var DAY1_DATA string
 
 // ParseInput takes a string and returns a slice of ints, ignoring
 // any non-numeric characters.
@@ -120,8 +120,8 @@ func ParseNumber(input string) int {
 	return parsedNumber
 }
 
-// Solution to part 1 of day 1 of the Advent of Code 2023.
-func part1() {
+
+func Day1Part1(data string) int {
 	numbers := ParseInput(data)
 	sum := 0
 
@@ -129,10 +129,10 @@ func part1() {
 		sum += number
 	}
 
-	fmt.Printf("Part 1: %d\n", sum)
+	return sum
 }
 
-func part2() {
+func Day1Part2(data string) int {
 	numbers := EnhancedParseInput(data)
 	sum := 0
 
@@ -140,10 +140,11 @@ func part2() {
 		sum += number
 	}
 
-	fmt.Printf("Part 2: %d\n", sum)
+	return sum
 }
 
-func main() {
-	part1()
-	part2()
+func Day1() {
+	fmt.Printf("- Day 01\n")
+	fmt.Printf("  Part 1: %d\n", Day1Part1(DAY1_DATA))
+	fmt.Printf("  Part 2: %d\n", Day1Part2(DAY1_DATA))
 }

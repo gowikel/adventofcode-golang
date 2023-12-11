@@ -1,4 +1,4 @@
-package main
+package aoc
 
 import (
 	_ "embed"
@@ -6,7 +6,7 @@ import (
 )
 
 //go:embed data/2023_03_E1.txt
-var example1 string
+var DAY3_EXAMPLE_DATA string
 
 type GetPointsTestCase struct {
 	description string
@@ -365,14 +365,14 @@ func TestLocateNumbers(t *testing.T) {
 	}
 }
 
-func TestPart1(t *testing.T) {
-	got := Part1(example1)
+func TestDay3Part1(t *testing.T) {
+	got := Day3Part1(DAY3_EXAMPLE_DATA)
 	want := 4361
 
 	if got != want {
 		t.Errorf(
 			"\n\nPart 1\n\nInput:\n%v\nGot: %v\nWant: %v\n\n",
-			example1,
+			DAY3_EXAMPLE_DATA,
 			got,
 			want,
 		)
@@ -419,14 +419,14 @@ func TestGetGears(t *testing.T) {
 	}
 }
 
-func TestPar2(t *testing.T) {
-	got := Part2(example1)
+func TestDay3Part2(t *testing.T) {
+	got := Day3Part2(DAY3_EXAMPLE_DATA)
 	want := 467835
 
 	if got != want {
 		t.Errorf(
 			"\n\nPart 1\n\nInput:\n%v\nGot: %v\nWant: %v\n\n",
-			example1,
+			DAY3_EXAMPLE_DATA,
 			got,
 			want,
 		)

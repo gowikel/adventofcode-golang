@@ -1,4 +1,4 @@
-package main
+package aoc
 
 import (
 	"bufio"
@@ -26,7 +26,7 @@ var REQUIRED_BLUE_CUBES = 14
 var REQUIRED_GREEN_CUBES = 13
 
 //go:embed data/2023_2.txt
-var data string
+var DAY2_DATA string
 
 func ParseGame(input string) (int, []SetCubes) {
 	matches := GAME_REGEX.FindAllStringSubmatch(input, -1)
@@ -68,7 +68,7 @@ func ParseGame(input string) (int, []SetCubes) {
 	return gameId, cubes
 }
 
-func part1() {
+func Day2Part1(data string) int {
 	var result int
 
 	scanner := bufio.NewScanner(strings.NewReader(data))
@@ -93,7 +93,7 @@ func part1() {
 		}
 	}
 
-	fmt.Printf("Part 1: %d\n", result)
+	return result
 }
 
 func PowerCube(cube SetCubes) int {
@@ -124,7 +124,7 @@ func MinimumPowerSet(cubes []SetCubes) SetCubes {
 	return result
 }
 
-func part2() {
+func Day2Part2(data string) int {
 	var result int
 
 	scanner := bufio.NewScanner(strings.NewReader(data))
@@ -137,10 +137,11 @@ func part2() {
 		result += PowerCube(MinimumPowerSet(cubes))
 	}
 
-	fmt.Printf("Part 2: %d\n", result)
+	return result
 }
 
-func main() {
-	part1()
-	part2()
+func Day2() {
+	fmt.Printf("- Day 02\n")
+	fmt.Printf("  Part 1: %d\n", Day2Part1(DAY2_DATA))
+	fmt.Printf("  Part 2: %d\n", Day2Part2(DAY2_DATA))
 }

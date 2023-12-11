@@ -1,4 +1,4 @@
-package main
+package aoc
 
 import (
 	_ "embed"
@@ -7,14 +7,14 @@ import (
 )
 
 //go:embed data/2023_1_P1_example.txt
-var example1 string
+var DAY1_EXAMPLE1 string
 
 //go:embed data/2023_1_P2_example.txt
-var example2 string
+var DAY1_EXAMPLE2 string
 
 func TestParseInput(t *testing.T) {
 	t.Run("Gets the correct output", func(t *testing.T) {
-		got := ParseInput(example1)
+		got := ParseInput(DAY1_EXAMPLE1)
 		want := []int{12, 38, 15, 77}
 
 		if !reflect.DeepEqual(got, want) {
@@ -43,7 +43,7 @@ func TestParseInput(t *testing.T) {
 
 func TestEnhancedParseInput(t *testing.T) {
 	t.Run("Gets the correct output (example1)", func(t *testing.T) {
-		got := EnhancedParseInput(example1)
+		got := EnhancedParseInput(DAY1_EXAMPLE1)
 		want := []int{12, 38, 15, 77}
 
 		if !reflect.DeepEqual(got, want) {
@@ -52,7 +52,7 @@ func TestEnhancedParseInput(t *testing.T) {
 	})
 
 	t.Run("Gets the correct output (example2)", func(t *testing.T) {
-		got := EnhancedParseInput(example2)
+		got := EnhancedParseInput(DAY1_EXAMPLE2)
 		want := []int{29, 83, 13, 24, 42, 14, 76}
 
 		if !reflect.DeepEqual(got, want) {
