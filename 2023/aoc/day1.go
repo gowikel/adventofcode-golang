@@ -11,7 +11,10 @@ import (
 )
 
 var NUMBER = regexp.MustCompile(`\d`)
-var STARTS_WITH_WORD_NUMBER = regexp.MustCompile(`^(one|two|three|four|five|six|seven|eight|nine|zero)`)
+
+var STARTS_WITH_WORD_NUMBER = regexp.MustCompile(
+	`^(one|two|three|four|five|six|seven|eight|nine|zero)`,
+)
 var NOT_A_NUMBER = regexp.MustCompile(`\D`)
 
 //go:embed data/2023_01.txt
@@ -47,35 +50,39 @@ func ParseInput(input string) []int {
 // It returns each token as a byte slice and converts words to numbers
 // before returning them.
 //
-// If the token is not a number or a word, it will return the token as it is.
+// If the token is not a number or a word, it will return the token as
+// it is.
 //
 // This function does not return an error.
-func tokenizer(data []byte, atEOF bool) (advance int, token []byte, err error) {
+func tokenizer(
+	data []byte,
+	atEOF bool,
+) (advance int, token []byte, err error) {
 	if atEOF && len(data) == 0 {
 		return 0, nil, nil
 	} else if NUMBER.Match(data[:1]) {
 		return 1, data[:1], nil
 	} else if STARTS_WITH_WORD_NUMBER.Match(data) {
 		if bytes.HasPrefix(data, []byte("one")) {
-			return 3, []byte("1"), nil
+			return 1, []byte("1"), nil
 		} else if bytes.HasPrefix(data, []byte("two")) {
-			return 3, []byte("2"), nil
+			return 1, []byte("2"), nil
 		} else if bytes.HasPrefix(data, []byte("three")) {
-			return 5, []byte("3"), nil
+			return 1, []byte("3"), nil
 		} else if bytes.HasPrefix(data, []byte("four")) {
-			return 4, []byte("4"), nil
+			return 1, []byte("4"), nil
 		} else if bytes.HasPrefix(data, []byte("five")) {
-			return 4, []byte("5"), nil
+			return 1, []byte("5"), nil
 		} else if bytes.HasPrefix(data, []byte("six")) {
-			return 3, []byte("6"), nil
+			return 1, []byte("6"), nil
 		} else if bytes.HasPrefix(data, []byte("seven")) {
-			return 5, []byte("7"), nil
+			return 1, []byte("7"), nil
 		} else if bytes.HasPrefix(data, []byte("eight")) {
-			return 5, []byte("8"), nil
+			return 1, []byte("8"), nil
 		} else if bytes.HasPrefix(data, []byte("nine")) {
-			return 4, []byte("9"), nil
+			return 1, []byte("9"), nil
 		} else if bytes.HasPrefix(data, []byte("zero")) {
-			return 4, []byte("0"), nil
+			return 1, []byte("0"), nil
 		}
 	}
 
@@ -105,10 +112,17 @@ func EnhancedParseInput(input string) []int {
 //
 // This function panics if the input is not a number.
 func ParseNumber(input string) int {
-	if len(input) == 1 {
-		// input = strings.Repeat(input, 2)
-	} else if len(input) > 2 {
-		input = string(input[0]) + string(input[len(input)-1])
+	if len(input) == 0 {
+		return 0
+	} else if len(input) == 1 {
+		input = strings.Repeat(input, 2)
+	} else {
+		// handle negative numbers
+		if input[0] == '-' && len(input) > 3 {
+			input = input[0:2] + string(input[len(input) - 1])
+		} else if input[0] != '-' {
+			input = string(input[0]) + string(input[len(input)-1])
+		}
 	}
 
 	parsedNumber, err := strconv.Atoi(input)
@@ -119,7 +133,6 @@ func ParseNumber(input string) int {
 
 	return parsedNumber
 }
-
 
 func Day1Part1(data string) int {
 	numbers := ParseInput(data)

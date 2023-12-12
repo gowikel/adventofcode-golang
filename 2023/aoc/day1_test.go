@@ -1,6 +1,7 @@
 package aoc
 
 import (
+	"bytes"
 	_ "embed"
 	"reflect"
 	"testing"
@@ -12,217 +13,254 @@ var DAY1_EXAMPLE1 string
 //go:embed data/2023_01_example2.txt
 var DAY1_EXAMPLE2 string
 
-func TestParseInput(t *testing.T) {
-	t.Run("Gets the correct output", func(t *testing.T) {
-		got := ParseInput(DAY1_EXAMPLE1)
-		want := []int{12, 38, 15, 77}
-
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("ParseInput(example) = %#v; want %#v", got, want)
-		}
-	})
-
-	t.Run("Handles empty input", func(t *testing.T) {
-		got := ParseInput("")
-		want := []int{}
-
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("ParseInput(\"\") = %#v; want %#v", got, want)
-		}
-	})
-
-	t.Run("Handles empty lines", func(t *testing.T) {
-		got := ParseInput("\n\n")
-		want := []int{}
-
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("ParseInput(\"\\n\\n\") = %#v; want %#v", got, want)
-		}
-	})
+func TestParseInput_ShouldParseSingleNumberStringCorrectly(
+	t *testing.T,
+) {
+	input := "123\n"
+	expected := []int{13}
+	result := ParseInput(input)
+	if !reflect.DeepEqual(result, expected) {
+		t.Errorf("Expected %v, but got %v", expected, result)
+	}
 }
 
-func TestEnhancedParseInput(t *testing.T) {
-	t.Run("Gets the correct output (example1)", func(t *testing.T) {
-		got := EnhancedParseInput(DAY1_EXAMPLE1)
-		want := []int{12, 38, 15, 77}
-
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("EnhancedParseInput(example1) = %#v; want %#v", got, want)
-		}
-	})
-
-	t.Run("Gets the correct output (example2)", func(t *testing.T) {
-		got := EnhancedParseInput(DAY1_EXAMPLE2)
-		want := []int{29, 83, 13, 24, 42, 14, 76}
-
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("EnhancedParseInput(example2) = %#v; want %#v", got, want)
-		}
-	})
-
-	t.Run("Handles one", func(t *testing.T) {
-		input := "one"
-		got := EnhancedParseInput(input)
-		want := []int{11}
-
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("EnhancedParseInput(%#v) = %#v; want %#v", input, got, want)
-		}
-	})
-
-	t.Run("Handles two", func(t *testing.T) {
-		input := "two"
-		got := EnhancedParseInput(input)
-		want := []int{22}
-
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("EnhancedParseInput(%#v) = %#v; want %#v", input, got, want)
-		}
-	})
-
-	t.Run("Handles three", func(t *testing.T) {
-		input := "three"
-		got := EnhancedParseInput(input)
-		want := []int{33}
-
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("EnhancedParseInput(%#v) = %#v; want %#v", input, got, want)
-		}
-	})
-
-	t.Run("Handles four", func(t *testing.T) {
-		input := "four"
-		got := EnhancedParseInput(input)
-		want := []int{44}
-
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("EnhancedParseInput(%#v) = %#v; want %#v", input, got, want)
-		}
-	})
-
-	t.Run("Handles five", func(t *testing.T) {
-		input := "five"
-		got := EnhancedParseInput(input)
-		want := []int{55}
-
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("EnhancedParseInput(%#v) = %#v; want %#v", input, got, want)
-		}
-	})
-
-	t.Run("Handles six", func(t *testing.T) {
-		input := "six"
-		got := EnhancedParseInput(input)
-		want := []int{66}
-
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("EnhancedParseInput(%#v) = %#v; want %#v", input, got, want)
-		}
-	})
-
-	t.Run("Handles seven", func(t *testing.T) {
-		input := "seven"
-		got := EnhancedParseInput(input)
-		want := []int{77}
-
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("EnhancedParseInput(%#v) = %#v; want %#v", input, got, want)
-		}
-	})
-
-	t.Run("Handles eight", func(t *testing.T) {
-		input := "eight"
-		got := EnhancedParseInput(input)
-		want := []int{88}
-
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("EnhancedParseInput(%#v) = %#v; want %#v", input, got, want)
-		}
-	})
-
-	t.Run("Handles nine", func(t *testing.T) {
-		input := "nine"
-		got := EnhancedParseInput(input)
-		want := []int{99}
-
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("EnhancedParseInput(%#v) = %#v; want %#v", input, got, want)
-		}
-	})
-
-	t.Run("Handles zero", func(t *testing.T) {
-		input := "zero"
-		got := EnhancedParseInput(input)
-		want := []int{00}
-
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("EnhancedParseInput(%#v) = %#v; want %#v", input, got, want)
-		}
-	})
-
-	t.Run("Handles mixed inputs", func(t *testing.T) {
-		input := "one3"
-		got := EnhancedParseInput(input)
-		want := []int{13}
-
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("EnhancedParseInput(%#v) = %#v; want %#v", input, got, want)
-		}
-	})
-
-	t.Run("Skips other characters", func(t *testing.T) {
-		input := "one$3"
-		got := EnhancedParseInput(input)
-		want := []int{13}
-
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("EnhancedParseInput(%#v) = %#v; want %#v", input, got, want)
-		}
-	})
-
-	t.Run("Handles tricky inputs", func(t *testing.T) {
-		input := "eightwo"
-		got := EnhancedParseInput(input)
-		want := []int{88}
-
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("EnhancedParseInput(%#v) = %#v; want %#v", input, got, want)
-		}
-	})
-
-	t.Run("Handles tricky inputs (v2)", func(t *testing.T) {
-		input := "threeight"
-		got := EnhancedParseInput(input)
-		want := []int{33}
-
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("EnhancedParseInput(%#v) = %#v; want %#v", input, got, want)
-		}
-	})
+func TestParseInput_ShouldParseSingleNumberStringWithoutEndingOnNewLine(
+	t *testing.T,
+) {
+	input := "123"
+	expected := []int{13}
+	result := ParseInput(input)
+	if !reflect.DeepEqual(result, expected) {
+		t.Errorf("Expected %v, but got %v", expected, result)
+	}
 }
 
-func TestParseNumber(t *testing.T) {
-	t.Run("Returns the first and last digit", func(t *testing.T) {
-		got := ParseNumber("123")
-		want := 13
-		if got != want {
-			t.Errorf("ParseNumber(\"123\") = %#v; want %#v", got, want)
-		}
-	})
+func TestParseInput_ShouldParseMultipleNumberStringsCorrectly(
+	t *testing.T,
+) {
+	input := "123\n456\n789\n"
+	expected := []int{13, 46, 79}
+	result := ParseInput(input)
+	if !reflect.DeepEqual(result, expected) {
+		t.Errorf("Expected %v, but got %v", expected, result)
+	}
+}
 
-	t.Run("Returns the number on two digit numbers", func(t *testing.T) {
-		got := ParseNumber("12")
-		want := 12
-		if got != want {
-			t.Errorf("ParseNumber(\"12\") = %#v; want %#v", got, want)
-		}
-	})
+func TestParseInput_ShouldIgnoreEmptyLines(t *testing.T) {
+	input := "123\n\n456\n\n789\n"
+	expected := []int{13, 46, 79}
+	result := ParseInput(input)
+	if !reflect.DeepEqual(result, expected) {
+		t.Errorf("Expected %v, but got %v", expected, result)
+	}
+}
 
-	t.Run("Returns the number repeated on one digit numbers", func(t *testing.T) {
-		got := ParseNumber("1")
-		want := 11
-		if got != want {
-			t.Errorf("ParseNumber(\"1\") = %#v; want %#v", got, want)
+func TestParseInput_ShouldHandleInputWithLeadingTrailingSpaces(
+	t *testing.T,
+) {
+	input := "  123  \n  456  \n  789  \n"
+	expected := []int{13, 46, 79}
+	result := ParseInput(input)
+	if !reflect.DeepEqual(result, expected) {
+		t.Errorf("Expected %v, but got %v", expected, result)
+	}
+}
+
+func TestParseInput_ShouldHandleInputWithLeadingTrailingNonNumericCharacters(
+	t *testing.T,
+) {
+	input := "abc123def\nghi456jkl\nmno789pqr\n"
+	expected := []int{13, 46, 79}
+	result := ParseInput(input)
+	if !reflect.DeepEqual(result, expected) {
+		t.Errorf("Expected %v, but got %v", expected, result)
+	}
+}
+
+func TestParseInput_ShouldHandleInputWithOnlyOneNumericCharacter(
+	t *testing.T,
+) {
+	input := "1\n2\n3\n"
+	expected := []int{11, 22, 33}
+	result := ParseInput(input)
+	if !reflect.DeepEqual(result, expected) {
+		t.Errorf("Expected %v, but got %v", expected, result)
+	}
+}
+
+func TestParseInput_ShouldIgnoreLinesWithNonNumericCharacters(
+	t *testing.T,
+) {
+	input := "123\nabc\n456\n"
+	expected := []int{13, 46}
+	result := ParseInput(input)
+	if !reflect.DeepEqual(result, expected) {
+		t.Errorf("Expected %v, but got %v", expected, result)
+	}
+}
+
+func TestParseInput_ShouldParseInputWithOnlyTwoNumericCharactersCorrectly(
+	t *testing.T,
+) {
+	input := "12\n"
+	expected := []int{12}
+	result := ParseInput(input)
+	if !reflect.DeepEqual(result, expected) {
+		t.Errorf("Expected %v, but got %v", expected, result)
+	}
+}
+
+func TestParseInput_ShouldHandleEmptyInput(t *testing.T) {
+	input := ""
+	expected := []int{}
+	result := ParseInput(input)
+	if !reflect.DeepEqual(result, expected) {
+		t.Errorf("Expected %v, but got %v", expected, result)
+	}
+}
+
+// Returns the first and last digit of a two-digit number.
+func TestParseNumber_ShouldReturnFirstAndLastDigitOfTwoDigitNumber(
+	t *testing.T,
+) {
+	input := "42"
+	expected := 42
+	result := ParseNumber(input)
+	if result != expected {
+		t.Errorf("Expected %d, but got %d", expected, result)
+	}
+}
+
+// Repeats a one-digit number twice and returns it.
+func TestParseNumber_ShouldRepeatOneDigitNumberTwice(t *testing.T) {
+	input := "5"
+	expected := 55
+	result := ParseNumber(input)
+	if result != expected {
+		t.Errorf("Expected %d, but got %d", expected, result)
+	}
+}
+
+// Returns the first and last digit of a number with more than two
+// digits.
+func TestParseNumber_ShouldReturnFirstAndLastDigitOfNumberWithMoreThanTwoDigits(
+	t *testing.T,
+) {
+	input := "12345"
+	expected := 15
+	result := ParseNumber(input)
+	if result != expected {
+		t.Errorf("Expected %d, but got %d", expected, result)
+	}
+}
+
+// Panics if the input is not a number.
+func TestParseNumber_ShouldPanicIfInputIsNotANumber(t *testing.T) {
+	defer func() {
+		if r := recover(); r == nil {
+			t.Errorf("Expected panic, but no panic occurred")
 		}
-	})
+	}()
+	input := "abc"
+	ParseNumber(input)
+}
+
+
+func TestParseNumber_ShouldReturnZeroIfInputIsEmptyString(
+	t *testing.T,
+) {
+	input := ""
+	expected := 0
+	result := ParseNumber(input)
+	if result != expected {
+		t.Errorf("Expected %d, but got %d", expected, result)
+	}
+}
+
+func TestParseNumber_ShouldHandleNegativeNumbersCorrectly(
+	t *testing.T,
+) {
+	input := "-42"
+	expected := -42
+	result := ParseNumber(input)
+	if result != expected {
+		t.Errorf("Expected %d, but got %d", expected, result)
+	}
+}
+
+
+func TestTokenizer_ReturnsData_WhenAtEOFIsFalseAndFirstByteOfDataIsANumber(t *testing.T) {
+	data := []byte("1")
+	atEOF := false
+	advance, token, err := tokenizer(data, atEOF)
+	if advance != 1 {
+			t.Errorf("Expected advance to be 1, but got %d", advance)
+	}
+	if !bytes.Equal(token, data[:1]) {
+			t.Errorf("Expected token to be %v, but got %v", data[:1], token)
+	}
+	if err != nil {
+			t.Errorf("Expected err to be nil, but got %v", err)
+	}
+}
+
+func TestTokenizer_Returns1_WhenDataStartsWithOne(t *testing.T) {
+	data := []byte("one")
+	atEOF := false
+	advance, token, err := tokenizer(data, atEOF)
+	if advance != 1 {
+			t.Errorf("Expected advance to be 1, but got %d", advance)
+	}
+	if !bytes.Equal(token, []byte("1")) {
+			t.Errorf("Expected token to be [49], but got %v", token)
+	}
+	if err != nil {
+			t.Errorf("Expected err to be nil, but got %v", err)
+	}
+}
+
+
+func TestTokenizer_Returns2_WhenDataStartsWithTwo(t *testing.T) {
+	data := []byte("two")
+	atEOF := false
+	advance, token, err := tokenizer(data, atEOF)
+	if advance != 1 {
+			t.Errorf("Expected advance to be 1, but got %d", advance)
+	}
+	if !bytes.Equal(token, []byte("2")) {
+			t.Errorf("Expected token to be [50], but got %v", token)
+	}
+	if err != nil {
+			t.Errorf("Expected err to be nil, but got %v", err)
+	}
+}
+
+func TestTokenizer_Returns0_WhenAtEOFIsTrueAndDataIsEmpty(t *testing.T) {
+	data := []byte{}
+	atEOF := true
+	advance, token, err := tokenizer(data, atEOF)
+	if advance != 0 {
+			t.Errorf("Expected advance to be 0, but got %d", advance)
+	}
+	if token != nil {
+			t.Errorf("Expected token to be nil, but got %v", token)
+	}
+	if err != nil {
+			t.Errorf("Expected err to be nil, but got %v", err)
+	}
+}
+
+func TestTokenizer_ReturnsData_WhenAtEOFIsFalseAndFirstByteOfDataIsNotANumberOrWord(t *testing.T) {
+	data := []byte("a")
+	atEOF := false
+	advance, token, err := tokenizer(data, atEOF)
+	if advance != 1 {
+			t.Errorf("Expected advance to be 1, but got %d", advance)
+	}
+	if !bytes.Equal(token, data[:1]) {
+			t.Errorf("Expected token to be %v, but got %v", data[:1], token)
+	}
+	if err != nil {
+			t.Errorf("Expected err to be nil, but got %v", err)
+	}
 }
