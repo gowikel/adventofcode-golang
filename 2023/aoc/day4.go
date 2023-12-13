@@ -4,6 +4,7 @@ import (
 	_ "embed"
 	"fmt"
 	"regexp"
+	"strconv"
 	"strings"
 )
 
@@ -14,44 +15,37 @@ var CARD_REGEX = regexp.MustCompile(`Card \d+: (.*)|(.*)`)
 func Day4() {
 	fmt.Printf("- Day 04\n")
 	fmt.Printf("  Part 1: %d\n", Day4Part1(DAY4_DATA))
-	fmt.Printf("  Part 2: %d\n", Day1Part2(DAY4_DATA))
+	fmt.Printf("  Part 2: %d\n", Day4Part2(DAY4_DATA))
 }
 
-func Day4ParseLine(line string) (map[int]bool, []int, error) {
-	w := make(map[int]bool)
+func Day4ParseLine(line string) (map[int]struct{}, []int, error) {
+	w := make(map[int]struct{})
 	n := make([]int, 0)
-
-	// Example line:
-	// Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
 
 	cardSeparator := strings.Index(line, ":")
 	numbersSeparator := strings.Index(line, "|")
 
 	if cardSeparator == -1 || numbersSeparator == -1 {
-		return nil, nil, fmt.Errorf("invalid line: %q", line)
+		return w, n, fmt.Errorf("invalid line: %q", line)
 	}
 
 	winNumbers := line[cardSeparator+1 : numbersSeparator]
 	playedNumbers := line[numbersSeparator+1:]
 
 	for _, number := range strings.Fields(winNumbers) {
-		var parsedInt int
-		_, err := fmt.Sscanf(number, "%d", &parsedInt)
-
+		parsedInt, err := strconv.Atoi(number)
 		if err != nil {
-			return nil, nil, fmt.Errorf("error procesing line: %q\n"+
+			return w, n, fmt.Errorf("error procesing line: %q\n"+
 				"%v is not a number\n"+"%w", line, number, err)
 		}
 
-		w[parsedInt] = true
+		w[parsedInt] = struct{}{}
 	}
 
 	for _, number := range strings.Fields(playedNumbers) {
-		var parsedInt int
-		_, err := fmt.Sscanf(number, "%d", &parsedInt)
-
+		parsedInt, err := strconv.Atoi(number)
 		if err != nil {
-			return nil, nil, fmt.Errorf("error procesing line: %q\n"+
+			return w, n, fmt.Errorf("error procesing line: %q\n"+
 				"%v is not a number\n"+"%w", line, number, err)
 		}
 
@@ -73,9 +67,10 @@ func Day4Part1(data string) int {
 		}
 
 		for _, playedNumber := range p {
-			if w[playedNumber] && lineResult == 0 {
+			_, ok := w[playedNumber]
+			if ok && lineResult == 0 {
 				lineResult = 1
-			} else if w[playedNumber] {
+			} else if ok {
 				lineResult *= 2
 			}
 		}
@@ -86,29 +81,48 @@ func Day4Part1(data string) int {
 	return result
 }
 
+func CountMatches(w map[int]struct{}, lst []int) (int, error) {
+    if w == nil || lst == nil {
+        return 0, fmt.Errorf("map or slice is nil")
+    }
+
+    var result int
+
+    for _, n := range lst {
+        if _, ok := w[n]; ok {
+            result += 1
+        }
+    }
+
+    return result, nil
+}
+
 func Day4Part2(data string) int {
 	var result int
-	// lines := strings.Split(data, "\n")
-	// copies := make([]int, len(lines))
+	lines := strings.Split(data, "\n")
+	copies := make([]int, len(lines))
 
-	// for idx, line := range strings.Split(data, "\n") {
-	// 	var lineResult int
-	// 	w, p, err := Day4ParseLine(line)
+	for i := range copies {
+		copies[i] = 1
+	}
 
-	// 	if err != nil {
-	// 		panic(err)
-	// 	}
+	for idx, line := range strings.Split(data, "\n") {
+		w, p, err := Day4ParseLine(line)
 
-	// 	for _, playedNumber := range p {
-	// 		if w[playedNumber] && lineResult == 0 {
-	// 			lineResult = 1
-	// 		} else if w[playedNumber] {
-	// 			lineResult *= 2
-	// 		}
-	// 	}
+		if err != nil {
+			panic(err)
+		}
 
-	// 	result += lineResult
-	// }
+		matches, _ := CountMatches(w, p)
+
+		for i := idx + 1; i < idx + matches+1; i++ {
+			copies[i] += copies[idx]
+		}
+	}
+
+	for _, copy := range copies {
+		result += copy
+	}
 
 	return result
 }
