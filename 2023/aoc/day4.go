@@ -120,8 +120,8 @@ func Day4Part2(data string) int {
 		}
 	}
 
-	for _, copy := range copies {
-		result += copy
+	for _, cpy := range copies {
+		result += cpy
 	}
 
 	return result
