@@ -1,17 +1,10 @@
-package aoc
+package day01
 
 import (
 	"bytes"
-	_ "embed"
 	"reflect"
 	"testing"
 )
-
-//go:embed data/2023_01_example1.txt
-var DAY1_EXAMPLE1 string
-
-//go:embed data/2023_01_example2.txt
-var DAY1_EXAMPLE2 string
 
 func TestParseInput_ShouldParseSingleNumberStringCorrectly(
 	t *testing.T,
@@ -165,7 +158,6 @@ func TestParseNumber_ShouldPanicIfInputIsNotANumber(t *testing.T) {
 	ParseNumber(input)
 }
 
-
 func TestParseNumber_ShouldReturnZeroIfInputIsEmptyString(
 	t *testing.T,
 ) {
@@ -188,19 +180,24 @@ func TestParseNumber_ShouldHandleNegativeNumbersCorrectly(
 	}
 }
 
-
-func TestTokenizer_ReturnsData_WhenAtEOFIsFalseAndFirstByteOfDataIsANumber(t *testing.T) {
+func TestTokenizer_ReturnsData_WhenAtEOFIsFalseAndFirstByteOfDataIsANumber(
+	t *testing.T,
+) {
 	data := []byte("1")
 	atEOF := false
 	advance, token, err := tokenizer(data, atEOF)
 	if advance != 1 {
-			t.Errorf("Expected advance to be 1, but got %d", advance)
+		t.Errorf("Expected advance to be 1, but got %d", advance)
 	}
 	if !bytes.Equal(token, data[:1]) {
-			t.Errorf("Expected token to be %v, but got %v", data[:1], token)
+		t.Errorf(
+			"Expected token to be %v, but got %v",
+			data[:1],
+			token,
+		)
 	}
 	if err != nil {
-			t.Errorf("Expected err to be nil, but got %v", err)
+		t.Errorf("Expected err to be nil, but got %v", err)
 	}
 }
 
@@ -209,58 +206,65 @@ func TestTokenizer_Returns1_WhenDataStartsWithOne(t *testing.T) {
 	atEOF := false
 	advance, token, err := tokenizer(data, atEOF)
 	if advance != 1 {
-			t.Errorf("Expected advance to be 1, but got %d", advance)
+		t.Errorf("Expected advance to be 1, but got %d", advance)
 	}
 	if !bytes.Equal(token, []byte("1")) {
-			t.Errorf("Expected token to be [49], but got %v", token)
+		t.Errorf("Expected token to be [49], but got %v", token)
 	}
 	if err != nil {
-			t.Errorf("Expected err to be nil, but got %v", err)
+		t.Errorf("Expected err to be nil, but got %v", err)
 	}
 }
-
 
 func TestTokenizer_Returns2_WhenDataStartsWithTwo(t *testing.T) {
 	data := []byte("two")
 	atEOF := false
 	advance, token, err := tokenizer(data, atEOF)
 	if advance != 1 {
-			t.Errorf("Expected advance to be 1, but got %d", advance)
+		t.Errorf("Expected advance to be 1, but got %d", advance)
 	}
 	if !bytes.Equal(token, []byte("2")) {
-			t.Errorf("Expected token to be [50], but got %v", token)
+		t.Errorf("Expected token to be [50], but got %v", token)
 	}
 	if err != nil {
-			t.Errorf("Expected err to be nil, but got %v", err)
+		t.Errorf("Expected err to be nil, but got %v", err)
 	}
 }
 
-func TestTokenizer_Returns0_WhenAtEOFIsTrueAndDataIsEmpty(t *testing.T) {
+func TestTokenizer_Returns0_WhenAtEOFIsTrueAndDataIsEmpty(
+	t *testing.T,
+) {
 	data := []byte{}
 	atEOF := true
 	advance, token, err := tokenizer(data, atEOF)
 	if advance != 0 {
-			t.Errorf("Expected advance to be 0, but got %d", advance)
+		t.Errorf("Expected advance to be 0, but got %d", advance)
 	}
 	if token != nil {
-			t.Errorf("Expected token to be nil, but got %v", token)
+		t.Errorf("Expected token to be nil, but got %v", token)
 	}
 	if err != nil {
-			t.Errorf("Expected err to be nil, but got %v", err)
+		t.Errorf("Expected err to be nil, but got %v", err)
 	}
 }
 
-func TestTokenizer_ReturnsData_WhenAtEOFIsFalseAndFirstByteOfDataIsNotANumberOrWord(t *testing.T) {
+func TestTokenizer_ReturnsData_WhenAtEOFIsFalseAndFirstByteOfDataIsNotANumberOrWord(
+	t *testing.T,
+) {
 	data := []byte("a")
 	atEOF := false
 	advance, token, err := tokenizer(data, atEOF)
 	if advance != 1 {
-			t.Errorf("Expected advance to be 1, but got %d", advance)
+		t.Errorf("Expected advance to be 1, but got %d", advance)
 	}
 	if !bytes.Equal(token, data[:1]) {
-			t.Errorf("Expected token to be %v, but got %v", data[:1], token)
+		t.Errorf(
+			"Expected token to be %v, but got %v",
+			data[:1],
+			token,
+		)
 	}
 	if err != nil {
-			t.Errorf("Expected err to be nil, but got %v", err)
+		t.Errorf("Expected err to be nil, but got %v", err)
 	}
 }

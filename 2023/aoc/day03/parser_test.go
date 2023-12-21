@@ -1,12 +1,6 @@
-package aoc
+package day03
 
-import (
-	_ "embed"
-	"testing"
-)
-
-//go:embed data/2023_03_example.txt
-var DAY3_EXAMPLE_DATA string
+import "testing"
 
 type GetPointsTestCase struct {
 	description string
@@ -365,20 +359,6 @@ func TestLocateNumbers(t *testing.T) {
 	}
 }
 
-func TestDay3Part1(t *testing.T) {
-	got := Day3Part1(DAY3_EXAMPLE_DATA)
-	want := 4361
-
-	if got != want {
-		t.Errorf(
-			"\n\nPart 1\n\nInput:\n%v\nGot: %v\nWant: %v\n\n",
-			DAY3_EXAMPLE_DATA,
-			got,
-			want,
-		)
-	}
-}
-
 func TestGetGears(t *testing.T) {
 	testCases := []GetGearsTestCase{
 		{
@@ -416,19 +396,5 @@ func TestGetGears(t *testing.T) {
 				)
 			}
 		})
-	}
-}
-
-func TestDay3Part2(t *testing.T) {
-	got := Day3Part2(DAY3_EXAMPLE_DATA)
-	want := 467835
-
-	if got != want {
-		t.Errorf(
-			"\n\nPart 1\n\nInput:\n%v\nGot: %v\nWant: %v\n\n",
-			DAY3_EXAMPLE_DATA,
-			got,
-			want,
-		)
 	}
 }

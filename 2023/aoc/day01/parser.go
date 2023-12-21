@@ -1,10 +1,8 @@
-package aoc
+package day01
 
 import (
 	"bufio"
 	"bytes"
-	_ "embed"
-	"fmt"
 	"regexp"
 	"strconv"
 	"strings"
@@ -16,9 +14,6 @@ var STARTS_WITH_WORD_NUMBER = regexp.MustCompile(
 	`^(one|two|three|four|five|six|seven|eight|nine|zero)`,
 )
 var NOT_A_NUMBER = regexp.MustCompile(`\D`)
-
-//go:embed data/2023_01.txt
-var DAY1_DATA string
 
 // ParseInput takes a string and returns a slice of ints, ignoring
 // any non-numeric characters.
@@ -119,7 +114,7 @@ func ParseNumber(input string) int {
 	} else {
 		// handle negative numbers
 		if input[0] == '-' && len(input) > 3 {
-			input = input[0:2] + string(input[len(input) - 1])
+			input = input[0:2] + string(input[len(input)-1])
 		} else if input[0] != '-' {
 			input = string(input[0]) + string(input[len(input)-1])
 		}
@@ -132,32 +127,4 @@ func ParseNumber(input string) int {
 	}
 
 	return parsedNumber
-}
-
-func Day1Part1(data string) int {
-	numbers := ParseInput(data)
-	sum := 0
-
-	for _, number := range numbers {
-		sum += number
-	}
-
-	return sum
-}
-
-func Day1Part2(data string) int {
-	numbers := EnhancedParseInput(data)
-	sum := 0
-
-	for _, number := range numbers {
-		sum += number
-	}
-
-	return sum
-}
-
-func Day1() {
-	fmt.Printf("- Day 01\n")
-	fmt.Printf("  Part 1: %d\n", Day1Part1(DAY1_DATA))
-	fmt.Printf("  Part 2: %d\n", Day1Part2(DAY1_DATA))
 }

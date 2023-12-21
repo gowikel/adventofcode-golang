@@ -1,12 +1,15 @@
 package main
 
 import (
-	"github.com/gowikel/adventofcode-golang/2023/aoc"
+	"github.com/gowikel/adventofcode-golang/2023/aoc/day01"
+	"github.com/gowikel/adventofcode-golang/2023/aoc/day02"
+	"github.com/gowikel/adventofcode-golang/2023/aoc/day03"
+	"github.com/gowikel/adventofcode-golang/2023/aoc/day04"
 )
 
 func main() {
-	aoc.Day1()
-	aoc.Day2()
-	aoc.Day3()
-	aoc.Day4()
+	day01.Solve()
+	day02.Solve()
+	day03.Solve()
+	day04.Solve()
 }
