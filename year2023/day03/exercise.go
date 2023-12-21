@@ -5,6 +5,14 @@ import (
 	"strings"
 )
 
+type Exercise struct{}
+
+func (e Exercise) Solve(data string) {
+	fmt.Printf("- Day 03\n")
+	fmt.Printf("  Part 1: %d\n", part1(data))
+	fmt.Printf("  Part 2: %d\n", part2(data))
+}
+
 func part1(data string) int {
 	points := GetPoints(data)
 	ranges := GetRanges(data, points)
@@ -72,10 +80,4 @@ func part2(data string) int {
 	}
 
 	return result
-}
-
-func Solve(data string) {
-	fmt.Printf("- Day 03\n")
-	fmt.Printf("  Part 1: %d\n", part1(data))
-	fmt.Printf("  Part 2: %d\n", part2(data))
 }

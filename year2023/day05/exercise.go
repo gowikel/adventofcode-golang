@@ -6,15 +6,9 @@ import (
 	"github.com/gowikel/adventofcode-golang/utils"
 )
 
-func part1(data string) int {
-	return 0
-}
+type Exercise struct{}
 
-func part2(data string) int {
-	return 0
-}
-
-func Solve(data string) {
+func (e Exercise) Solve(data string) {
 	fmt.Printf("- Day 05\n")
 	fmt.Printf(
 		utils.Conceal("  Part 1: %d\n"),
@@ -26,4 +20,11 @@ func Solve(data string) {
 	)
 }
 
+func part1(data string) int {
+	return 0
+}
+
+func part2(data string) int {
+	return 0
+}
 

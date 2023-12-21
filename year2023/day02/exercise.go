@@ -10,6 +10,15 @@ const REQUIRED_RED_CUBES = 12
 const REQUIRED_BLUE_CUBES = 14
 const REQUIRED_GREEN_CUBES = 13
 
+type Exercise struct{}
+
+func (e Exercise) Solve(data string) {
+	fmt.Printf("- Day 02\n")
+	fmt.Printf("  Part 1: %d\n", part1(data))
+	fmt.Printf("  Part 2: %d\n", part2(data))
+}
+
+
 func part1(data string) int {
 	var result int
 
@@ -52,10 +61,4 @@ func part2(data string) int {
 	}
 
 	return result
-}
-
-func Solve(data string) {
-	fmt.Printf("- Day 02\n")
-	fmt.Printf("  Part 1: %d\n", part1(data))
-	fmt.Printf("  Part 2: %d\n", part2(data))
 }
