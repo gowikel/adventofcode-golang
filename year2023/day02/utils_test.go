@@ -1,8 +1,10 @@
-package day02
+package day02_test
 
 import (
 	"reflect"
 	"testing"
+
+	. "github.com/gowikel/adventofcode-golang/year2023/day02"
 )
 
 func TestPowerCubes(t *testing.T) {

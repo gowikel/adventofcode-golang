@@ -1,6 +1,10 @@
-package day03
+package day03_test
 
-import "testing"
+import (
+	"testing"
+
+	. "github.com/gowikel/adventofcode-golang/year2023/day03"
+)
 
 type GetPointsTestCase struct {
 	description string

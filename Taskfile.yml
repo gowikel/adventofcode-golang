@@ -1,0 +1,22 @@
+version: '3'
+
+tasks:
+  default:
+    cmds:
+      - task: test-all
+  test-all:
+    desc: Run all tests
+    cmds:
+      - go test {{.CLI_ARGS}} ./...
+  test:
+    desc: Run a specific test
+    cmds:
+      - go test {{.CLI_ARGS}} {{.PATH}}
+  run:
+    desc: Run the executable
+    cmds:
+      - go run . {{.CLI_ARGS}}
+  build:
+    desc: Compile the binary
+    cmds:
+      - go build -o aoc .

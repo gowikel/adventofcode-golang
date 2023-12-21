@@ -1,15 +1,17 @@
-package day03
+package day03_test
 
 import (
 	_ "embed"
 	"testing"
+
+	. "github.com/gowikel/adventofcode-golang/year2023/day03"
 )
 
-//go:embed internal/data/2023_03_example.txt
+//go:embed testdata/2023_03_example.txt
 var EXAMPLE string
 
 func TestDay03Part1(t *testing.T) {
-	got := part1(EXAMPLE)
+	got := Part1(EXAMPLE)
 	want := 4361
 
 	if got != want {
@@ -23,7 +25,7 @@ func TestDay03Part1(t *testing.T) {
 }
 
 func TestDay03Part2(t *testing.T) {
-	got := part2(EXAMPLE)
+	got := Part2(EXAMPLE)
 	want := 467835
 
 	if got != want {

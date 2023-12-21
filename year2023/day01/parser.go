@@ -49,7 +49,7 @@ func ParseInput(input string) []int {
 // it is.
 //
 // This function does not return an error.
-func tokenizer(
+func Tokenizer(
 	data []byte,
 	atEOF bool,
 ) (advance int, token []byte, err error) {
@@ -91,7 +91,7 @@ func tokenizer(
 func EnhancedParseInput(input string) []int {
 	var sb strings.Builder
 	var scanner = bufio.NewScanner(strings.NewReader(input))
-	scanner.Split(tokenizer)
+	scanner.Split(Tokenizer)
 
 	for scanner.Scan() {
 		sb.WriteString(scanner.Text())

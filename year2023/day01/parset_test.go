@@ -1,9 +1,11 @@
-package day01
+package day01_test
 
 import (
 	"bytes"
 	"reflect"
 	"testing"
+
+	. "github.com/gowikel/adventofcode-golang/year2023/day01"
 )
 
 func TestParseInput_ShouldParseSingleNumberStringCorrectly(
@@ -185,7 +187,7 @@ func TestTokenizer_ReturnsData_WhenAtEOFIsFalseAndFirstByteOfDataIsANumber(
 ) {
 	data := []byte("1")
 	atEOF := false
-	advance, token, err := tokenizer(data, atEOF)
+	advance, token, err := Tokenizer(data, atEOF)
 	if advance != 1 {
 		t.Errorf("Expected advance to be 1, but got %d", advance)
 	}
@@ -204,7 +206,7 @@ func TestTokenizer_ReturnsData_WhenAtEOFIsFalseAndFirstByteOfDataIsANumber(
 func TestTokenizer_Returns1_WhenDataStartsWithOne(t *testing.T) {
 	data := []byte("one")
 	atEOF := false
-	advance, token, err := tokenizer(data, atEOF)
+	advance, token, err := Tokenizer(data, atEOF)
 	if advance != 1 {
 		t.Errorf("Expected advance to be 1, but got %d", advance)
 	}
@@ -219,7 +221,7 @@ func TestTokenizer_Returns1_WhenDataStartsWithOne(t *testing.T) {
 func TestTokenizer_Returns2_WhenDataStartsWithTwo(t *testing.T) {
 	data := []byte("two")
 	atEOF := false
-	advance, token, err := tokenizer(data, atEOF)
+	advance, token, err := Tokenizer(data, atEOF)
 	if advance != 1 {
 		t.Errorf("Expected advance to be 1, but got %d", advance)
 	}
@@ -236,7 +238,7 @@ func TestTokenizer_Returns0_WhenAtEOFIsTrueAndDataIsEmpty(
 ) {
 	data := []byte{}
 	atEOF := true
-	advance, token, err := tokenizer(data, atEOF)
+	advance, token, err := Tokenizer(data, atEOF)
 	if advance != 0 {
 		t.Errorf("Expected advance to be 0, but got %d", advance)
 	}
@@ -253,7 +255,7 @@ func TestTokenizer_ReturnsData_WhenAtEOFIsFalseAndFirstByteOfDataIsNotANumberOrW
 ) {
 	data := []byte("a")
 	atEOF := false
-	advance, token, err := tokenizer(data, atEOF)
+	advance, token, err := Tokenizer(data, atEOF)
 	if advance != 1 {
 		t.Errorf("Expected advance to be 1, but got %d", advance)
 	}
