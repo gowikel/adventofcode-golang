@@ -11,11 +11,11 @@ import (
 	D05 "github.com/gowikel/adventofcode-golang/year2023/day05"
 )
 
-type Solver interface {
+type solver interface {
 	Solve(data string)
 }
 
-var solvers = map[int]Solver{
+var solvers = map[int]solver{
 	1: D01.Exercise{},
 	2: D02.Exercise{},
 	3: D03.Exercise{},
