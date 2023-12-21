@@ -3,6 +3,7 @@ package day03_test
 import (
 	"testing"
 
+	"github.com/gowikel/adventofcode-golang/utils"
 	. "github.com/gowikel/adventofcode-golang/year2023/day03"
 )
 
@@ -49,68 +50,6 @@ const input = "123......9\n" +
 	"........09\n" +
 	"666....33$\n"
 
-func compareSets3Int(a, b [][3]int) bool {
-	setA := make(map[[3]int]bool)
-	setB := make(map[[3]int]bool)
-
-	for _, v := range a {
-		setA[v] = true
-	}
-
-	for _, v := range b {
-		setB[v] = true
-	}
-
-	if len(setA) != len(setB) {
-		return false
-	}
-
-	for v := range setA {
-		if !setB[v] {
-			return false
-		}
-	}
-
-	for v := range setB {
-		if !setA[v] {
-			return false
-		}
-	}
-
-	return true
-}
-
-func compareSets2Int(a, b [][2]int) bool {
-	setA := make(map[[2]int]bool)
-	setB := make(map[[2]int]bool)
-
-	for _, v := range a {
-		setA[v] = true
-	}
-
-	for _, v := range b {
-		setB[v] = true
-	}
-
-	if len(setA) != len(setB) {
-		return false
-	}
-
-	for v := range setA {
-		if !setB[v] {
-			return false
-		}
-	}
-
-	for v := range setB {
-		if !setA[v] {
-			return false
-		}
-	}
-
-	return true
-}
-
 func TestGetPoints(t *testing.T) {
 	testCases := []GetPointsTestCase{
 		{
@@ -129,7 +68,7 @@ func TestGetPoints(t *testing.T) {
 			got := GetPoints(testCase.input)
 			want := testCase.expected
 
-			if !compareSets2Int(got, want) {
+			if !utils.UnorderedEqualSlices[[2]int](got, want) {
 				t.Errorf(
 					"\n\n%s\n\nInput: %v\nGot: %v\nWant: %v\n\n",
 					testCase.description,
@@ -259,7 +198,8 @@ func TestGetRanges(t *testing.T) {
 			got := GetRanges(testCase.input, testCase.points)
 			want := testCase.expected
 
-			if !compareSets3Int(got, want) {
+
+			if !utils.UnorderedEqualSlices[[3]int](got, want) {
 				t.Errorf(
 					"\n\n%s\n\nInput:\n%v\nPoints: %v\nGot: %v\nWant: %v\n\n",
 					testCase.description,
@@ -349,7 +289,7 @@ func TestLocateNumbers(t *testing.T) {
 			got := LocateNumbers(testCase.input, testCase.ranges)
 			want := testCase.expected
 
-			if !compareSets3Int(got, want) {
+			if !utils.UnorderedEqualSlices[[3]int](got, want) {
 				t.Errorf(
 					"\n\n%s\n\nInput:\n%v\nRanges: %v\nGot: %v\nWant: %v\n\n",
 					testCase.description,
@@ -390,7 +330,7 @@ func TestGetGears(t *testing.T) {
 			got := GetGears(testCase.input)
 			want := testCase.expected
 
-			if !compareSets2Int(got, want) {
+			if !utils.UnorderedEqualSlices[[2]int](got, want) {
 				t.Errorf(
 					"\n\n%s\n\nInput:\n%s\nGot: %v\nWant: %v\n\n",
 					testCase.description,

@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func Part1(data string) int {
+func part1(data string) int {
 	points := GetPoints(data)
 	ranges := GetRanges(data, points)
 	numberRanges := LocateNumbers(data, ranges)
@@ -33,7 +33,7 @@ func Part1(data string) int {
 	return result
 }
 
-func Part2(data string) int {
+func part2(data string) int {
 	lines := strings.Split(data, "\n")
 	potentialGears := GetGears(data)
 
@@ -76,6 +76,6 @@ func Part2(data string) int {
 
 func Solve(data string) {
 	fmt.Printf("- Day 03\n")
-	fmt.Printf("  Part 1: %d\n", Part1(data))
-	fmt.Printf("  Part 2: %d\n", Part2(data))
+	fmt.Printf("  Part 1: %d\n", part1(data))
+	fmt.Printf("  Part 2: %d\n", part2(data))
 }
