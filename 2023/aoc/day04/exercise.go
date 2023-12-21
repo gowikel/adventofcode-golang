@@ -17,10 +17,9 @@ func part1(data string) int {
 		}
 
 		for _, playedNumber := range p {
-			_, ok := w[playedNumber]
-			if ok && lineResult == 0 {
+			if w.Contains(playedNumber) && lineResult == 0 {
 				lineResult = 1
-			} else if ok {
+			} else if w.Contains(playedNumber) {
 				lineResult *= 2
 			}
 		}

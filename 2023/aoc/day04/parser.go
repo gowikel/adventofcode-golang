@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+
+	mapset "github.com/deckarep/golang-set/v2"
 )
 
-type empty struct{}
-
-func parseLine(line string) (map[int]empty, []int, error) {
-	w := make(map[int]empty)
+func parseLine(line string) (mapset.Set[int], []int, error) {
+	w := mapset.NewSet[int]()
 	n := make([]int, 0)
 
 	cardSeparator := strings.Index(line, ":")
@@ -29,7 +29,7 @@ func parseLine(line string) (map[int]empty, []int, error) {
 				"%v is not a number\n"+"%w", line, number, err)
 		}
 
-		w[parsedInt] = empty{}
+		w.Add(parsedInt)
 	}
 
 	for _, number := range strings.Fields(playedNumbers) {

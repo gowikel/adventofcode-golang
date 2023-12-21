@@ -1,8 +1,12 @@
 package day04
 
-import "fmt"
+import (
+	"fmt"
 
-func countMatches(w map[int]empty, lst []int) (int, error) {
+	mapset "github.com/deckarep/golang-set/v2"
+)
+
+func countMatches(w mapset.Set[int], lst []int) (int, error) {
 	if w == nil || lst == nil {
 		return 0, fmt.Errorf("map or slice is nil")
 	}
@@ -10,7 +14,7 @@ func countMatches(w map[int]empty, lst []int) (int, error) {
 	var result int
 
 	for _, n := range lst {
-		if _, ok := w[n]; ok {
+		if w.Contains(n) {
 			result += 1
 		}
 	}
