@@ -27,4 +27,3 @@ func part1(data string) int {
 func part2(data string) int {
 	return 0
 }
-

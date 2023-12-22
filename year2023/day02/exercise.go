@@ -18,7 +18,6 @@ func (e Exercise) Solve(data string) {
 	fmt.Printf("  Part 2: %d\n", part2(data))
 }
 
-
 func part1(data string) int {
 	var result int
 

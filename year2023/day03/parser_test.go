@@ -198,7 +198,6 @@ func TestGetRanges(t *testing.T) {
 			got := GetRanges(testCase.input, testCase.points)
 			want := testCase.expected
 
-
 			if !utils.UnorderedEqualSlices[[3]int](got, want) {
 				t.Errorf(
 					"\n\n%s\n\nInput:\n%v\nPoints: %v\nGot: %v\nWant: %v\n\n",

@@ -20,3 +20,7 @@ tasks:
     desc: Compile the binary
     cmds:
       - go build -o aoc .
+  fmt:
+    desc: Format the code, ensuring that lines don't exceed 70 char
+    cmds:
+      - golines --shorten-comments --chain-split-dots --max-len=70 -w **/*.go

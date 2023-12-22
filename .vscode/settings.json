@@ -2,5 +2,9 @@
   "github.copilot.editor.enableAutoCompletions": false,
   "github.copilot.enable": {
     "*": "false"
+  },
+  "go.formatTool": "custom",
+  "go.alternateTools": {
+    "customFormatter": "golines"
   }
 }
