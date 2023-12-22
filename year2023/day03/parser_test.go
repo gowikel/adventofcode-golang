@@ -3,7 +3,7 @@ package day03_test
 import (
 	"testing"
 
-	"github.com/gowikel/adventofcode-golang/utils"
+	"github.com/gowikel/adventofcode-golang/utils/algo"
 	. "github.com/gowikel/adventofcode-golang/year2023/day03"
 )
 
@@ -68,7 +68,7 @@ func TestGetPoints(t *testing.T) {
 			got := GetPoints(testCase.input)
 			want := testCase.expected
 
-			if !utils.UnorderedEqualSlices[[2]int](got, want) {
+			if !algo.UnorderedEqualSlices[[2]int](got, want) {
 				t.Errorf(
 					"\n\n%s\n\nInput: %v\nGot: %v\nWant: %v\n\n",
 					testCase.description,
@@ -198,7 +198,7 @@ func TestGetRanges(t *testing.T) {
 			got := GetRanges(testCase.input, testCase.points)
 			want := testCase.expected
 
-			if !utils.UnorderedEqualSlices[[3]int](got, want) {
+			if !algo.UnorderedEqualSlices[[3]int](got, want) {
 				t.Errorf(
 					"\n\n%s\n\nInput:\n%v\nPoints: %v\nGot: %v\nWant: %v\n\n",
 					testCase.description,
@@ -288,7 +288,7 @@ func TestLocateNumbers(t *testing.T) {
 			got := LocateNumbers(testCase.input, testCase.ranges)
 			want := testCase.expected
 
-			if !utils.UnorderedEqualSlices[[3]int](got, want) {
+			if !algo.UnorderedEqualSlices[[3]int](got, want) {
 				t.Errorf(
 					"\n\n%s\n\nInput:\n%v\nRanges: %v\nGot: %v\nWant: %v\n\n",
 					testCase.description,
@@ -329,7 +329,7 @@ func TestGetGears(t *testing.T) {
 			got := GetGears(testCase.input)
 			want := testCase.expected
 
-			if !utils.UnorderedEqualSlices[[2]int](got, want) {
+			if !algo.UnorderedEqualSlices[[2]int](got, want) {
 				t.Errorf(
 					"\n\n%s\n\nInput:\n%s\nGot: %v\nWant: %v\n\n",
 					testCase.description,

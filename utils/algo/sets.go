@@ -1,4 +1,4 @@
-package utils
+package algo
 
 import mapset "github.com/deckarep/golang-set/v2"
 
