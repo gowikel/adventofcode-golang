@@ -43,6 +43,11 @@ task run -- -year 2023 -day 1 -run-example
 task fmt
 ```
 
+## Dependencies
+
+- [Taskfile](https://taskfile.dev/) as task manager
+- [pkgsite](https://github.com/golang/pkgsite) to generate the docs
+
 ## Authors
 
 - Pedro Jose Piquero Plaza - gowikel@gmail.com
