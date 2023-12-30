@@ -11,7 +11,7 @@ tasks:
   test:
     desc: Run a specific test
     cmds:
-      - go test {{.CLI_ARGS}} ./{{.PATH}}
+      - go test {{.CLI_ARGS}}
   run:
     desc: Run the executable
     cmds:
