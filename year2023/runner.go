@@ -9,6 +9,7 @@ import (
 	D03 "github.com/gowikel/adventofcode-golang/year2023/day03"
 	D04 "github.com/gowikel/adventofcode-golang/year2023/day04"
 	D05 "github.com/gowikel/adventofcode-golang/year2023/day05"
+	D06 "github.com/gowikel/adventofcode-golang/year2023/day06"
 )
 
 type solver interface {
@@ -21,6 +22,7 @@ var solvers = map[int]solver{
 	3: D03.Exercise{},
 	4: D04.Exercise{},
 	5: D05.Exercise{},
+	6: D06.Exercise{},
 }
 
 func Run(day int, data string) {
