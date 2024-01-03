@@ -3,6 +3,7 @@ package day01
 import (
 	"bufio"
 	"bytes"
+	"log"
 	"regexp"
 	"strconv"
 	"strings"
@@ -123,7 +124,7 @@ func ParseNumber(input string) int {
 	parsedNumber, err := strconv.Atoi(input)
 
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	return parsedNumber

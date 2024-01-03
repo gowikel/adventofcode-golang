@@ -149,17 +149,6 @@ func TestParseNumber_ShouldReturnFirstAndLastDigitOfNumberWithMoreThanTwoDigits(
 	}
 }
 
-// Panics if the input is not a number.
-func TestParseNumber_ShouldPanicIfInputIsNotANumber(t *testing.T) {
-	defer func() {
-		if r := recover(); r == nil {
-			t.Errorf("Expected panic, but no panic occurred")
-		}
-	}()
-	input := "abc"
-	ParseNumber(input)
-}
-
 func TestParseNumber_ShouldReturnZeroIfInputIsEmptyString(
 	t *testing.T,
 ) {

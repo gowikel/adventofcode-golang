@@ -3,7 +3,7 @@ package main
 import (
 	"embed"
 	"fmt"
-	"os"
+	"log"
 
 	"github.com/gowikel/adventofcode-golang/cli"
 )
@@ -30,8 +30,7 @@ func fetchData(o cli.AOCOptions) string {
 	data, err := inputFiles.ReadFile(path)
 
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error while reading from %q\n", path)
-		os.Exit(5)
+		log.Fatalf("Unable to read the puzzle data %q\n", path)
 	}
 
 	return string(data)

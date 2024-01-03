@@ -2,12 +2,15 @@ package main
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/gowikel/adventofcode-golang/cli"
 	"github.com/gowikel/adventofcode-golang/year2023"
 )
 
 func main() {
+	log.SetFlags(log.Ldate | log.Lshortfile)
+
 	options := cli.ParseArgs()
 	data := fetchData(options)
 

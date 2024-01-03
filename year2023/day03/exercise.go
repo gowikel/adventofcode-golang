@@ -2,6 +2,7 @@ package day03
 
 import (
 	"fmt"
+	"log"
 	"strings"
 )
 
@@ -32,7 +33,7 @@ func part1(data string) int {
 		_, err := fmt.Sscanf(number, "%d", &parsedInt)
 
 		if err != nil {
-			panic(err)
+			log.Fatal(err)
 		}
 
 		result += parsedInt
@@ -72,7 +73,7 @@ func part2(data string) int {
 			_, err := fmt.Sscanf(numbers, "%d %d ", &g1, &g2)
 
 			if err != nil {
-				panic(err)
+				log.Fatal(err)
 			}
 
 			result += g1 * g2

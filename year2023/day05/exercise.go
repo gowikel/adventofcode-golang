@@ -2,6 +2,7 @@ package day05
 
 import (
 	"fmt"
+	"log"
 	"math"
 	"slices"
 	"strings"
@@ -39,12 +40,12 @@ func part1(data string) int {
 	seedsPart := strings.Index(data, "\n\n")
 	seeds, err := ParseSeedsLine(data[:seedsPart])
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	almanacEntries, err := ParseAlmanacLines(data[seedsPart+2:])
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	for _, seed := range seeds {
@@ -155,12 +156,12 @@ func part2(data string) int {
 	seedsPart := strings.Index(data, "\n\n")
 	seedRanges, err := ParseSeedLineAsRanges(data[:seedsPart])
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	almanacEntries, err := ParseAlmanacLines(data[seedsPart+2:])
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	srp := FindSeedPointsToTest(seedRanges, almanacEntries)

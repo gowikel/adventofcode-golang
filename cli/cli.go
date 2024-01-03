@@ -2,8 +2,7 @@ package cli
 
 import (
 	"flag"
-	"fmt"
-	"os"
+	"log"
 	"time"
 )
 
@@ -37,18 +36,11 @@ func ParseArgs() AOCOptions {
 	flag.Parse()
 
 	if result.Year < minYear || result.Year > maxYear {
-		fmt.Fprintf(
-			os.Stderr,
-			"Year must be between [%d-%d]\n",
-			minYear,
-			maxYear,
-		)
-		os.Exit(1)
+		log.Fatalf("Year must be between [%d-%d]", minYear, maxYear)
 	}
 
-	if result.Day < 1 || result.Day > 31 {
-		fmt.Fprint(os.Stderr, "Year must be between [1-31]\n")
-		os.Exit(2)
+	if result.Day < 1 || result.Day > 25 {
+		log.Fatalf("Day must be between [1-25]")
 	}
 
 	return result

@@ -2,6 +2,7 @@ package day04
 
 import (
 	"fmt"
+	"log"
 	"strings"
 )
 
@@ -21,7 +22,7 @@ func part1(data string) int {
 		w, p, err := parseLine(line)
 
 		if err != nil {
-			panic(err)
+			log.Fatal(err)
 		}
 
 		for _, playedNumber := range p {
@@ -51,7 +52,7 @@ func part2(data string) int {
 		w, p, err := parseLine(line)
 
 		if err != nil {
-			panic(err)
+			log.Fatal(err)
 		}
 
 		matches, _ := countMatches(w, p)

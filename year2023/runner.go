@@ -1,8 +1,7 @@
 package year2023
 
 import (
-	"fmt"
-	"os"
+	"log"
 
 	D01 "github.com/gowikel/adventofcode-golang/year2023/day01"
 	D02 "github.com/gowikel/adventofcode-golang/year2023/day02"
@@ -29,8 +28,7 @@ func Run(day int, data string) {
 	solver, ok := solvers[day]
 
 	if !ok {
-		fmt.Fprintf(os.Stderr, "Not implemented\n")
-		os.Exit(125)
+		log.Fatal("Not implemented")
 	}
 
 	solver.Solve(data)

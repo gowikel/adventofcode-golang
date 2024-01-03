@@ -2,6 +2,7 @@ package day06
 
 import (
 	"fmt"
+	"log"
 )
 
 type Exercise struct{}
@@ -17,7 +18,7 @@ func part1(data string) int {
 	races, err := Parse(data)
 
 	if err != nil {
-		fmt.Printf("%s\n", err)
+		log.Fatal(err)
 	}
 
 	for _, race := range races {
@@ -33,7 +34,7 @@ func part2(data string) int {
 	race, err := ParsePart2(data)
 
 	if err != nil {
-		fmt.Printf("%s\n", err)
+		log.Fatal(err)
 	}
 
 	// Surprised it was so easy, compared
