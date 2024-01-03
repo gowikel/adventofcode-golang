@@ -1,14 +1,14 @@
 package year2023
 
 import (
-	"log"
-
 	D01 "github.com/gowikel/adventofcode-golang/year2023/day01"
 	D02 "github.com/gowikel/adventofcode-golang/year2023/day02"
 	D03 "github.com/gowikel/adventofcode-golang/year2023/day03"
 	D04 "github.com/gowikel/adventofcode-golang/year2023/day04"
 	D05 "github.com/gowikel/adventofcode-golang/year2023/day05"
 	D06 "github.com/gowikel/adventofcode-golang/year2023/day06"
+
+	"github.com/rs/zerolog/log"
 )
 
 type solver interface {
@@ -28,7 +28,10 @@ func Run(day int, data string) {
 	solver, ok := solvers[day]
 
 	if !ok {
-		log.Fatal("Not implemented")
+		log.Fatal().
+			Int("Year", 2023).
+			Int("Day", day).
+			Msg("Solver not implemented")
 	}
 
 	solver.Solve(data)

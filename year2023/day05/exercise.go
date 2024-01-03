@@ -2,12 +2,12 @@ package day05
 
 import (
 	"fmt"
-	"log"
 	"math"
 	"slices"
 	"strings"
 
 	. "github.com/gowikel/adventofcode-golang/utils/math"
+	"github.com/rs/zerolog/log"
 )
 
 type Exercise struct{}
@@ -37,15 +37,21 @@ func ApplyFuncs(
 func part1(data string) int {
 	result := math.MaxInt
 
+	// Prepare the fatal logger, in case an error occurs
+	fatal := log.Fatal().
+		Int("Year", 2023).
+		Int("Day", 5).
+		Int("Part", 1)
+
 	seedsPart := strings.Index(data, "\n\n")
 	seeds, err := ParseSeedsLine(data[:seedsPart])
 	if err != nil {
-		log.Fatal(err)
+		fatal.Err(err).Msg("")
 	}
 
 	almanacEntries, err := ParseAlmanacLines(data[seedsPart+2:])
 	if err != nil {
-		log.Fatal(err)
+		fatal.Err(err).Msg("")
 	}
 
 	for _, seed := range seeds {
@@ -153,15 +159,21 @@ func FindSeedPointsToTest(
 func part2(data string) int {
 	result := math.MaxInt
 
+	// Prepare the fatal logger, in case an error occurs
+	fatal := log.Fatal().
+		Int("Year", 2023).
+		Int("Day", 5).
+		Int("Part", 2)
+
 	seedsPart := strings.Index(data, "\n\n")
 	seedRanges, err := ParseSeedLineAsRanges(data[:seedsPart])
 	if err != nil {
-		log.Fatal(err)
+		fatal.Err(err).Msg("")
 	}
 
 	almanacEntries, err := ParseAlmanacLines(data[seedsPart+2:])
 	if err != nil {
-		log.Fatal(err)
+		fatal.Err(err).Msg("")
 	}
 
 	srp := FindSeedPointsToTest(seedRanges, almanacEntries)

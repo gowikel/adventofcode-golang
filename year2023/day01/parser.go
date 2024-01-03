@@ -3,10 +3,11 @@ package day01
 import (
 	"bufio"
 	"bytes"
-	"log"
 	"regexp"
 	"strconv"
 	"strings"
+
+	"github.com/rs/zerolog/log"
 )
 
 var NUMBER = regexp.MustCompile(`\d`)
@@ -124,7 +125,10 @@ func ParseNumber(input string) int {
 	parsedNumber, err := strconv.Atoi(input)
 
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal().
+			Str("Function", "ParseNumber").
+			Err(err).
+			Msgf("Error while parsing %q", input)
 	}
 
 	return parsedNumber

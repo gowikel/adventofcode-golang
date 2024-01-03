@@ -2,8 +2,9 @@ package cli
 
 import (
 	"flag"
-	"log"
 	"time"
+
+	"github.com/rs/zerolog/log"
 )
 
 type AOCOptions struct {
@@ -36,11 +37,12 @@ func ParseArgs() AOCOptions {
 	flag.Parse()
 
 	if result.Year < minYear || result.Year > maxYear {
-		log.Fatalf("Year must be between [%d-%d]", minYear, maxYear)
+		log.Fatal().
+			Msgf("Year must be between [%d-%d]", minYear, maxYear)
 	}
 
 	if result.Day < 1 || result.Day > 25 {
-		log.Fatalf("Day must be between [1-25]")
+		log.Fatal().Msgf("Day must be between [1-25]")
 	}
 
 	return result

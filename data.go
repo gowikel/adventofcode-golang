@@ -3,9 +3,9 @@ package main
 import (
 	"embed"
 	"fmt"
-	"log"
 
 	"github.com/gowikel/adventofcode-golang/cli"
+	"github.com/rs/zerolog/log"
 )
 
 //go:embed inputs/*
@@ -30,7 +30,9 @@ func fetchData(o cli.AOCOptions) string {
 	data, err := inputFiles.ReadFile(path)
 
 	if err != nil {
-		log.Fatalf("Unable to read the puzzle data %q\n", path)
+		log.Fatal().
+			Str("path", path).
+			Msg("Unable to read the puzzle data")
 	}
 
 	return string(data)

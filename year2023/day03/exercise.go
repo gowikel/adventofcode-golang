@@ -2,8 +2,9 @@ package day03
 
 import (
 	"fmt"
-	"log"
 	"strings"
+
+	"github.com/rs/zerolog/log"
 )
 
 type Exercise struct{}
@@ -33,7 +34,11 @@ func part1(data string) int {
 		_, err := fmt.Sscanf(number, "%d", &parsedInt)
 
 		if err != nil {
-			log.Fatal(err)
+			log.Fatal().
+				Int("Year", 2023).
+				Int("Day", 3).
+				Int("Part", 1).
+				Err(err).Msg("")
 		}
 
 		result += parsedInt
@@ -73,7 +78,11 @@ func part2(data string) int {
 			_, err := fmt.Sscanf(numbers, "%d %d ", &g1, &g2)
 
 			if err != nil {
-				log.Fatal(err)
+				log.Fatal().
+					Int("Year", 2023).
+					Int("Day", 3).
+					Int("Part", 2).
+					Err(err).Msg("")
 			}
 
 			result += g1 * g2

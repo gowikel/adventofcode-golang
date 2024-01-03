@@ -2,14 +2,16 @@ package main
 
 import (
 	"fmt"
-	"log"
+	"os"
 
 	"github.com/gowikel/adventofcode-golang/cli"
 	"github.com/gowikel/adventofcode-golang/year2023"
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 )
 
 func main() {
-	log.SetFlags(log.Ldate | log.Lshortfile)
+	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
 
 	options := cli.ParseArgs()
 	data := fetchData(options)
