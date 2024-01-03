@@ -55,3 +55,5 @@ task fmt
 ## License
 
 This project is licensed under the [MIT License](LICENSE.md) - see the file for details
+
+The puzzles and its inputs are property of [AoC](https://adventofcode.com/)
