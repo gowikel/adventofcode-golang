@@ -34,7 +34,7 @@ task test PATH=year2023/day01 -- # Other params to go test
 **Run the binary**
 
 ```bash
-task run -- -year 2023 -day 1 -run-example
+task run -- --year 2023 --day 1 --run-example
 ```
 
 **Format code**

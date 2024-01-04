@@ -1,20 +1,16 @@
 package cli
 
 import (
-	"flag"
 	"time"
 
 	"github.com/rs/zerolog/log"
+	"github.com/spf13/pflag"
+	"github.com/spf13/viper"
 )
 
-type AOCOptions struct {
-	Year       int
-	Day        int
-	RunExample bool
-}
-
-func ParseArgs() AOCOptions {
-	result := AOCOptions{}
+func ParseArgs() {
+	var year, day int
+	var runExample, debug bool
 
 	current := time.Now()
 	defaultYear := current.Year()
@@ -26,24 +22,30 @@ func ParseArgs() AOCOptions {
 		defaultDay = 1
 	}
 
-	flag.IntVar(&result.Year, "year", defaultYear, "Year to run")
-	flag.IntVar(&result.Day, "day", defaultDay, "Day to run")
-	flag.BoolVar(
-		&result.RunExample,
+	pflag.IntVar(&year, "year", defaultYear, "Year to run")
+	pflag.IntVar(&day, "day", defaultDay, "Day to run")
+	pflag.BoolVar(
+		&runExample,
 		"run-example",
 		false,
 		"Execute with the example output",
 	)
-	flag.Parse()
+	pflag.BoolVar(
+		&debug,
+		"debug",
+		false,
+		"Enables the debug log level",
+	)
 
-	if result.Year < minYear || result.Year > maxYear {
+	pflag.Parse()
+	viper.BindPFlags(pflag.CommandLine)
+
+	if year < minYear || year > maxYear {
 		log.Fatal().
 			Msgf("Year must be between [%d-%d]", minYear, maxYear)
 	}
 
-	if result.Day < 1 || result.Day > 25 {
+	if day < 1 || day > 25 {
 		log.Fatal().Msgf("Day must be between [1-25]")
 	}
-
-	return result
 }
