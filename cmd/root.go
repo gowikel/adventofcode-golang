@@ -1,8 +1,10 @@
 package cmd
 
 import (
+	"fmt"
 	"os"
 	"path"
+	"time"
 
 	"github.com/gowikel/adventofcode-golang/cmd/internal/fs"
 	"github.com/gowikel/adventofcode-golang/internal/conf"
@@ -23,9 +25,12 @@ var rootCmd = &cobra.Command{
 
 // Cobra entrypoint
 func Execute() {
+	now := time.Now()
 	if err := rootCmd.Execute(); err != nil {
 		log.Fatal().Err(err).Msg("")
 	}
+	d := time.Since(now)
+	fmt.Printf("Executed in %s\n", d)
 }
 
 // Configuration

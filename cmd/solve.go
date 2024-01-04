@@ -49,6 +49,7 @@ var solveCmd = &cobra.Command{
 
 		// TODO: Will be updated to run other years in the future
 		year2023.Run(day, data)
+		fmt.Println()
 	},
 }
 
