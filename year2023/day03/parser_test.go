@@ -3,7 +3,7 @@ package day03_test
 import (
 	"testing"
 
-	"github.com/gowikel/adventofcode-golang/utils/algo"
+	"github.com/gowikel/adventofcode-golang/internal/utils/algo"
 	. "github.com/gowikel/adventofcode-golang/year2023/day03"
 )
 

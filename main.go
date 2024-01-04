@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/gowikel/adventofcode-golang/cli"
+	"github.com/gowikel/adventofcode-golang/internal/cli"
 	"github.com/gowikel/adventofcode-golang/year2023"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"

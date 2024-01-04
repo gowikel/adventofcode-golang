@@ -4,7 +4,7 @@ import (
 	_ "embed"
 	"testing"
 
-	"github.com/gowikel/adventofcode-golang/utils/algo"
+	"github.com/gowikel/adventofcode-golang/internal/utils/algo"
 	. "github.com/gowikel/adventofcode-golang/year2023/day05"
 )
 

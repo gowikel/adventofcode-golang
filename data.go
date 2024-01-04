@@ -4,7 +4,7 @@ import (
 	"embed"
 	"fmt"
 
-	"github.com/gowikel/adventofcode-golang/cli"
+	"github.com/gowikel/adventofcode-golang/internal/cli"
 	"github.com/rs/zerolog/log"
 )
 

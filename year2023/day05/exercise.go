@@ -6,7 +6,7 @@ import (
 	"slices"
 	"strings"
 
-	. "github.com/gowikel/adventofcode-golang/utils/math"
+	. "github.com/gowikel/adventofcode-golang/internal/utils/math"
 	"github.com/rs/zerolog/log"
 )
 
