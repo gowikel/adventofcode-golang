@@ -6,7 +6,7 @@ import (
 	"slices"
 	"strings"
 
-	. "github.com/gowikel/adventofcode-golang/internal/utils/math"
+	"github.com/gowikel/adventofcode-golang/internal/utils"
 	"github.com/rs/zerolog/log"
 )
 
@@ -74,7 +74,11 @@ func isChangingPoint(
 	fSeedA := ApplyFuncs(ae, seedA)
 	fSeedB := ApplyFuncs(ae, seedB)
 
-	return Abs[int](fSeedB-fSeedA) != Abs[int](seedB-seedA)
+	return utils.Abs[int](
+		fSeedB-fSeedA,
+	) != utils.Abs[int](
+		seedB-seedA,
+	)
 }
 
 func FindSeedPointsToTest(

@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/gowikel/adventofcode-golang/internal/utils/algo"
+	"github.com/gowikel/adventofcode-golang/internal/utils"
 	. "github.com/gowikel/adventofcode-golang/year2023/day05"
 )
 
@@ -59,7 +59,7 @@ func TestParseSeedsLine_WithMultipleSeeds(t *testing.T) {
 	want := []int{10, 20, 30, 40}
 	got, _ := ParseSeedsLine(input)
 
-	if !algo.UnorderedEqualSlices[int](got, want) {
+	if !utils.UnorderedEqualSlices[int](got, want) {
 		parseSeedsLineError(t, input, got, want)
 	}
 }

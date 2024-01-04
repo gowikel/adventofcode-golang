@@ -4,7 +4,7 @@ import (
 	_ "embed"
 	"testing"
 
-	"github.com/gowikel/adventofcode-golang/internal/utils/algo"
+	"github.com/gowikel/adventofcode-golang/internal/utils"
 	. "github.com/gowikel/adventofcode-golang/year2023/day05"
 )
 
@@ -33,7 +33,7 @@ func TestFindSeedPointsToTest_EmptySeedRange(t *testing.T) {
 	want := []int{}
 	got := FindSeedPointsToTest(input, almanacEntries)
 
-	if !algo.UnorderedEqualSlices[int](got, want) {
+	if !utils.UnorderedEqualSlices[int](got, want) {
 		t.Errorf(
 			"FindSeedPointsToTest wants %v but got %v\n",
 			want,
@@ -51,7 +51,7 @@ func TestFindSeedPointsToTest_OneRange_OneElement(t *testing.T) {
 	want := []int{1}
 	got := FindSeedPointsToTest(input, almanacEntries)
 
-	if !algo.UnorderedEqualSlices[int](got, want) {
+	if !utils.UnorderedEqualSlices[int](got, want) {
 		t.Errorf(
 			"FindSeedPointsToTest wants %v but got %v\n",
 			want,
@@ -69,7 +69,7 @@ func TestFindSeedPointsToTest_OneRange_TwoElements(t *testing.T) {
 	want := []int{1, 2}
 	got := FindSeedPointsToTest(input, almanacEntries)
 
-	if !algo.UnorderedEqualSlices[int](got, want) {
+	if !utils.UnorderedEqualSlices[int](got, want) {
 		t.Errorf(
 			"FindSeedPointsToTest wants %v but got %v\n",
 			want,
@@ -91,7 +91,7 @@ func TestFindSeedPointsToTest_OneRange_ThreeElements_SameRange(
 	want := []int{1, 3}
 	got := FindSeedPointsToTest(input, almanacEntries)
 
-	if !algo.UnorderedEqualSlices[int](got, want) {
+	if !utils.UnorderedEqualSlices[int](got, want) {
 		t.Errorf(
 			"FindSeedPointsToTest wants %v but got %v\n",
 			want,
@@ -113,7 +113,7 @@ func TestFindSeedPointsToTest_OneRange_ThreeElements_DifferentRange(
 	want := []int{34, 35, 36}
 	got := FindSeedPointsToTest(input, almanacEntries)
 
-	if !algo.UnorderedEqualSlices[int](got, want) {
+	if !utils.UnorderedEqualSlices[int](got, want) {
 		t.Errorf(
 			"FindSeedRangePoints wants %v but got %v\n",
 			want,
@@ -135,7 +135,7 @@ func TestFindSeedPointsToTest_OneLargeRange_SameRange(
 	want := []int{36, 41}
 	got := FindSeedPointsToTest(input, almanacEntries)
 
-	if !algo.UnorderedEqualSlices[int](got, want) {
+	if !utils.UnorderedEqualSlices[int](got, want) {
 		t.Errorf(
 			"FindSeedPointsToTest wants %v but got %v\n",
 			want,
@@ -156,7 +156,7 @@ func TestFindSeedPointsToTest_OneLargeRange_TwoRanges(
 	want := []int{30, 34, 35}
 	got := FindSeedPointsToTest(input, almanacEntries)
 
-	if !algo.UnorderedEqualSlices[int](got, want) {
+	if !utils.UnorderedEqualSlices[int](got, want) {
 		t.Errorf(
 			"FindSeedPointsToTest wants %v but got %v\n",
 			want,
@@ -195,7 +195,7 @@ func TestFindSeedPointsToTest_OneLargeRange_FullSet(
 	}
 	got := FindSeedPointsToTest(input, almanacEntries)
 
-	if !algo.UnorderedEqualSlices[int](got, want) {
+	if !utils.UnorderedEqualSlices[int](got, want) {
 		t.Errorf(
 			"FindSeedPointsToTest wants %v but got %v [%d vs %d]\n",
 			want,

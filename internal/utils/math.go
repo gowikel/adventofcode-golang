@@ -1,4 +1,4 @@
-package algo
+package utils
 
 import "golang.org/x/exp/constraints"
 
