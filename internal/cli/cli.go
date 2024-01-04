@@ -1,51 +1,44 @@
 package cli
 
 import (
-	"time"
-
-	"github.com/rs/zerolog/log"
-	"github.com/spf13/pflag"
-	"github.com/spf13/viper"
+	"fmt"
+	"strconv"
 )
 
-func ParseArgs() {
-	var year, day int
-	var runExample, debug bool
-
-	current := time.Now()
-	defaultYear := current.Year()
-	defaultDay := current.Day()
-
+func ParseYear(y string) (int, error) {
 	minYear, maxYear := 2023, 2023
-
-	if current.Month() != time.December {
-		defaultDay = 1
+	year, err := strconv.Atoi(y)
+	if err != nil {
+		return year, err
 	}
-
-	pflag.IntVar(&year, "year", defaultYear, "Year to run")
-	pflag.IntVar(&day, "day", defaultDay, "Day to run")
-	pflag.BoolVar(
-		&runExample,
-		"run-example",
-		false,
-		"Execute with the example output",
-	)
-	pflag.BoolVar(
-		&debug,
-		"debug",
-		false,
-		"Enables the debug log level",
-	)
-
-	pflag.Parse()
-	viper.BindPFlags(pflag.CommandLine)
 
 	if year < minYear || year > maxYear {
-		log.Fatal().
-			Msgf("Year must be between [%d-%d]", minYear, maxYear)
+		return year, fmt.Errorf(
+			"%q is not in the range [%d-%d]",
+			y,
+			minYear,
+			maxYear,
+		)
 	}
 
-	if day < 1 || day > 25 {
-		log.Fatal().Msgf("Day must be between [1-25]")
+	return year, nil
+}
+
+func ParseDay(d string) (int, error) {
+	minDay, maxDay := 1, 25
+	day, err := strconv.Atoi(d)
+	if err != nil {
+		return day, err
 	}
+
+	if day < minDay || day > maxDay {
+		return day, fmt.Errorf(
+			"%q is not in the range [%d-%d]",
+			d,
+			minDay,
+			maxDay,
+		)
+	}
+
+	return day, nil
 }

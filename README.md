@@ -6,13 +6,16 @@ This repo contains my solutions to the Advent of Code for 2023 in Golang.
 
 Just install go and compile the binary with the normal `go build` or `go run .`.
 
-The binary accepts three flags:
+The binary accepts the following actions:
 
-- **-year**: to specify the year to run. Defaults to the current year
-- **-day**: to specify the day to run. Defaults to today if we are on December, 1 otherwise.
-- **-run-example**: to pass the example input to the solver instead of the puzzle data
+### Solve
 
-That's it! You don't need to pass the inputs, as they are embedded in the binary.
+Intended to execute a given solution. It has two arguments, year and day, to locate
+the intended solution, plus one flag, --example, to pass the example input.
+
+```bash
+aoc solve 2023 5 --example
+```
 
 ## Taskfile
 
@@ -28,13 +31,21 @@ task test-all -- # Other params to go test
 **Test only one module**
 
 ```bash
-task test PATH=year2023/day01 -- # Other params to go test
+task test -- github.com/gowikel/adventofcode-golang/year2023/day01
+
+# This will also work
+task test -- ./year2023/day01
+```
+
+**Test only one function**
+```bash
+task test -- -run TestIsIncluded_WithStep_InsideRangeTarget_Valid
 ```
 
 **Run the binary**
 
 ```bash
-task run -- --year 2023 --day 1 --run-example
+task run -- solve 2023 1 --example
 ```
 
 **Format code**
