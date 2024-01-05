@@ -14,7 +14,6 @@ import (
 	"github.com/spf13/viper"
 )
 
-var debug bool
 var rootCmd = &cobra.Command{
 	Use:   "aoc",
 	Short: "aoc is a simple CLI tool to solve Advent of Code problems",
@@ -39,7 +38,7 @@ func init() {
 	fs.EnsureConfigDirExists()
 
 	rootCmd.PersistentFlags().
-		BoolVar(&debug, "debug", false, "Enables the debug logger")
+		Bool("debug", false, "Enables the debug logger")
 
 	viper.BindPFlag(
 		"debug",
