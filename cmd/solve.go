@@ -13,28 +13,24 @@ import (
 )
 
 var solveCmd = &cobra.Command{
-	Use:   "solve year day",
+	Use:   "solve [year] day",
 	Short: "Executes the solution for a given problem",
 	Args: func(cmd *cobra.Command, args []string) error {
 		// Basic args validation
-		if len(args) != 2 {
+		if len(args) == 0 || len(args) > 2 {
 			return errors.New(
-				"called with invalid args: year and day are expected",
+				"called with invalid args: year and/or day are expected",
 			)
 		}
 
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		year, err := cli.ParseYear(args[0])
+		year, day, err := cli.ParseYearAndDay(args)
 		if err != nil {
 			log.Fatal().Err(err).Msg("")
 		}
 
-		day, err := cli.ParseDay(args[1])
-		if err != nil {
-			log.Fatal().Err(err).Msg("")
-		}
 		runExample := viper.GetBool("example")
 
 		fmt.Println("Year:", year)
