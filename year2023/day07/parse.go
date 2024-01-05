@@ -11,8 +11,8 @@ import (
 // Parses the given text as a list of hands
 func Parse(
 	data string,
-	handDeterminer HandTypeDeterminer,
-	cardStrengthDeterminer CardStrengthDeterminer,
+	handDeterminer func([5]Card) HandType,
+	cardStrengthDeterminer func(rune) int,
 ) ([]Rank, error) {
 	linesCount := strings.Count(data, "\n")
 	result := make([]Rank, 0, linesCount)

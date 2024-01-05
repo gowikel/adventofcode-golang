@@ -6,18 +6,12 @@ import (
 	"strings"
 )
 
-// This interface will control the strength of a given card
-type CardStrengthDeterminer interface {
-	DetermineCardStrength(rune) int
-}
-
 // Type representing a Card in the Camel Cards game
 // the valid values are:
 // A, K, Q, J, T, 9, 8, 7, 6, 5, 4, 3, or 2
 type Card struct {
-	value              rune
-	strengthDeterminer CardStrengthDeterminer
-	strength           int
+	value    rune
+	strength int
 }
 
 var validCardSet = map[rune]struct{}{
@@ -55,18 +49,15 @@ func (c Card) Strength() int {
 // it will return an error.
 func NewCard(
 	c rune,
-	strengthDeterminer CardStrengthDeterminer,
+	strengthDeterminer func(rune) int,
 ) (Card, error) {
 	if _, ok := validCardSet[c]; !ok {
 		return Card{}, fmt.Errorf("%q is an invalid Card", c)
 	}
 
 	return Card{
-		value:              c,
-		strengthDeterminer: strengthDeterminer,
-		strength: strengthDeterminer.DetermineCardStrength(
-			c,
-		),
+		value:    c,
+		strength: strengthDeterminer(c),
 	}, nil
 }
 
@@ -103,10 +94,6 @@ func (h HandType) String() string {
 	return fmt.Sprintf("HandType(%d)", int(h))
 }
 
-type HandTypeDeterminer interface {
-	DetermineHandType([5]Card) HandType
-}
-
 // Represents a hand in the Camel Cards game
 type Hand struct {
 	cards    [5]Card
@@ -122,8 +109,8 @@ func (h Hand) String() string {
 // the error is returned
 func NewHand(
 	cards string,
-	handTypeDeterminer HandTypeDeterminer,
-	cardStrengthDeterminer CardStrengthDeterminer,
+	handTypeDeterminer func([5]Card) HandType,
+	cardStrengthDeterminer func(rune) int,
 ) (Hand, error) {
 	result := Hand{}
 
@@ -149,9 +136,7 @@ func NewHand(
 		result.cards[i] = card
 	}
 
-	result.HandType = handTypeDeterminer.DetermineHandType(
-		result.cards,
-	)
+	result.HandType = handTypeDeterminer(result.cards)
 
 	return result, nil
 }

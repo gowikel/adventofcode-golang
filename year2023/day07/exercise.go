@@ -19,8 +19,8 @@ func part1(data string) int {
 	var result int
 	ranks, err := Parse(
 		data,
-		BasicHandDeterminer{},
-		BasicCardStrengthDeterminer{},
+		BasicHandDeterminer,
+		BasicCardStrengthDeterminer,
 	)
 	if err != nil {
 		log.Fatal().Err(err).Msg("Error while parsing the file")
@@ -39,8 +39,8 @@ func part2(data string) int {
 	var result int
 	ranks, err := Parse(
 		data,
-		WildcardHandDeterminer{},
-		WildcardCardStrengthDeterminer{},
+		WildcardHandDeterminer,
+		WildcardCardStrengthDeterminer,
 	)
 	if err != nil {
 		log.Fatal().Err(err).Msg("Error while parsing the file")
@@ -54,10 +54,6 @@ func part2(data string) int {
 
 	return result
 }
-
-// Determines the card strength based on the order
-// of the given card, AKQJT98765432.
-type BasicCardStrengthDeterminer struct{}
 
 var basicCardStrengths = map[rune]int{
 	'A': 13,
@@ -75,20 +71,16 @@ var basicCardStrengths = map[rune]int{
 	'2': 1,
 }
 
-func (b BasicCardStrengthDeterminer) DetermineCardStrength(
-	r rune,
-) int {
+// Determines the card strength based on the order
+// of the given card, AKQJT98765432.
+func BasicCardStrengthDeterminer(r rune) int {
 	return basicCardStrengths[r]
 }
 
 // Determines the strength of the card exactly like in
 // BasicCardStrengthDeterminer
 // but moving 'J' to the bottom
-type WildcardCardStrengthDeterminer struct{}
-
-func (w WildcardCardStrengthDeterminer) DetermineCardStrength(
-	r rune,
-) int {
+func WildcardCardStrengthDeterminer(r rune) int {
 	strength := basicCardStrengths[r]
 
 	switch r {
@@ -118,11 +110,7 @@ func (w WildcardCardStrengthDeterminer) DetermineCardStrength(
 // Calculates which HandType should be used of a given set of cards.
 // It does not return any error, as it does not check that the cards
 // are valid.
-type BasicHandDeterminer struct{}
-
-func (b BasicHandDeterminer) DetermineHandType(
-	cards [5]Card,
-) HandType {
+func BasicHandDeterminer(cards [5]Card) HandType {
 	counter := map[rune]int{}
 
 	for _, card := range cards {
@@ -160,11 +148,7 @@ func (b BasicHandDeterminer) DetermineHandType(
 
 // The function takes into account that 'J' are comodin
 // cards, and therefore, can count towards other types
-type WildcardHandDeterminer struct{}
-
-func (w WildcardHandDeterminer) DetermineHandType(
-	cards [5]Card,
-) HandType {
+func WildcardHandDeterminer(cards [5]Card) HandType {
 	counter := map[rune]int{}
 
 	for _, card := range cards {
