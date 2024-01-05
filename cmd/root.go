@@ -3,7 +3,9 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"os/signal"
 	"path"
+	"syscall"
 	"time"
 
 	"github.com/gowikel/adventofcode-golang/cmd/internal/fs"
@@ -14,22 +16,42 @@ import (
 	"github.com/spf13/viper"
 )
 
+var now time.Time
+
 var rootCmd = &cobra.Command{
 	Use:   "aoc",
 	Short: "aoc is a simple CLI tool to solve Advent of Code problems",
 	Long: `A tool to generate boilerplate and solve the exercises of
 	the Advent of Code (https://adventofcode.com/) in Golang
 	`,
+	PersistentPreRun: func(cmd *cobra.Command, args []string) {
+		now = time.Now()
+
+		// If something goes wrong, a SIGINT could be raised
+		// and it will be intercepted here. Thus, this will
+		// end the program, and print the execution time.
+		sigs := make(chan os.Signal, 1)
+		signal.Notify(sigs, syscall.SIGINT)
+		// The magic happens here, in a separated goroutine
+		go func() {
+			<-sigs
+
+			d := time.Since(now)
+			fmt.Printf("Executed in %s\n", d)
+			os.Exit(0)
+		}()
+	},
+	PersistentPostRun: func(cmd *cobra.Command, args []string) {
+		d := time.Since(now)
+		fmt.Printf("Executed in %s\n", d)
+	},
 }
 
 // Cobra entrypoint
 func Execute() {
-	now := time.Now()
 	if err := rootCmd.Execute(); err != nil {
 		log.Fatal().Err(err).Msg("")
 	}
-	d := time.Since(now)
-	fmt.Printf("Executed in %s\n", d)
 }
 
 // Configuration
