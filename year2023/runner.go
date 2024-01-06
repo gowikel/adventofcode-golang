@@ -1,6 +1,9 @@
 package year2023
 
 import (
+	"fmt"
+
+	"github.com/gowikel/adventofcode-golang/internal/puzzlePartSelector"
 	D01 "github.com/gowikel/adventofcode-golang/year2023/day01"
 	D02 "github.com/gowikel/adventofcode-golang/year2023/day02"
 	D03 "github.com/gowikel/adventofcode-golang/year2023/day03"
@@ -13,7 +16,8 @@ import (
 )
 
 type solver interface {
-	Solve(data string)
+	Part1(data string) int
+	Part2(data string) int
 }
 
 var solvers = map[int]solver{
@@ -26,7 +30,7 @@ var solvers = map[int]solver{
 	7: D07.Exercise{},
 }
 
-func Run(day int, data string) {
+func Run(day int, data string, pps puzzlePartSelector.PuzzlePart) {
 	solver, ok := solvers[day]
 
 	if !ok {
@@ -36,5 +40,13 @@ func Run(day int, data string) {
 			Msg("Solver not implemented")
 	}
 
-	solver.Solve(data)
+	fmt.Printf("- Day %02d\n", day)
+	if pps == puzzlePartSelector.RunAll ||
+		pps == puzzlePartSelector.RunPartOne {
+		fmt.Printf("  Part 1: %d\n", solver.Part1(data))
+	}
+	if pps == puzzlePartSelector.RunAll ||
+		pps == puzzlePartSelector.RunPartTwo {
+		fmt.Printf("  Part 2: %d\n", solver.Part2(data))
+	}
 }

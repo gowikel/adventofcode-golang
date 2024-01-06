@@ -9,13 +9,7 @@ import (
 
 type Exercise struct{}
 
-func (e Exercise) Solve(data string) {
-	fmt.Printf("- Day 03\n")
-	fmt.Printf("  Part 1: %d\n", part1(data))
-	fmt.Printf("  Part 2: %d\n", part2(data))
-}
-
-func part1(data string) int {
+func (e Exercise) Part1(data string) int {
 	points := GetPoints(data)
 	ranges := GetRanges(data, points)
 	numberRanges := LocateNumbers(data, ranges)
@@ -47,7 +41,7 @@ func part1(data string) int {
 	return result
 }
 
-func part2(data string) int {
+func (e Exercise) Part2(data string) int {
 	lines := strings.Split(data, "\n")
 	potentialGears := GetGears(data)
 

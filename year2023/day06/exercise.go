@@ -1,20 +1,12 @@
 package day06
 
 import (
-	"fmt"
-
 	"github.com/rs/zerolog/log"
 )
 
 type Exercise struct{}
 
-func (e Exercise) Solve(data string) {
-	fmt.Printf("- Day 06\n")
-	fmt.Printf("  Part 1: %d\n", part1(data))
-	fmt.Printf("  Part 2: %d\n", part2(data))
-}
-
-func part1(data string) int {
+func (e Exercise) Part1(data string) int {
 	result := 1
 	races, err := Parse(data)
 
@@ -34,7 +26,7 @@ func part1(data string) int {
 	return result
 }
 
-func part2(data string) int {
+func (e Exercise) Part2(data string) int {
 	result := 1
 	race, err := ParsePart2(data)
 

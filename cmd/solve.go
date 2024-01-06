@@ -6,10 +6,10 @@ import (
 
 	"github.com/gowikel/adventofcode-golang/internal/cli"
 	"github.com/gowikel/adventofcode-golang/internal/puzzle"
+	"github.com/gowikel/adventofcode-golang/internal/puzzlePartSelector"
 	"github.com/gowikel/adventofcode-golang/year2023"
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 )
 
 var solveCmd = &cobra.Command{
@@ -31,27 +31,44 @@ var solveCmd = &cobra.Command{
 			log.Fatal().Err(err).Msg("")
 		}
 
-		runExample := viper.GetBool("example")
+		puzzleFile, err := cmd.Flags().GetString("file")
+		if err != nil {
+			log.Fatal().Err(err).Msg("Unable to read path")
+		}
+
+		part, err := cmd.Flags().GetInt("part")
+		parsedPart := puzzlePartSelector.RunAll
+
+		if err != nil {
+			log.Fatal().Err(err).Msg("Unable to read part")
+		} else if part == 1 {
+			parsedPart = puzzlePartSelector.RunPartOne
+		} else if part == 2 {
+			parsedPart = puzzlePartSelector.RunPartTwo
+		}
 
 		fmt.Println("Year:", year)
 		fmt.Println("Day:", day)
-		fmt.Println("Run example?", runExample)
+		fmt.Println(parsedPart)
 		fmt.Println()
 
-		data, err := puzzle.Read(year, day, runExample)
+		data, err := puzzle.Read(puzzleFile)
 		if err != nil {
 			log.Fatal().Err(err).Msg("Unable to read puzzle input")
 		}
 
 		// TODO: Will be updated to run other years in the future
-		year2023.Run(day, data)
+		year2023.Run(day, data, parsedPart)
 		fmt.Println()
 	},
 }
 
 func init() {
-	rootCmd.AddCommand(solveCmd)
+	solveCmd.Flags().
+		StringP("file", "f", "", "Path to the file to be used in the solution (required)")
+	solveCmd.Flags().
+		IntP("part", "p", 0, "Part to run. Omit to run both.")
 
-	solveCmd.Flags().BoolP("example", "e", false, "Use example input")
-	viper.BindPFlag("example", solveCmd.Flags().Lookup("example"))
+	solveCmd.MarkFlagRequired("file")
+	rootCmd.AddCommand(solveCmd)
 }

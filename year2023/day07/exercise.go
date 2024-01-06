@@ -1,7 +1,6 @@
 package day07
 
 import (
-	"fmt"
 	"slices"
 
 	"github.com/rs/zerolog/log"
@@ -9,13 +8,7 @@ import (
 
 type Exercise struct{}
 
-func (e Exercise) Solve(data string) {
-	fmt.Printf("- Day 07\n")
-	fmt.Printf("  Part 1: %d\n", part1(data))
-	fmt.Printf("  Part 2: %d\n", part2(data))
-}
-
-func part1(data string) int {
+func (e Exercise) Part1(data string) int {
 	var result int
 	ranks, err := Parse(
 		data,
@@ -35,7 +28,7 @@ func part1(data string) int {
 	return result
 }
 
-func part2(data string) int {
+func (e Exercise) Part2(data string) int {
 	var result int
 	ranks, err := Parse(
 		data,

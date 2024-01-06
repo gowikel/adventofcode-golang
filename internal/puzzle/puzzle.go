@@ -5,56 +5,21 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"path"
-
-	"github.com/gowikel/adventofcode-golang/internal/conf"
-	"github.com/rs/zerolog/log"
-	"github.com/spf13/viper"
 )
 
 // Return the contents of the given puzzle
-func Read(year, day int, example bool) (string, error) {
-	var filename string
-
-	if example {
-		filename = fmt.Sprintf("%04d_%02d_example.txt", year, day)
-	} else {
-		filename = fmt.Sprintf("%04d_%02d.txt", year, day)
-	}
-	inputDir := viper.GetString(conf.INPUT_DIR)
-	yearDir := fmt.Sprintf("%04d", year)
-	path := path.Join(inputDir, yearDir, filename)
-
-	log.Debug().
-		Str("module", "puzzle").
-		Str("func", "Read").
-		Str("path", path).
-		Int("year", year).
-		Int("day", day).
-		Bool("example", example).
-		Msg("Attempting to read puzzle")
-
+func Read(path string) (string, error) {
 	file, err := os.Open(path)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("unable to open %q: %w", path, err)
 	}
 	defer file.Close()
 
-	reader := bufio.NewReader(file)
-	bytes, err := io.ReadAll(reader)
+	buffer := bufio.NewReader(file)
+	bytes, err := io.ReadAll(buffer)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("unable to read %q: %w", path, err)
 	}
-	text := string(bytes)
 
-	log.Debug().
-		Str("path", path).
-		Int("year", year).
-		Int("day", day).
-		Bool("example", example).
-		Str("module", "puzzle").
-		Str("func", "Read").
-		Msg("File succesfully read")
-
-	return text, nil
+	return string(bytes), nil
 }
