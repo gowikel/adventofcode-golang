@@ -11,6 +11,7 @@ import (
 	D05 "github.com/gowikel/adventofcode-golang/year2023/day05"
 	D06 "github.com/gowikel/adventofcode-golang/year2023/day06"
 	D07 "github.com/gowikel/adventofcode-golang/year2023/day07"
+	D08 "github.com/gowikel/adventofcode-golang/year2023/day08"
 
 	"github.com/rs/zerolog/log"
 )
@@ -28,6 +29,7 @@ var solvers = map[int]solver{
 	5: D05.Exercise{},
 	6: D06.Exercise{},
 	7: D07.Exercise{},
+	8: D08.Exercise{},
 }
 
 func Run(day int, data string, pps puzzlePartSelector.PuzzlePart) {
