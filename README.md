@@ -1,6 +1,4 @@
-[![Go Report Card](https://goreportcard.com/badge/github.com/gowikel/adventofcode-golang)](https://goreportcard.com/report/github.com/gowikel/adventofcode-golang)
-
-[![Go Reference](https://pkg.go.dev/badge/github.com/gowikel/adventofcode-golang.svg)](https://pkg.go.dev/github.com/gowikel/adventofcode-golang)
+[![Go Reference](https://pkg.go.dev/badge/github.com/gowikel/adventofcode-golang.svg)](https://pkg.go.dev/github.com/gowikel/adventofcode-golang) [![Go Report Card](https://goreportcard.com/badge/github.com/gowikel/adventofcode-golang)](https://goreportcard.com/report/github.com/gowikel/adventofcode-golang)
 
 # Advent of Code
 
