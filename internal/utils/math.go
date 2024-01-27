@@ -7,8 +7,12 @@ import (
 	"golang.org/x/exp/constraints"
 )
 
+type Real interface {
+	constraints.Signed | constraints.Float
+}
+
 // Returns the absolute calc from the given val
-func Abs[T constraints.Signed](a T) T {
+func Abs[T Real](a T) T {
 	if a < 0 {
 		return -a
 	}

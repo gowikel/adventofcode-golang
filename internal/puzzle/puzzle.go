@@ -11,14 +11,14 @@ import (
 func Read(path string) (string, error) {
 	file, err := os.Open(path)
 	if err != nil {
-		return "", fmt.Errorf("unable to open %q: %w", path, err)
+		return "", fmt.Errorf("Read: %w", err)
 	}
 	defer file.Close()
 
 	buffer := bufio.NewReader(file)
 	bytes, err := io.ReadAll(buffer)
 	if err != nil {
-		return "", fmt.Errorf("unable to read %q: %w", path, err)
+		return "", fmt.Errorf("Read: %w", err)
 	}
 
 	return string(bytes), nil

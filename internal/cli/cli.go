@@ -1,11 +1,19 @@
 package cli
 
 import (
-	"errors"
+	"flag"
 	"fmt"
 	"strconv"
-	"time"
+
+	"github.com/gowikel/adventofcode-golang/internal/puzzlePartSelector"
 )
+
+type CLIOptions struct {
+	Year  int
+	Day   int
+	Input string
+	Part  puzzlePartSelector.PuzzlePart
+}
 
 // Given a string, parse it as a given
 // year for AoC. Then validate that the year
@@ -13,10 +21,15 @@ import (
 func ParseYear(y string) (int, error) {
 	year, err := strconv.Atoi(y)
 	if err != nil {
-		return year, err
+		return year, fmt.Errorf("ParseYear: %w", err)
 	}
 
-	return year, validateYear(year)
+	err = validateYear(year)
+	if err != nil {
+		err = fmt.Errorf("ParseYear: %w", err)
+	}
+
+	return year, err
 }
 
 // Given a string, parse it as an integer
@@ -24,62 +37,33 @@ func ParseYear(y string) (int, error) {
 func ParseDay(d string) (int, error) {
 	day, err := strconv.Atoi(d)
 	if err != nil {
-		return day, err
-	}
-
-	return day, validateDay(day)
-}
-
-// Parses the given args, which are expected to have at least one
-// element and at most two.
-// If there are two elements, the first one will be interprted as
-// the year.
-// If there is one element, the year will be deducted from the current
-// time. If we are on December, then the current year will be used,
-// otherwise, the previous year will be used.
-// Then, the element in args will be interpreted as the day
-// If the len or the args is zero or greater than two, or any
-// error happens while parsing, an error will be returned
-func ParseYearAndDay(args []string) (year int, day int, err error) {
-	if len(args) == 0 {
-		err = errors.New("no args provided")
-		return year, day, err
-	} else if len(args) == 1 {
-		// year is assumed to be the last year, except on December
-		now := time.Now()
-		year = now.Year() - 1
-
-		if now.Month() == time.December {
-			year += 1
-		}
-
-		day, err = ParseDay(args[0])
-		if err != nil {
-			return year, day, err
-		}
-	} else {
-		year, err = ParseYear(args[0])
-		if err != nil {
-			return year, day, err
-		}
-
-		day, err = ParseDay(args[1])
-		if err != nil {
-			return year, day, err
-		}
-	}
-
-	err = validateYear(year)
-	if err != nil {
-		return year, day, err
+		return day, fmt.Errorf("ParseDay: %w", err)
 	}
 
 	err = validateDay(day)
 	if err != nil {
-		return year, day, err
+		err = fmt.Errorf("ParseDay: %w", err)
 	}
 
-	return year, day, nil
+	return day, err
+}
+
+// Given an integer, converts it to puzzlePartSelector.PuzzlePart
+func ParsePart(part int) (puzzlePartSelector.PuzzlePart, error) {
+	switch part {
+	// Default value, assume RunAll
+	case 0:
+		return puzzlePartSelector.RunAll, nil
+	case 1:
+		return puzzlePartSelector.RunPartOne, nil
+	case 2:
+		return puzzlePartSelector.RunPartTwo, nil
+	}
+
+	return puzzlePartSelector.RunAll, fmt.Errorf(
+		"invalid part: %v",
+		part,
+	)
 }
 
 // Given a year, y, validates that it is in a valid range
@@ -112,4 +96,41 @@ func validateDay(d int) error {
 	}
 
 	return nil
+}
+
+func ParseFlags() CLIOptions {
+	result := CLIOptions{}
+	var part int
+
+	flag.IntVar(
+		&result.Year,
+		"year",
+		0,
+		"Year to run (defaults to current on December, otherwise to previous year)",
+	)
+
+	flag.IntVar(
+		&result.Day,
+		"day",
+		0,
+		"Day to run (defaults to current on December, required otherwise)",
+	)
+
+	flag.StringVar(
+		&result.Input,
+		"input",
+		"",
+		"Input file to pass to the solver (required)",
+	)
+
+	flag.IntVar(
+		&part,
+		"part",
+		0,
+		"Part to run. (Default both)",
+	)
+
+	flag.Parse()
+
+	return result
 }
