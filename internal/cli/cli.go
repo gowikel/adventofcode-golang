@@ -5,14 +5,14 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/gowikel/adventofcode-golang/internal/puzzlePartSelector"
+	"github.com/gowikel/adventofcode-golang/internal/puzzle"
 )
 
 type CLIOptions struct {
 	Year  int
 	Day   int
 	Input string
-	Part  puzzlePartSelector.PuzzlePart
+	Part  puzzle.PuzzleRunSelector
 }
 
 // Given a string, parse it as a given
@@ -49,18 +49,18 @@ func ParseDay(d string) (int, error) {
 }
 
 // Given an integer, converts it to puzzlePartSelector.PuzzlePart
-func ParsePart(part int) (puzzlePartSelector.PuzzlePart, error) {
+func ParsePart(part int) (puzzle.PuzzleRunSelector, error) {
 	switch part {
 	// Default value, assume RunAll
 	case 0:
-		return puzzlePartSelector.RunAll, nil
+		return puzzle.RunAll, nil
 	case 1:
-		return puzzlePartSelector.RunPartOne, nil
+		return puzzle.RunPartOne, nil
 	case 2:
-		return puzzlePartSelector.RunPartTwo, nil
+		return puzzle.RunPartTwo, nil
 	}
 
-	return puzzlePartSelector.RunAll, fmt.Errorf(
+	return puzzle.RunAll, fmt.Errorf(
 		"invalid part: %v",
 		part,
 	)

@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/gowikel/adventofcode-golang/internal/cli"
-	"github.com/gowikel/adventofcode-golang/internal/puzzlePartSelector"
+	"github.com/gowikel/adventofcode-golang/internal/puzzle"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -75,7 +75,7 @@ func TestParseDay_OutOfRange_Above(t *testing.T) {
 
 func TestParsePart_RunAll(t *testing.T) {
 	input := 0
-	want := puzzlePartSelector.RunAll
+	want := puzzle.RunAll
 	got, err := cli.ParsePart(input)
 
 	assert.Nil(t, err)
@@ -84,7 +84,7 @@ func TestParsePart_RunAll(t *testing.T) {
 
 func TestParsePart_RunPartOne(t *testing.T) {
 	input := 1
-	want := puzzlePartSelector.RunPartOne
+	want := puzzle.RunPartOne
 	got, err := cli.ParsePart(input)
 
 	assert.Nil(t, err)
@@ -93,7 +93,7 @@ func TestParsePart_RunPartOne(t *testing.T) {
 
 func TestParsePart_RunPartTwo(t *testing.T) {
 	input := 2
-	want := puzzlePartSelector.RunPartTwo
+	want := puzzle.RunPartTwo
 	got, err := cli.ParsePart(input)
 
 	assert.Nil(t, err)
