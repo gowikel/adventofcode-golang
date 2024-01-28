@@ -1,11 +1,12 @@
 package day08
 
 import (
+	"log/slog"
 	"math"
+	"os"
 	"strings"
 
 	"github.com/gowikel/adventofcode-golang/internal/utils"
-	"github.com/rs/zerolog/log"
 )
 
 type Exercise struct{}
@@ -13,14 +14,18 @@ type Exercise struct{}
 func (e Exercise) Part1(data string) int {
 	lineBreak := strings.Index(data, "\n")
 	if lineBreak == -1 {
-		log.Fatal().Msg("Invalid file")
+		slog.Error("Invalid file")
+		os.Exit(1)
 	}
 
 	directions, err := ParseDirectionsLine(data[:lineBreak])
 	if err != nil {
-		log.Fatal().
-			Err(err).
-			Msg("Error while parsing the directions line")
+		slog.Error(
+			"Error while parsing the directions line",
+			"err",
+			err,
+		)
+		os.Exit(1)
 	}
 
 	startNodes, err := ParseNodes(
@@ -30,12 +35,12 @@ func (e Exercise) Part1(data string) int {
 	)
 
 	if err != nil || len(startNodes) != 1 {
-		log.Fatal().Err(err).Msg("Error while parsing")
+		slog.Error("Error while parsing", "err", err)
 	}
 
 	current := startNodes[0]
 
-	log.Debug().Msg("Parse completed")
+	slog.Debug("Parse completed")
 
 	return findStepsToEndNode(directions, current)
 }
@@ -43,14 +48,18 @@ func (e Exercise) Part1(data string) int {
 func (e Exercise) Part2(data string) int {
 	lineBreak := strings.Index(data, "\n")
 	if lineBreak == -1 {
-		log.Fatal().Msg("Invalid file")
+		slog.Error("Invalid file")
+		os.Exit(1)
 	}
 
 	directions, err := ParseDirectionsLine(data[:lineBreak])
 	if err != nil {
-		log.Fatal().
-			Err(err).
-			Msg("Error while parsing the directions line")
+		slog.Error(
+			"Error while parsing the directions line",
+			"err",
+			err,
+		)
+		os.Exit(1)
 	}
 
 	startNodes, err := ParseNodes(
@@ -60,10 +69,11 @@ func (e Exercise) Part2(data string) int {
 	)
 
 	if err != nil {
-		log.Fatal().Err(err).Msg("erro while parsing nodes")
+		slog.Error("erro while parsing nodes", "err", err)
+		os.Exit(1)
 	}
 
-	log.Debug().Msg("Parse completed")
+	slog.Debug("Parse completed")
 
 	// This time, the amount of nodes, and the fact that I have
 	// to reach the end of every single node at the same time
@@ -86,12 +96,12 @@ func (e Exercise) Part2(data string) int {
 	for _, n := range startNodes {
 		s := findStepsToEndNode(directions, n)
 
-		log.Debug().Str("Node", n.Name).Int("Min steps", s).Msg("")
+		slog.Debug("", "mode", n.Name, "minSteps", s)
 
 		minStepsPerNode = append(minStepsPerNode, s)
 	}
 
-	log.Debug().Ints("Steps", minStepsPerNode).Msg("")
+	slog.Debug("", "steps", minStepsPerNode)
 
 	return utils.LCM[int](minStepsPerNode...)
 }
@@ -106,16 +116,8 @@ Loop:
 		for _, direction := range ds {
 			result += 1
 			if direction == Right {
-				log.Debug().
-					Str("Current", current.Name).
-					Str("Next", current.Right.Name).
-					Msg("Moving to the right")
 				current = current.Right
 			} else {
-				log.Debug().
-					Str("Current", current.Name).
-					Str("Next", current.Left.Name).
-					Msg("Moving to the left")
 				current = current.Left
 			}
 
@@ -124,11 +126,7 @@ Loop:
 			}
 
 			if result == math.MaxInt {
-				log.Error().
-					Int("Year", 2023).
-					Int("Day", 8).
-					Int("Part", 1).
-					Msg("Unable to continue, the logic should be reviewed")
+				slog.Error("Unable to continue, the logic should be reviewed", "year", 2023, "day", 8, "part", 1)
 				break Loop
 			}
 

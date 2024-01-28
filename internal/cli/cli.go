@@ -3,49 +3,19 @@ package cli
 import (
 	"flag"
 	"fmt"
-	"strconv"
+	"log/slog"
+	"os"
+	"time"
 
 	"github.com/gowikel/adventofcode-golang/internal/puzzle"
 )
 
 type CLIOptions struct {
-	Year  int
-	Day   int
-	Input string
-	Part  puzzle.PuzzleRunSelector
-}
-
-// Given a string, parse it as a given
-// year for AoC. Then validate that the year
-// is correct.
-func ParseYear(y string) (int, error) {
-	year, err := strconv.Atoi(y)
-	if err != nil {
-		return year, fmt.Errorf("ParseYear: %w", err)
-	}
-
-	err = validateYear(year)
-	if err != nil {
-		err = fmt.Errorf("ParseYear: %w", err)
-	}
-
-	return year, err
-}
-
-// Given a string, parse it as an integer
-// and validate that it is between 1 and 25.
-func ParseDay(d string) (int, error) {
-	day, err := strconv.Atoi(d)
-	if err != nil {
-		return day, fmt.Errorf("ParseDay: %w", err)
-	}
-
-	err = validateDay(day)
-	if err != nil {
-		err = fmt.Errorf("ParseDay: %w", err)
-	}
-
-	return day, err
+	Year     int
+	Day      int
+	Input    string
+	Part     puzzle.PuzzleRunSelector
+	LogLevel slog.Leveler
 }
 
 // Given an integer, converts it to puzzlePartSelector.PuzzlePart
@@ -102,6 +72,14 @@ func ParseFlags() CLIOptions {
 	result := CLIOptions{}
 	var part int
 
+	now := time.Now()
+	defaultYear := now.Year()
+	defaultDay := now.Day()
+
+	if now.Month() != time.December {
+		defaultYear -= 1
+	}
+
 	flag.IntVar(
 		&result.Year,
 		"year",
@@ -131,6 +109,39 @@ func ParseFlags() CLIOptions {
 	)
 
 	flag.Parse()
+
+	result.LogLevel = slog.LevelInfo
+
+	if result.Year == 0 {
+		result.Year = defaultYear
+	}
+
+	if result.Day == 0 && now.Month() == time.December {
+		result.Day = defaultDay
+	} else if result.Day == 0 {
+		slog.Error("Day is required")
+		os.Exit(1)
+	}
+
+	err := validateYear(result.Year)
+	if err != nil {
+		slog.Error("Invalid year", "err", err)
+		os.Exit(1)
+	}
+
+	err = validateDay(result.Day)
+	if err != nil {
+		slog.Error("Invalid day", "err", err)
+		os.Exit(1)
+	}
+
+	parsedPart, err := ParsePart(part)
+	if err != nil {
+		slog.Error("Invalid part", "err", err)
+		os.Exit(1)
+	}
+
+	result.Part = parsedPart
 
 	return result
 }

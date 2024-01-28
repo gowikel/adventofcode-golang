@@ -1,9 +1,9 @@
 package day04
 
 import (
+	"log/slog"
+	"os"
 	"strings"
-
-	"github.com/rs/zerolog/log"
 )
 
 type Exercise struct{}
@@ -16,11 +16,18 @@ func (e Exercise) Part1(data string) int {
 		w, p, err := parseLine(line)
 
 		if err != nil {
-			log.Fatal().
-				Int("Year", 2023).
-				Int("Day", 4).
-				Int("Part", 1).
-				Err(err).Msg("")
+			slog.Error(
+				"",
+				"year",
+				2023,
+				"day",
+				4,
+				"part",
+				1,
+				"err",
+				err,
+			)
+			os.Exit(1)
 		}
 
 		for _, playedNumber := range p {
@@ -50,11 +57,18 @@ func (e Exercise) Part2(data string) int {
 		w, p, err := parseLine(line)
 
 		if err != nil {
-			log.Fatal().
-				Int("Year", 2023).
-				Int("Day", 4).
-				Int("Part", 2).
-				Err(err).Msg("")
+			slog.Error(
+				"",
+				"year",
+				2023,
+				"day",
+				4,
+				"part",
+				2,
+				"err",
+				err,
+			)
+			os.Exit(1)
 		}
 
 		matches, _ := countMatches(w, p)

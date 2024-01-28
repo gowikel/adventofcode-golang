@@ -1,7 +1,8 @@
 package year2023
 
 import (
-	"fmt"
+	"log/slog"
+	"os"
 
 	"github.com/gowikel/adventofcode-golang/internal/puzzle"
 	D01 "github.com/gowikel/adventofcode-golang/year2023/day01"
@@ -13,8 +14,6 @@ import (
 	D07 "github.com/gowikel/adventofcode-golang/year2023/day07"
 	D08 "github.com/gowikel/adventofcode-golang/year2023/day08"
 	D09 "github.com/gowikel/adventofcode-golang/year2023/day09"
-
-	"github.com/rs/zerolog/log"
 )
 
 type solver interface {
@@ -38,19 +37,49 @@ func Run(day int, data string, pps puzzle.PuzzleRunSelector) {
 	solver, ok := solvers[day]
 
 	if !ok {
-		log.Fatal().
-			Int("Year", 2023).
-			Int("Day", day).
-			Msg("Solver not implemented")
+		slog.Error("Solver not implemented", "year", 2023, "day", day)
+		os.Exit(1)
 	}
 
-	fmt.Printf("- Day %02d\n", day)
-	if pps == puzzle.RunAll ||
-		pps == puzzle.RunPartOne {
-		fmt.Printf("  Part 1: %d\n", solver.Part1(data))
-	}
-	if pps == puzzle.RunAll ||
-		pps == puzzle.RunPartTwo {
-		fmt.Printf("  Part 2: %d\n", solver.Part2(data))
+	switch pps {
+	case puzzle.RunAll:
+		p1 := solver.Part1(data)
+		p2 := solver.Part2(data)
+
+		slog.Info(
+			"Run completed",
+			"year",
+			2023,
+			"day",
+			day,
+			"part1",
+			p1,
+			"part2",
+			p2,
+		)
+	case puzzle.RunPartOne:
+		p1 := solver.Part1(data)
+
+		slog.Info(
+			"Run completed",
+			"year",
+			2023,
+			"day",
+			day,
+			"part1",
+			p1,
+		)
+	case puzzle.RunPartTwo:
+		p2 := solver.Part2(data)
+
+		slog.Info(
+			"Run completed",
+			"year",
+			2023,
+			"day",
+			day,
+			"part2",
+			p2,
+		)
 	}
 }

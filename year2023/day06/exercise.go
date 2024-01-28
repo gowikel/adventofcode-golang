@@ -1,7 +1,8 @@
 package day06
 
 import (
-	"github.com/rs/zerolog/log"
+	"log/slog"
+	"os"
 )
 
 type Exercise struct{}
@@ -11,11 +12,8 @@ func (e Exercise) Part1(data string) int {
 	races, err := Parse(data)
 
 	if err != nil {
-		log.Fatal().
-			Err(err).
-			Int("Year", 2023).
-			Int("Day", 6).
-			Int("Part", 1).Msg("")
+		slog.Error("", "year", 2023, "day", 6, "part", 1, "err", err)
+		os.Exit(1)
 	}
 
 	for _, race := range races {
@@ -31,11 +29,8 @@ func (e Exercise) Part2(data string) int {
 	race, err := ParsePart2(data)
 
 	if err != nil {
-		log.Fatal().
-			Err(err).
-			Int("Year", 2023).
-			Int("Day", 6).
-			Int("Part", 2).Msg("")
+		slog.Error("", "year", 2023, "day", 6, "part", 2, "err", err)
+		os.Exit(1)
 	}
 
 	// Surprised it was so easy, compared

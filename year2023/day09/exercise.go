@@ -1,7 +1,9 @@
 package day09
 
 import (
-	"github.com/rs/zerolog/log"
+	"fmt"
+	"log/slog"
+	"os"
 )
 
 type Exercise struct{}
@@ -10,7 +12,8 @@ func (e Exercise) Part1(data string) int {
 
 	lst, err := Parse(data)
 	if err != nil {
-		log.Fatal().Err(err).Msg("Error while parsing the file")
+		slog.Error("Error while parsing the file", "err", err)
+		os.Exit(1)
 	}
 
 	var result int
@@ -18,9 +21,12 @@ func (e Exercise) Part1(data string) int {
 		sr := NewSensorRead(l)
 		err := sr.Compute()
 		if err != nil {
-			log.Fatal().
-				Err(err).
-				Msgf("Unable to compute the list %v", l)
+			slog.Error(
+				fmt.Sprintf("Unable to compute the list %v", l),
+				"err",
+				err,
+			)
+			os.Exit(1)
 		}
 		result += sr.ExtrapolateForward()
 	}
@@ -31,7 +37,8 @@ func (e Exercise) Part1(data string) int {
 func (e Exercise) Part2(data string) int {
 	lst, err := Parse(data)
 	if err != nil {
-		log.Fatal().Err(err).Msg("Error while parsing the file")
+		slog.Error("Error while parsing the file", "err", err)
+		os.Exit(1)
 	}
 
 	var result int
@@ -39,9 +46,12 @@ func (e Exercise) Part2(data string) int {
 		sr := NewSensorRead(l)
 		err := sr.Compute()
 		if err != nil {
-			log.Fatal().
-				Err(err).
-				Msgf("Unable to compute the list %v", l)
+			slog.Error(
+				fmt.Sprintf("Unable to compute the list %v", l),
+				"err",
+				err,
+			)
+			os.Exit(1)
 		}
 		result += sr.ExtrapolateBackward()
 	}

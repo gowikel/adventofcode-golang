@@ -3,7 +3,6 @@ package utils
 import (
 	"math"
 
-	"github.com/rs/zerolog/log"
 	"golang.org/x/exp/constraints"
 )
 
@@ -31,24 +30,13 @@ func GCD[T constraints.Integer](n ...T) T {
 		return n[0]
 	}
 
-	log.Debug().Msgf("Calculating GCD of %v", n)
-
 	result = n[0]
 	for i := 1; i < len(n); i++ {
 		a := result
 		b := n[i]
 
 		result = gcd(a, b)
-
-		log.Debug().
-			Str("func", "GCD").
-			Any("A", a).
-			Any("B", b).
-			Any("Result", result).
-			Msg("")
 	}
-
-	log.Debug().Any("Result", result).Msgf("GCD of %v calculated", n)
 
 	return result
 }
@@ -76,24 +64,13 @@ func LCM[T constraints.Integer](n ...T) T {
 		return n[0]
 	}
 
-	log.Debug().Msgf("Calculating LCM of %v", n)
-
 	result = n[0]
 	for i := 1; i < len(n); i++ {
 		a := result
 		b := n[i]
 
-		log.Debug().
-			Str("func", "LCM").
-			Any("A", a).
-			Any("B", b).
-			Any("Result", result).
-			Msg("")
-
 		result = lcm(a, b)
 	}
-
-	log.Debug().Any("Result", result).Msgf("LCM of %v calculated", n)
 
 	return result
 }

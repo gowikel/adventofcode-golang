@@ -1,9 +1,9 @@
 package day07
 
 import (
+	"log/slog"
+	"os"
 	"slices"
-
-	"github.com/rs/zerolog/log"
 )
 
 type Exercise struct{}
@@ -16,7 +16,8 @@ func (e Exercise) Part1(data string) int {
 		BasicCardStrengthDeterminer,
 	)
 	if err != nil {
-		log.Fatal().Err(err).Msg("Error while parsing the file")
+		slog.Error("Error while parsing the file", "err", err)
+		os.Exit(1)
 	}
 
 	slices.SortFunc[[]Rank](ranks, SortRanksByStrength)
@@ -36,7 +37,8 @@ func (e Exercise) Part2(data string) int {
 		WildcardCardStrengthDeterminer,
 	)
 	if err != nil {
-		log.Fatal().Err(err).Msg("Error while parsing the file")
+		slog.Error("Error while parsing the file", "err", err)
+		os.Exit(1)
 	}
 
 	slices.SortFunc[[]Rank](ranks, SortRanksByStrength)

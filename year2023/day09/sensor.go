@@ -2,8 +2,6 @@ package day09
 
 import (
 	"fmt"
-
-	"github.com/rs/zerolog/log"
 )
 
 type SensorRead struct {
@@ -22,13 +20,8 @@ func (sr *SensorRead) Compute() error {
 
 	lastSeq := sr.reads
 
-	log.Debug().Msgf("Starting to compute for %v", sr.reads)
-
 	for !isAllZeroes(lastSeq) && len(lastSeq) >= 2 {
 		var newSeq = make([]int, 0, len(lastSeq)-1)
-
-		log.Debug().
-			Msgf("Starting new sequence as %v contains non-zero values", lastSeq)
 
 		for i := 1; i < len(lastSeq); i++ {
 			a := lastSeq[i-1]
@@ -48,10 +41,6 @@ func (sr *SensorRead) Compute() error {
 			sr.reads,
 		)
 	}
-
-	log.Debug().
-		Msgf("Last sequence was all zeroes: %v", sr.computations[len(sr.computations)-1])
-	log.Debug().Msgf("Compute ended for %v", sr.reads)
 
 	return nil
 }

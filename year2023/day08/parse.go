@@ -5,8 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"strings"
-
-	"github.com/rs/zerolog/log"
 )
 
 // Direction represents the left and right options
@@ -104,12 +102,6 @@ func ParseNodes(
 		nl := getOrCreateNode(nodes, l, snd, end)
 		nr := getOrCreateNode(nodes, r, snd, end)
 
-		log.Debug().
-			Str("Node", no.Name).
-			Str("Left", nl.Name).
-			Str("Right", nr.Name).
-			Msg("")
-
 		no.Left = nl
 		no.Right = nr
 	}
@@ -142,8 +134,6 @@ func ParseDirectionsLine(line string) ([]Direction, error) {
 		}
 	}
 
-	log.Debug().Any("Direction", result).Msg("Directions parsed")
-
 	return result, nil
 }
 
@@ -160,12 +150,6 @@ func getOrCreateNode(
 
 	node := NewNode(key, snd, end)
 	nodes[key] = node
-
-	log.Debug().
-		Str("Name", key).
-		Bool("IsStartNode?", node.IsStartNode()).
-		Bool("IsEndNode?", node.IsEndNode()).
-		Msg("Node created")
 
 	return node
 }
