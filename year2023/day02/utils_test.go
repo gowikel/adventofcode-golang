@@ -1,10 +1,10 @@
 package day02_test
 
 import (
-	"reflect"
 	"testing"
 
 	. "github.com/gowikel/adventofcode-golang/year2023/day02"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestPowerCubes(t *testing.T) {
@@ -15,14 +15,15 @@ func TestPowerCubes(t *testing.T) {
 			got := PowerCube(input)
 			want := 48
 
-			if got != want {
-				t.Errorf(
-					"PowerCube(%#v) got %#v but want %#v\n",
-					input,
-					got,
-					want,
-				)
-			}
+			assert.Equal(
+				t,
+				want,
+				got,
+				"PowerCube(%#v) got %#v but want %#v\n",
+				input,
+				got,
+				want,
+			)
 		},
 	)
 
@@ -33,14 +34,15 @@ func TestPowerCubes(t *testing.T) {
 			got := PowerCube(input)
 			want := 12
 
-			if got != want {
-				t.Errorf(
-					"PowerCube(%#v) got %#v but want %#v\n",
-					input,
-					got,
-					want,
-				)
-			}
+			assert.Equalf(
+				t,
+				want,
+				got,
+				"PowerCube(%#v) got %#v but want %#v\n",
+				input,
+				got,
+				want,
+			)
 		},
 	)
 
@@ -51,14 +53,15 @@ func TestPowerCubes(t *testing.T) {
 			got := PowerCube(input)
 			want := 1560
 
-			if got != want {
-				t.Errorf(
-					"PowerCube(%#v) got %#v but want %#v\n",
-					input,
-					got,
-					want,
-				)
-			}
+			assert.Equalf(
+				t,
+				want,
+				got,
+				"PowerCube(%#v) got %#v but want %#v\n",
+				input,
+				got,
+				want,
+			)
 		},
 	)
 
@@ -69,14 +72,15 @@ func TestPowerCubes(t *testing.T) {
 			got := PowerCube(input)
 			want := 630
 
-			if got != want {
-				t.Errorf(
-					"PowerCube(%#v) got %#v but want %#v\n",
-					input,
-					got,
-					want,
-				)
-			}
+			assert.Equal(
+				t,
+				want,
+				got,
+				"PowerCube(%#v) got %#v but want %#v\n",
+				input,
+				got,
+				want,
+			)
 		},
 	)
 
@@ -86,14 +90,15 @@ func TestPowerCubes(t *testing.T) {
 			got := PowerCube(input)
 			want := 36
 
-			if got != want {
-				t.Errorf(
-					"PowerCube(%#v) got %#v but want %#v\n",
-					input,
-					got,
-					want,
-				)
-			}
+			assert.Equalf(
+				t,
+				want,
+				got,
+				"PowerCube(%#v) got %#v but want %#v\n",
+				input,
+				got,
+				want,
+			)
 		},
 	)
 }
@@ -108,14 +113,15 @@ func TestMinimumPowerSet(t *testing.T) {
 		got := MinimumPowerSet(input)
 		want := SetCubes{Red: 4, Green: 2, Blue: 6}
 
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf(
-				"Input: %#v\nGot: %#v\nWant: %#v\n",
-				input,
-				got,
-				want,
-			)
-		}
+		assert.Equalf(
+			t,
+			want,
+			got,
+			"Input: %#v\nGot: %#v\nWant: %#v\n",
+			input,
+			got,
+			want,
+		)
 	})
 	t.Run("Example 2", func(t *testing.T) {
 		input := []SetCubes{
@@ -126,14 +132,15 @@ func TestMinimumPowerSet(t *testing.T) {
 		got := MinimumPowerSet(input)
 		want := SetCubes{Red: 1, Green: 3, Blue: 4}
 
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf(
-				"Input: %#v\nGot: %#v\nWant: %#v\n",
-				input,
-				got,
-				want,
-			)
-		}
+		assert.Equal(
+			t,
+			want,
+			got,
+			"Input: %#v\nGot: %#v\nWant: %#v\n",
+			input,
+			got,
+			want,
+		)
 	})
 	t.Run("Example 3", func(t *testing.T) {
 		input := []SetCubes{
@@ -144,14 +151,15 @@ func TestMinimumPowerSet(t *testing.T) {
 		got := MinimumPowerSet(input)
 		want := SetCubes{Red: 20, Green: 13, Blue: 6}
 
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf(
-				"Input: %#v\nGot: %#v\nWant: %#v\n",
-				input,
-				got,
-				want,
-			)
-		}
+		assert.Equalf(
+			t,
+			want,
+			got,
+			"Input: %#v\nGot: %#v\nWant: %#v\n",
+			input,
+			got,
+			want,
+		)
 	})
 
 	t.Run("Example 4", func(t *testing.T) {
@@ -163,14 +171,15 @@ func TestMinimumPowerSet(t *testing.T) {
 		got := MinimumPowerSet(input)
 		want := SetCubes{Red: 14, Green: 3, Blue: 15}
 
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf(
-				"Input: %#v\nGot: %#v\nWant: %#v\n",
-				input,
-				got,
-				want,
-			)
-		}
+		assert.Equalf(
+			t,
+			want,
+			got,
+			"Input: %#v\nGot: %#v\nWant: %#v\n",
+			input,
+			got,
+			want,
+		)
 	})
 
 	t.Run("Example 5", func(t *testing.T) {
@@ -181,13 +190,14 @@ func TestMinimumPowerSet(t *testing.T) {
 		got := MinimumPowerSet(input)
 		want := SetCubes{Red: 6, Green: 3, Blue: 2}
 
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf(
-				"Input: %#v\nGot: %#v\nWant: %#v\n",
-				input,
-				got,
-				want,
-			)
-		}
+		assert.Equalf(
+			t,
+			want,
+			got,
+			"Input: %#v\nGot: %#v\nWant: %#v\n",
+			input,
+			got,
+			want,
+		)
 	})
 }

@@ -3,8 +3,8 @@ package day03_test
 import (
 	"testing"
 
-	"github.com/gowikel/adventofcode-golang/internal/utils"
 	. "github.com/gowikel/adventofcode-golang/year2023/day03"
+	"github.com/stretchr/testify/assert"
 )
 
 type GetPointsTestCase struct {
@@ -68,15 +68,16 @@ func TestGetPoints(t *testing.T) {
 			got := GetPoints(testCase.input)
 			want := testCase.expected
 
-			if !utils.UnorderedEqualSlices[[2]int](got, want) {
-				t.Errorf(
-					"\n\n%s\n\nInput: %v\nGot: %v\nWant: %v\n\n",
-					testCase.description,
-					testCase.input,
-					got,
-					testCase.expected,
-				)
-			}
+			assert.ElementsMatchf(
+				t,
+				want,
+				got,
+				"\n\n%s\n\nInput: %v\nGot: %v\nWant: %v\n\n",
+				testCase.description,
+				testCase.input,
+				got,
+				testCase.expected,
+			)
 		})
 	}
 }
@@ -198,16 +199,17 @@ func TestGetRanges(t *testing.T) {
 			got := GetRanges(testCase.input, testCase.points)
 			want := testCase.expected
 
-			if !utils.UnorderedEqualSlices[[3]int](got, want) {
-				t.Errorf(
-					"\n\n%s\n\nInput:\n%v\nPoints: %v\nGot: %v\nWant: %v\n\n",
-					testCase.description,
-					testCase.input,
-					testCase.points,
-					got,
-					want,
-				)
-			}
+			assert.ElementsMatchf(
+				t,
+				want,
+				got,
+				"\n\n%s\n\nInput:\n%v\nPoints: %v\nGot: %v\nWant: %v\n\n",
+				testCase.description,
+				testCase.input,
+				testCase.points,
+				got,
+				want,
+			)
 		})
 	}
 }
@@ -288,16 +290,17 @@ func TestLocateNumbers(t *testing.T) {
 			got := LocateNumbers(testCase.input, testCase.ranges)
 			want := testCase.expected
 
-			if !utils.UnorderedEqualSlices[[3]int](got, want) {
-				t.Errorf(
-					"\n\n%s\n\nInput:\n%v\nRanges: %v\nGot: %v\nWant: %v\n\n",
-					testCase.description,
-					testCase.input,
-					testCase.ranges,
-					got,
-					want,
-				)
-			}
+			assert.ElementsMatchf(
+				t,
+				want,
+				got,
+				"\n\n%s\n\nInput:\n%v\nRanges: %v\nGot: %v\nWant: %v\n\n",
+				testCase.description,
+				testCase.input,
+				testCase.ranges,
+				got,
+				want,
+			)
 		})
 	}
 }
@@ -329,15 +332,16 @@ func TestGetGears(t *testing.T) {
 			got := GetGears(testCase.input)
 			want := testCase.expected
 
-			if !utils.UnorderedEqualSlices[[2]int](got, want) {
-				t.Errorf(
-					"\n\n%s\n\nInput:\n%s\nGot: %v\nWant: %v\n\n",
-					testCase.description,
-					testCase.input,
-					got,
-					want,
-				)
-			}
+			assert.ElementsMatchf(
+				t,
+				want,
+				got,
+				"\n\n%s\n\nInput:\n%s\nGot: %v\nWant: %v\n\n",
+				testCase.description,
+				testCase.input,
+				got,
+				want,
+			)
 		})
 	}
 }

@@ -1,10 +1,10 @@
 package day02_test
 
 import (
-	"reflect"
 	"testing"
 
 	. "github.com/gowikel/adventofcode-golang/year2023/day02"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestParseGame(t *testing.T) {
@@ -13,14 +13,15 @@ func TestParseGame(t *testing.T) {
 		got, _ := ParseGame(input)
 		want := 8
 
-		if got != want {
-			t.Errorf(
-				"ParseGame(%#v) got %#v but wants %#v",
-				input,
-				got,
-				want,
-			)
-		}
+		assert.Equalf(
+			t,
+			want,
+			got,
+			"ParseGame(%#v) got %#v but wants %#v",
+			input,
+			got,
+			want,
+		)
 	})
 
 	t.Run("Parses the Cube Sets correctly", func(t *testing.T) {
@@ -31,13 +32,14 @@ func TestParseGame(t *testing.T) {
 			{Red: 1, Blue: 2, Green: 2},
 		}
 
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf(
-				"ParseGame(%#v) got %#v but wants %#v",
-				input,
-				got,
-				want,
-			)
-		}
+		assert.Equalf(
+			t,
+			want,
+			got,
+			"ParseGame(%#v) got %#v but wants %#v",
+			input,
+			got,
+			want,
+		)
 	})
 }

@@ -1,37 +1,19 @@
 package day05_test
 
 import (
-	"errors"
-	"reflect"
 	"strconv"
 	"testing"
 
-	"github.com/gowikel/adventofcode-golang/internal/utils"
 	. "github.com/gowikel/adventofcode-golang/year2023/day05"
+	"github.com/stretchr/testify/assert"
 )
-
-func parseSeedsLineError(
-	t *testing.T,
-	input string,
-	got []int,
-	want []int,
-) {
-	t.Errorf(
-		"ParseSeedsLine(%q) got %v but wants %v\n",
-		input,
-		got,
-		want,
-	)
-}
 
 func TestParseSeedsLine_WithEmptyString(t *testing.T) {
 	input := ""
 	want := []int{}
 	got, _ := ParseSeedsLine(input)
 
-	if !reflect.DeepEqual(got, want) {
-		parseSeedsLineError(t, input, got, want)
-	}
+	assert.Equal(t, want, got)
 }
 
 func TestParseSeedsLine_WithEmptySeeds(t *testing.T) {
@@ -39,9 +21,7 @@ func TestParseSeedsLine_WithEmptySeeds(t *testing.T) {
 	want := []int{}
 	got, _ := ParseSeedsLine(input)
 
-	if !reflect.DeepEqual(got, want) {
-		parseSeedsLineError(t, input, got, want)
-	}
+	assert.Equal(t, want, got)
 }
 
 func TestParseSeedsLine_WithOneSeed(t *testing.T) {
@@ -49,9 +29,7 @@ func TestParseSeedsLine_WithOneSeed(t *testing.T) {
 	want := []int{10}
 	got, _ := ParseSeedsLine(input)
 
-	if !reflect.DeepEqual(got, want) {
-		parseSeedsLineError(t, input, got, want)
-	}
+	assert.Equal(t, want, got)
 }
 
 func TestParseSeedsLine_WithMultipleSeeds(t *testing.T) {
@@ -59,21 +37,15 @@ func TestParseSeedsLine_WithMultipleSeeds(t *testing.T) {
 	want := []int{10, 20, 30, 40}
 	got, _ := ParseSeedsLine(input)
 
-	if !utils.UnorderedEqualSlices[int](got, want) {
-		parseSeedsLineError(t, input, got, want)
-	}
+	assert.Equal(t, want, got)
 }
 
 func TestParseSeedsLine_WithInvalidInput(t *testing.T) {
 	input := "seeds: a b c d"
 	_, got := ParseSeedsLine(input)
 
-	if !errors.Is(got, strconv.ErrSyntax) {
-		t.Errorf(
-			"ParseSeedsLine didn't fail with an error syntax. Got %#v instead\n",
-			got,
-		)
-	}
+	assert.Error(t, got)
+	assert.ErrorIs(t, got, strconv.ErrSyntax)
 }
 
 func TestParseSeedsLine_WithBigNumber(t *testing.T) {
@@ -81,10 +53,6 @@ func TestParseSeedsLine_WithBigNumber(t *testing.T) {
 	input := "seeds: 9223372036854775808"
 	_, got := ParseSeedsLine(input)
 
-	if !errors.Is(got, strconv.ErrRange) {
-		t.Errorf(
-			"ParseSeedsLine didn't fail with an error range. Got %#v instead\n",
-			got,
-		)
-	}
+	assert.Error(t, got)
+	assert.ErrorIs(t, got, strconv.ErrRange)
 }
