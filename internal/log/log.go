@@ -9,6 +9,15 @@ import (
 	"github.com/gowikel/adventofcode-golang/internal/conf"
 )
 
+func ReplaceHandler(groups []string, a slog.Attr) slog.Attr {
+	// Remove time info
+	if a.Key == slog.TimeKey {
+		return slog.Attr{}
+	}
+
+	return a
+}
+
 type LoggerOption func(*slog.Logger)
 
 // Logger that delegates most calls to slog, but adds some missing

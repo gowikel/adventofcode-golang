@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/gowikel/adventofcode-golang/internal/conf"
+	"github.com/gowikel/adventofcode-golang/internal/log"
 	"github.com/gowikel/adventofcode-golang/internal/puzzle"
 	"github.com/gowikel/adventofcode-golang/internal/utils"
 	"github.com/gowikel/adventofcode-golang/year2023"
@@ -16,7 +17,8 @@ func main() {
 
 	logger := slog.New(
 		slog.NewTextHandler(os.Stdin, &slog.HandlerOptions{
-			Level: opts.LogLevel,
+			Level:       opts.LogLevel,
+			ReplaceAttr: log.ReplaceHandler,
 		}),
 	)
 
