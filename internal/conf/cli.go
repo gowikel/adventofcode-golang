@@ -1,4 +1,4 @@
-package cli
+package conf
 
 import (
 	"flag"
@@ -10,13 +10,15 @@ import (
 	"github.com/gowikel/adventofcode-golang/internal/puzzle"
 )
 
-type CLIOptions struct {
+type Configuration struct {
 	Year     int
 	Day      int
 	Input    string
 	Part     puzzle.PuzzleRunSelector
 	LogLevel slog.Leveler
 }
+
+var conf *Configuration
 
 // Given an integer, converts it to puzzlePartSelector.PuzzlePart
 func ParsePart(part int) (puzzle.PuzzleRunSelector, error) {
@@ -68,8 +70,12 @@ func validateDay(d int) error {
 	return nil
 }
 
-func ParseFlags() CLIOptions {
-	result := CLIOptions{}
+func ParseCLI() {
+	if conf != nil {
+		return
+	}
+
+	result := Configuration{}
 	var part int
 
 	now := time.Now()
@@ -143,5 +149,9 @@ func ParseFlags() CLIOptions {
 
 	result.Part = parsedPart
 
-	return result
+	conf = &result
+}
+
+func Conf() *Configuration {
+	return conf
 }

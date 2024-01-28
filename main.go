@@ -4,14 +4,15 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/gowikel/adventofcode-golang/internal/cli"
+	"github.com/gowikel/adventofcode-golang/internal/conf"
 	"github.com/gowikel/adventofcode-golang/internal/puzzle"
 	"github.com/gowikel/adventofcode-golang/internal/utils"
 	"github.com/gowikel/adventofcode-golang/year2023"
 )
 
 func main() {
-	opts := cli.ParseFlags()
+	conf.ParseCLI()
+	opts := conf.Conf()
 
 	logger := slog.New(
 		slog.NewTextHandler(os.Stdin, &slog.HandlerOptions{

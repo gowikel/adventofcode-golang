@@ -1,31 +1,29 @@
 package day08
 
 import (
-	"log/slog"
 	"math"
-	"os"
 	"strings"
 
+	"github.com/gowikel/adventofcode-golang/internal/log"
 	"github.com/gowikel/adventofcode-golang/internal/utils"
 )
 
 type Exercise struct{}
 
 func (e Exercise) Part1(data string) int {
+	log := log.GetLogger(log.WithPart(1))
 	lineBreak := strings.Index(data, "\n")
 	if lineBreak == -1 {
-		slog.Error("Invalid file")
-		os.Exit(1)
+		log.Fatal("Invalid file")
 	}
 
 	directions, err := ParseDirectionsLine(data[:lineBreak])
 	if err != nil {
-		slog.Error(
+		log.Fatal(
 			"Error while parsing the directions line",
 			"err",
 			err,
 		)
-		os.Exit(1)
 	}
 
 	startNodes, err := ParseNodes(
@@ -35,31 +33,30 @@ func (e Exercise) Part1(data string) int {
 	)
 
 	if err != nil || len(startNodes) != 1 {
-		slog.Error("Error while parsing", "err", err)
+		log.Fatal("Error while parsing", "err", err)
 	}
 
 	current := startNodes[0]
 
-	slog.Debug("Parse completed")
+	log.Debug("Parse completed")
 
 	return findStepsToEndNode(directions, current)
 }
 
 func (e Exercise) Part2(data string) int {
+	log := log.GetLogger(log.WithPart(2))
 	lineBreak := strings.Index(data, "\n")
 	if lineBreak == -1 {
-		slog.Error("Invalid file")
-		os.Exit(1)
+		log.Fatal("Invalid file")
 	}
 
 	directions, err := ParseDirectionsLine(data[:lineBreak])
 	if err != nil {
-		slog.Error(
+		log.Fatal(
 			"Error while parsing the directions line",
 			"err",
 			err,
 		)
-		os.Exit(1)
 	}
 
 	startNodes, err := ParseNodes(
@@ -69,11 +66,8 @@ func (e Exercise) Part2(data string) int {
 	)
 
 	if err != nil {
-		slog.Error("erro while parsing nodes", "err", err)
-		os.Exit(1)
+		log.Fatal("erro while parsing nodes", "err", err)
 	}
-
-	slog.Debug("Parse completed")
 
 	// This time, the amount of nodes, and the fact that I have
 	// to reach the end of every single node at the same time
@@ -96,17 +90,14 @@ func (e Exercise) Part2(data string) int {
 	for _, n := range startNodes {
 		s := findStepsToEndNode(directions, n)
 
-		slog.Debug("", "mode", n.Name, "minSteps", s)
-
 		minStepsPerNode = append(minStepsPerNode, s)
 	}
-
-	slog.Debug("", "steps", minStepsPerNode)
 
 	return utils.LCM[int](minStepsPerNode...)
 }
 
 func findStepsToEndNode(ds []Direction, n *Node) int {
+	log := log.GetLogger().With("func", "findStepsToEndNode")
 	var result int
 
 	current := n
@@ -126,7 +117,7 @@ Loop:
 			}
 
 			if result == math.MaxInt {
-				slog.Error("Unable to continue, the logic should be reviewed", "year", 2023, "day", 8, "part", 1)
+				log.Error("Unable to continue, the logic should be reviewed", "year", 2023, "day", 8, "part", 1)
 				break Loop
 			}
 

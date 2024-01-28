@@ -1,33 +1,23 @@
 package day04
 
 import (
-	"log/slog"
-	"os"
 	"strings"
+
+	"github.com/gowikel/adventofcode-golang/internal/log"
 )
 
 type Exercise struct{}
 
 func (e Exercise) Part1(data string) int {
 	var result int
+	log := log.GetLogger(log.WithPart(1))
 
 	for _, line := range strings.Split(data, "\n") {
 		var lineResult int
 		w, p, err := parseLine(line)
 
 		if err != nil {
-			slog.Error(
-				"",
-				"year",
-				2023,
-				"day",
-				4,
-				"part",
-				1,
-				"err",
-				err,
-			)
-			os.Exit(1)
+			log.Fatal("", "err", err)
 		}
 
 		for _, playedNumber := range p {
@@ -46,6 +36,7 @@ func (e Exercise) Part1(data string) int {
 
 func (e Exercise) Part2(data string) int {
 	var result int
+	log := log.GetLogger(log.WithPart(2))
 	lines := strings.Split(data, "\n")
 	copies := make([]int, len(lines))
 
@@ -57,18 +48,7 @@ func (e Exercise) Part2(data string) int {
 		w, p, err := parseLine(line)
 
 		if err != nil {
-			slog.Error(
-				"",
-				"year",
-				2023,
-				"day",
-				4,
-				"part",
-				2,
-				"err",
-				err,
-			)
-			os.Exit(1)
+			log.Fatal("", "err", err)
 		}
 
 		matches, _ := countMatches(w, p)

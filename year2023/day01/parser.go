@@ -4,11 +4,12 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
-	"log/slog"
 	"os"
 	"regexp"
 	"strconv"
 	"strings"
+
+	"github.com/gowikel/adventofcode-golang/internal/log"
 )
 
 var NUMBER = regexp.MustCompile(`\d`)
@@ -110,6 +111,7 @@ func EnhancedParseInput(input string) []int {
 //
 // This function panics if the input is not a number.
 func ParseNumber(input string) int {
+	log := log.GetLogger()
 	if len(input) == 0 {
 		return 0
 	} else if len(input) == 1 {
@@ -126,7 +128,7 @@ func ParseNumber(input string) int {
 	parsedNumber, err := strconv.Atoi(input)
 
 	if err != nil {
-		slog.Error(
+		log.Fatal(
 			fmt.Sprintf("Error while parsing %q", input),
 			"func",
 			"ParseNumber",

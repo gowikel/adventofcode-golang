@@ -1,12 +1,11 @@
 package day05
 
 import (
-	"log/slog"
 	"math"
-	"os"
 	"slices"
 	"strings"
 
+	"github.com/gowikel/adventofcode-golang/internal/log"
 	"github.com/gowikel/adventofcode-golang/internal/utils"
 )
 
@@ -32,19 +31,17 @@ func (e Exercise) Part1(data string) int {
 	result := math.MaxInt
 
 	// Prepare the fatal logger, in case an error occurs
-	log := slog.With("year", 2023, "day", 5, "part", 1)
+	log := log.GetLogger(log.WithPart(1))
 
 	seedsPart := strings.Index(data, "\n\n")
 	seeds, err := ParseSeedsLine(data[:seedsPart])
 	if err != nil {
-		log.Error("", "err", err)
-		os.Exit(1)
+		log.Fatal("", "err", err)
 	}
 
 	almanacEntries, err := ParseAlmanacLines(data[seedsPart+2:])
 	if err != nil {
-		log.Error("", "err", err)
-		os.Exit(1)
+		log.Fatal("", "err", err)
 	}
 
 	for _, seed := range seeds {
@@ -157,19 +154,17 @@ func (e Exercise) Part2(data string) int {
 	result := math.MaxInt
 
 	// Prepare the fatal logger, in case an error occurs
-	log := slog.With("year", 2023, "day", 5, "part", 2)
+	log := log.GetLogger(log.WithPart(2))
 
 	seedsPart := strings.Index(data, "\n\n")
 	seedRanges, err := ParseSeedLineAsRanges(data[:seedsPart])
 	if err != nil {
-		log.Error("", "err", err)
-		os.Exit(1)
+		log.Fatal("", "err", err)
 	}
 
 	almanacEntries, err := ParseAlmanacLines(data[seedsPart+2:])
 	if err != nil {
-		log.Error("", "err", err)
-		os.Exit(1)
+		log.Fatal("", "err", err)
 	}
 
 	srp := FindSeedPointsToTest(seedRanges, almanacEntries)

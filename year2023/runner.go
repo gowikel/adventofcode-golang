@@ -1,9 +1,9 @@
 package year2023
 
 import (
-	"log/slog"
 	"os"
 
+	"github.com/gowikel/adventofcode-golang/internal/log"
 	"github.com/gowikel/adventofcode-golang/internal/puzzle"
 	D01 "github.com/gowikel/adventofcode-golang/year2023/day01"
 	D02 "github.com/gowikel/adventofcode-golang/year2023/day02"
@@ -35,9 +35,10 @@ var solvers = map[int]solver{
 
 func Run(day int, data string, pps puzzle.PuzzleRunSelector) {
 	solver, ok := solvers[day]
+	log := log.GetLogger()
 
 	if !ok {
-		slog.Error("Solver not implemented", "year", 2023, "day", day)
+		log.Error("Solver not implemented")
 		os.Exit(1)
 	}
 
@@ -46,12 +47,8 @@ func Run(day int, data string, pps puzzle.PuzzleRunSelector) {
 		p1 := solver.Part1(data)
 		p2 := solver.Part2(data)
 
-		slog.Info(
+		log.Info(
 			"Run completed",
-			"year",
-			2023,
-			"day",
-			day,
 			"part1",
 			p1,
 			"part2",
@@ -60,24 +57,16 @@ func Run(day int, data string, pps puzzle.PuzzleRunSelector) {
 	case puzzle.RunPartOne:
 		p1 := solver.Part1(data)
 
-		slog.Info(
+		log.Info(
 			"Run completed",
-			"year",
-			2023,
-			"day",
-			day,
 			"part1",
 			p1,
 		)
 	case puzzle.RunPartTwo:
 		p2 := solver.Part2(data)
 
-		slog.Info(
+		log.Info(
 			"Run completed",
-			"year",
-			2023,
-			"day",
-			day,
 			"part2",
 			p2,
 		)
