@@ -1,11 +1,10 @@
 package main
 
 import (
-	"log/slog"
+	"fmt"
 	"os"
 
 	"github.com/gowikel/adventofcode-golang/internal/conf"
-	"github.com/gowikel/adventofcode-golang/internal/log"
 	"github.com/gowikel/adventofcode-golang/internal/puzzle"
 	"github.com/gowikel/adventofcode-golang/internal/utils"
 	"github.com/gowikel/adventofcode-golang/year2023"
@@ -15,30 +14,16 @@ func main() {
 	conf.ParseCLI()
 	opts := conf.Conf()
 
-	logger := slog.New(
-		slog.NewTextHandler(os.Stdin, &slog.HandlerOptions{
-			Level:       opts.LogLevel,
-			ReplaceAttr: log.ReplaceHandler,
-		}),
-	)
-
-	slog.SetDefault(logger)
-
 	data, err := puzzle.Read(opts.Input)
 	if err != nil {
-		slog.Error("Unable to read puzzle input", "error", err)
+		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
 
-	slog.Info(
-		"Running exercise",
-		"year",
-		opts.Year,
-		"day",
-		opts.Day,
-		"part",
-		opts.Part,
-	)
+	fmt.Printf("Running exercise")
+	fmt.Printf("  Year: %d\n", opts.Year)
+	fmt.Printf("  Day: %d\n", opts.Day)
+	fmt.Printf("  Part: %s\n", opts.Part)
 
 	utils.MeasureExecutionTime(func() {
 		// TODO: Will be updated to run other years in the future

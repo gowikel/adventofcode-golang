@@ -2,9 +2,8 @@ package day03
 
 import (
 	"fmt"
+	"os"
 	"strings"
-
-	"github.com/gowikel/adventofcode-golang/internal/log"
 )
 
 type Exercise struct{}
@@ -14,7 +13,6 @@ func (e Exercise) Part1(data string) int {
 	ranges := GetRanges(data, points)
 	numberRanges := LocateNumbers(data, ranges)
 	lines := strings.Split(data, "\n")
-	log := log.GetLogger(log.WithPart(1))
 
 	var result int
 
@@ -29,7 +27,8 @@ func (e Exercise) Part1(data string) int {
 		_, err := fmt.Sscanf(number, "%d", &parsedInt)
 
 		if err != nil {
-			log.Fatal("", "err", err)
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
 		}
 
 		result += parsedInt
@@ -41,7 +40,6 @@ func (e Exercise) Part1(data string) int {
 func (e Exercise) Part2(data string) int {
 	lines := strings.Split(data, "\n")
 	potentialGears := GetGears(data)
-	log := log.GetLogger(log.WithPart(2))
 
 	var result int
 
@@ -70,7 +68,8 @@ func (e Exercise) Part2(data string) int {
 			_, err := fmt.Sscanf(numbers, "%d %d ", &g1, &g2)
 
 			if err != nil {
-				log.Fatal("", "err", err)
+				fmt.Fprintln(os.Stderr, err)
+				os.Exit(1)
 			}
 
 			result += g1 * g2

@@ -1,9 +1,9 @@
 package day07
 
 import (
+	"fmt"
+	"os"
 	"slices"
-
-	"github.com/gowikel/adventofcode-golang/internal/log"
 )
 
 type Exercise struct{}
@@ -11,15 +11,14 @@ type Exercise struct{}
 func (e Exercise) Part1(data string) int {
 	var result int
 
-	log := log.GetLogger(log.WithPart(1))
-
 	ranks, err := Parse(
 		data,
 		BasicHandDeterminer,
 		BasicCardStrengthDeterminer,
 	)
 	if err != nil {
-		log.Fatal("Error while parsing the file", "err", err)
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
 	}
 
 	slices.SortFunc[[]Rank](ranks, SortRanksByStrength)
@@ -34,15 +33,14 @@ func (e Exercise) Part1(data string) int {
 func (e Exercise) Part2(data string) int {
 	var result int
 
-	log := log.GetLogger(log.WithPart(2))
-
 	ranks, err := Parse(
 		data,
 		WildcardHandDeterminer,
 		WildcardCardStrengthDeterminer,
 	)
 	if err != nil {
-		log.Fatal("Error while parsing the file", "err", err)
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
 	}
 
 	slices.SortFunc[[]Rank](ranks, SortRanksByStrength)

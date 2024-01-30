@@ -1,18 +1,19 @@
 package day06
 
 import (
-	"github.com/gowikel/adventofcode-golang/internal/log"
+	"fmt"
+	"os"
 )
 
 type Exercise struct{}
 
 func (e Exercise) Part1(data string) int {
-	log := log.GetLogger(log.WithPart(1))
 	result := 1
 	races, err := Parse(data)
 
 	if err != nil {
-		log.Fatal("", "err", err)
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
 	}
 
 	for _, race := range races {
@@ -24,13 +25,13 @@ func (e Exercise) Part1(data string) int {
 }
 
 func (e Exercise) Part2(data string) int {
-	log := log.GetLogger(log.WithPart(2))
 
 	result := 1
 	race, err := ParsePart2(data)
 
 	if err != nil {
-		log.Fatal("", "err", err)
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
 	}
 
 	// Surprised it was so easy, compared

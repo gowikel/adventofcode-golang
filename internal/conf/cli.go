@@ -3,7 +3,6 @@ package conf
 import (
 	"flag"
 	"fmt"
-	"log/slog"
 	"os"
 	"time"
 
@@ -11,11 +10,10 @@ import (
 )
 
 type Configuration struct {
-	Year     int
-	Day      int
-	Input    string
-	Part     puzzle.PuzzleRunSelector
-	LogLevel slog.Leveler
+	Year  int
+	Day   int
+	Input string
+	Part  puzzle.PuzzleRunSelector
 }
 
 var conf *Configuration
@@ -116,8 +114,6 @@ func ParseCLI() {
 
 	flag.Parse()
 
-	result.LogLevel = slog.LevelInfo
-
 	if result.Year == 0 {
 		result.Year = defaultYear
 	}
@@ -125,25 +121,25 @@ func ParseCLI() {
 	if result.Day == 0 && now.Month() == time.December {
 		result.Day = defaultDay
 	} else if result.Day == 0 {
-		slog.Error("Day is required")
+		fmt.Fprintln(os.Stderr, "Day is required")
 		os.Exit(1)
 	}
 
 	err := validateYear(result.Year)
 	if err != nil {
-		slog.Error("Invalid year", "err", err)
+		fmt.Fprintf(os.Stderr, "Invalid year: %s\n", err)
 		os.Exit(1)
 	}
 
 	err = validateDay(result.Day)
 	if err != nil {
-		slog.Error("Invalid day", "err", err)
+		fmt.Fprintf(os.Stderr, "Invalid day: %s\n", err)
 		os.Exit(1)
 	}
 
 	parsedPart, err := ParsePart(part)
 	if err != nil {
-		slog.Error("Invalid part", "err", err)
+		fmt.Fprintf(os.Stderr, "Invalid part: %s\n", err)
 		os.Exit(1)
 	}
 

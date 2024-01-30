@@ -1,29 +1,27 @@
 package day08
 
 import (
+	"fmt"
 	"math"
+	"os"
 	"strings"
 
-	"github.com/gowikel/adventofcode-golang/internal/log"
 	"github.com/gowikel/adventofcode-golang/internal/utils"
 )
 
 type Exercise struct{}
 
 func (e Exercise) Part1(data string) int {
-	log := log.GetLogger(log.WithPart(1))
 	lineBreak := strings.Index(data, "\n")
 	if lineBreak == -1 {
-		log.Fatal("Invalid file")
+		fmt.Fprintln(os.Stderr, "Invalid file")
+		os.Exit(1)
 	}
 
 	directions, err := ParseDirectionsLine(data[:lineBreak])
 	if err != nil {
-		log.Fatal(
-			"Error while parsing the directions line",
-			"err",
-			err,
-		)
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
 	}
 
 	startNodes, err := ParseNodes(
@@ -33,30 +31,26 @@ func (e Exercise) Part1(data string) int {
 	)
 
 	if err != nil || len(startNodes) != 1 {
-		log.Fatal("Error while parsing", "err", err)
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
 	}
 
 	current := startNodes[0]
-
-	log.Debug("Parse completed")
 
 	return findStepsToEndNode(directions, current)
 }
 
 func (e Exercise) Part2(data string) int {
-	log := log.GetLogger(log.WithPart(2))
 	lineBreak := strings.Index(data, "\n")
 	if lineBreak == -1 {
-		log.Fatal("Invalid file")
+		fmt.Fprintln(os.Stderr, "Invalid file")
+		os.Exit(1)
 	}
 
 	directions, err := ParseDirectionsLine(data[:lineBreak])
 	if err != nil {
-		log.Fatal(
-			"Error while parsing the directions line",
-			"err",
-			err,
-		)
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
 	}
 
 	startNodes, err := ParseNodes(
@@ -66,7 +60,8 @@ func (e Exercise) Part2(data string) int {
 	)
 
 	if err != nil {
-		log.Fatal("erro while parsing nodes", "err", err)
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
 	}
 
 	// This time, the amount of nodes, and the fact that I have
@@ -97,7 +92,6 @@ func (e Exercise) Part2(data string) int {
 }
 
 func findStepsToEndNode(ds []Direction, n *Node) int {
-	log := log.GetLogger().With("func", "findStepsToEndNode")
 	var result int
 
 	current := n
@@ -117,7 +111,7 @@ Loop:
 			}
 
 			if result == math.MaxInt {
-				log.Error("Unable to continue, the logic should be reviewed", "year", 2023, "day", 8, "part", 1)
+				fmt.Fprintln(os.Stderr, "Unable to continue, the logic should be reviewed")
 				break Loop
 			}
 
