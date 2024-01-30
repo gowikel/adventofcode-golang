@@ -2,13 +2,12 @@ package day04
 
 import (
 	"fmt"
-	"os"
 	"strings"
 )
 
 type Exercise struct{}
 
-func (e Exercise) Part1(data string) int {
+func (e Exercise) Part1(data string) (int, error) {
 	var result int
 
 	for _, line := range strings.Split(data, "\n") {
@@ -16,8 +15,7 @@ func (e Exercise) Part1(data string) int {
 		w, p, err := parseLine(line)
 
 		if err != nil {
-			fmt.Fprintln(os.Stderr, err)
-			os.Exit(1)
+			return result, fmt.Errorf("Part1: %w", err)
 		}
 
 		for _, playedNumber := range p {
@@ -31,10 +29,10 @@ func (e Exercise) Part1(data string) int {
 		result += lineResult
 	}
 
-	return result
+	return result, nil
 }
 
-func (e Exercise) Part2(data string) int {
+func (e Exercise) Part2(data string) (int, error) {
 	var result int
 	lines := strings.Split(data, "\n")
 	copies := make([]int, len(lines))
@@ -47,8 +45,7 @@ func (e Exercise) Part2(data string) int {
 		w, p, err := parseLine(line)
 
 		if err != nil {
-			fmt.Fprintln(os.Stderr, err)
-			os.Exit(1)
+			return result, fmt.Errorf("Part2: %w", err)
 		}
 
 		matches, _ := countMatches(w, p)
@@ -62,5 +59,5 @@ func (e Exercise) Part2(data string) int {
 		result += cpy
 	}
 
-	return result
+	return result, nil
 }

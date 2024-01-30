@@ -2,13 +2,12 @@ package day03
 
 import (
 	"fmt"
-	"os"
 	"strings"
 )
 
 type Exercise struct{}
 
-func (e Exercise) Part1(data string) int {
+func (e Exercise) Part1(data string) (int, error) {
 	points := GetPoints(data)
 	ranges := GetRanges(data, points)
 	numberRanges := LocateNumbers(data, ranges)
@@ -27,17 +26,16 @@ func (e Exercise) Part1(data string) int {
 		_, err := fmt.Sscanf(number, "%d", &parsedInt)
 
 		if err != nil {
-			fmt.Fprintln(os.Stderr, err)
-			os.Exit(1)
+			return result, fmt.Errorf("Part1: %w", err)
 		}
 
 		result += parsedInt
 	}
 
-	return result
+	return result, nil
 }
 
-func (e Exercise) Part2(data string) int {
+func (e Exercise) Part2(data string) (int, error) {
 	lines := strings.Split(data, "\n")
 	potentialGears := GetGears(data)
 
@@ -68,13 +66,12 @@ func (e Exercise) Part2(data string) int {
 			_, err := fmt.Sscanf(numbers, "%d %d ", &g1, &g2)
 
 			if err != nil {
-				fmt.Fprintln(os.Stderr, err)
-				os.Exit(1)
+				return result, fmt.Errorf("Part2: %w", err)
 			}
 
 			result += g1 * g2
 		}
 	}
 
-	return result
+	return result, nil
 }

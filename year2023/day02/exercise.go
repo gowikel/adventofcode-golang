@@ -11,7 +11,7 @@ const REQUIRED_GREEN_CUBES = 13
 
 type Exercise struct{}
 
-func (e Exercise) Part1(data string) int {
+func (e Exercise) Part1(data string) (int, error) {
 	var result int
 
 	scanner := bufio.NewScanner(strings.NewReader(data))
@@ -36,10 +36,10 @@ func (e Exercise) Part1(data string) int {
 		}
 	}
 
-	return result
+	return result, nil
 }
 
-func (e Exercise) Part2(data string) int {
+func (e Exercise) Part2(data string) (int, error) {
 	var result int
 
 	scanner := bufio.NewScanner(strings.NewReader(data))
@@ -52,5 +52,5 @@ func (e Exercise) Part2(data string) int {
 		result += PowerCube(MinimumPowerSet(cubes))
 	}
 
-	return result
+	return result, nil
 }

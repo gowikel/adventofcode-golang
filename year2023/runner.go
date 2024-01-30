@@ -2,7 +2,6 @@ package year2023
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/gowikel/adventofcode-golang/internal/puzzle"
 	D01 "github.com/gowikel/adventofcode-golang/year2023/day01"
@@ -17,8 +16,8 @@ import (
 )
 
 type solver interface {
-	Part1(data string) int
-	Part2(data string) int
+	Part1(data string) (int, error)
+	Part2(data string) (int, error)
 }
 
 var solvers = map[int]solver{
@@ -33,30 +32,31 @@ var solvers = map[int]solver{
 	9: D09.Exercise{},
 }
 
-func Run(day int, data string, pps puzzle.PuzzleRunSelector) {
+func Run(
+	day int,
+	data string,
+	pps puzzle.PuzzleRunSelector,
+) (p1 int, p2 int, err error) {
 	solver, ok := solvers[day]
 
 	if !ok {
-		fmt.Fprintln(os.Stderr, "Solved not implemented")
-		os.Exit(1)
+		err = fmt.Errorf("solver not implemented")
+		return
 	}
-
-	fmt.Println("Run completed")
 
 	switch pps {
 	case puzzle.RunAll:
-		p1 := solver.Part1(data)
-		p2 := solver.Part2(data)
+		p1, err = solver.Part1(data)
+		if err != nil {
+			return
+		}
 
-		fmt.Printf("- Part 1: %d\n", p1)
-		fmt.Printf("- Part 2: %d\n", p2)
+		p2, err = solver.Part2(data)
 	case puzzle.RunPartOne:
-		p1 := solver.Part1(data)
-
-		fmt.Printf("- Part 1: %d\n", p1)
+		p1, err = solver.Part1(data)
 	case puzzle.RunPartTwo:
-		p2 := solver.Part2(data)
-
-		fmt.Printf("- Part 2: %d\n", p2)
+		p2, err = solver.Part2(data)
 	}
+
+	return
 }

@@ -2,16 +2,14 @@ package day09
 
 import (
 	"fmt"
-	"os"
 )
 
 type Exercise struct{}
 
-func (e Exercise) Part1(data string) int {
+func (e Exercise) Part1(data string) (int, error) {
 	lst, err := Parse(data)
 	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
+		return 0, fmt.Errorf("Part1: %w", err)
 	}
 
 	var result int
@@ -19,20 +17,18 @@ func (e Exercise) Part1(data string) int {
 		sr := NewSensorRead(l)
 		err := sr.Compute()
 		if err != nil {
-			fmt.Fprintln(os.Stderr, err)
-			os.Exit(1)
+			return 0, fmt.Errorf("Part1: %w", err)
 		}
 		result += sr.ExtrapolateForward()
 	}
 
-	return result
+	return result, nil
 }
 
-func (e Exercise) Part2(data string) int {
+func (e Exercise) Part2(data string) (int, error) {
 	lst, err := Parse(data)
 	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
+		return 0, fmt.Errorf("Part2: %w", err)
 	}
 
 	var result int
@@ -40,11 +36,10 @@ func (e Exercise) Part2(data string) int {
 		sr := NewSensorRead(l)
 		err := sr.Compute()
 		if err != nil {
-			fmt.Fprintln(os.Stderr, err)
-			os.Exit(1)
+			return 0, fmt.Errorf("Part2: %w", err)
 		}
 		result += sr.ExtrapolateBackward()
 	}
 
-	return result
+	return result, nil
 }

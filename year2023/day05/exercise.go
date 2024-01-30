@@ -3,7 +3,6 @@ package day05
 import (
 	"fmt"
 	"math"
-	"os"
 	"slices"
 	"strings"
 
@@ -28,20 +27,18 @@ func ApplyFuncs(
 	return currentValue
 }
 
-func (e Exercise) Part1(data string) int {
+func (e Exercise) Part1(data string) (int, error) {
 	result := math.MaxInt
 
 	seedsPart := strings.Index(data, "\n\n")
 	seeds, err := ParseSeedsLine(data[:seedsPart])
 	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
+		return result, fmt.Errorf("Part1: %w", err)
 	}
 
 	almanacEntries, err := ParseAlmanacLines(data[seedsPart+2:])
 	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
+		return result, fmt.Errorf("Part1: %w", err)
 	}
 
 	for _, seed := range seeds {
@@ -52,7 +49,7 @@ func (e Exercise) Part1(data string) int {
 		}
 	}
 
-	return result
+	return result, nil
 }
 
 // Checks if there is a variation between seedB and seedA
@@ -150,20 +147,18 @@ func FindSeedPointsToTest(
 	return result
 }
 
-func (e Exercise) Part2(data string) int {
+func (e Exercise) Part2(data string) (int, error) {
 	result := math.MaxInt
 
 	seedsPart := strings.Index(data, "\n\n")
 	seedRanges, err := ParseSeedLineAsRanges(data[:seedsPart])
 	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
+		return result, fmt.Errorf("Part2: %w", err)
 	}
 
 	almanacEntries, err := ParseAlmanacLines(data[seedsPart+2:])
 	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
+		return result, fmt.Errorf("Part2: %w", err)
 	}
 
 	srp := FindSeedPointsToTest(seedRanges, almanacEntries)
@@ -176,5 +171,5 @@ func (e Exercise) Part2(data string) int {
 		}
 	}
 
-	return result
+	return result, nil
 }

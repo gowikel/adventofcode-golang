@@ -12,9 +12,10 @@ func TestParseInput_ShouldParseSingleNumberStringCorrectly(
 ) {
 	input := "123\n"
 	expected := []int{13}
-	result := ParseInput(input)
+	result, err := ParseInput(input)
 
 	assert.Equal(t, expected, result)
+	assert.Nil(t, err)
 }
 
 func TestParseInput_ShouldParseSingleNumberStringWithoutEndingOnNewLine(
@@ -22,9 +23,10 @@ func TestParseInput_ShouldParseSingleNumberStringWithoutEndingOnNewLine(
 ) {
 	input := "123"
 	expected := []int{13}
-	result := ParseInput(input)
+	result, err := ParseInput(input)
 
 	assert.Equal(t, expected, result)
+	assert.Nil(t, err)
 }
 
 func TestParseInput_ShouldParseMultipleNumberStringsCorrectly(
@@ -32,17 +34,19 @@ func TestParseInput_ShouldParseMultipleNumberStringsCorrectly(
 ) {
 	input := "123\n456\n789\n"
 	expected := []int{13, 46, 79}
-	result := ParseInput(input)
+	result, err := ParseInput(input)
 
 	assert.Equal(t, expected, result)
+	assert.Nil(t, err)
 }
 
 func TestParseInput_ShouldIgnoreEmptyLines(t *testing.T) {
 	input := "123\n\n456\n\n789\n"
 	expected := []int{13, 46, 79}
-	result := ParseInput(input)
+	result, err := ParseInput(input)
 
 	assert.Equal(t, expected, result)
+	assert.Nil(t, err)
 }
 
 func TestParseInput_ShouldHandleInputWithLeadingTrailingSpaces(
@@ -50,9 +54,10 @@ func TestParseInput_ShouldHandleInputWithLeadingTrailingSpaces(
 ) {
 	input := "  123  \n  456  \n  789  \n"
 	expected := []int{13, 46, 79}
-	result := ParseInput(input)
+	result, err := ParseInput(input)
 
 	assert.Equal(t, expected, result)
+	assert.Nil(t, err)
 }
 
 func TestParseInput_ShouldHandleInputWithLeadingTrailingNonNumericCharacters(
@@ -60,9 +65,10 @@ func TestParseInput_ShouldHandleInputWithLeadingTrailingNonNumericCharacters(
 ) {
 	input := "abc123def\nghi456jkl\nmno789pqr\n"
 	expected := []int{13, 46, 79}
-	result := ParseInput(input)
+	result, err := ParseInput(input)
 
 	assert.Equal(t, expected, result)
+	assert.Nil(t, err)
 }
 
 func TestParseInput_ShouldHandleInputWithOnlyOneNumericCharacter(
@@ -70,9 +76,10 @@ func TestParseInput_ShouldHandleInputWithOnlyOneNumericCharacter(
 ) {
 	input := "1\n2\n3\n"
 	expected := []int{11, 22, 33}
-	result := ParseInput(input)
+	result, err := ParseInput(input)
 
 	assert.Equal(t, expected, result)
+	assert.Nil(t, err)
 }
 
 func TestParseInput_ShouldIgnoreLinesWithNonNumericCharacters(
@@ -80,9 +87,10 @@ func TestParseInput_ShouldIgnoreLinesWithNonNumericCharacters(
 ) {
 	input := "123\nabc\n456\n"
 	expected := []int{13, 46}
-	result := ParseInput(input)
+	result, err := ParseInput(input)
 
 	assert.Equal(t, expected, result)
+	assert.Nil(t, err)
 }
 
 func TestParseInput_ShouldParseInputWithOnlyTwoNumericCharactersCorrectly(
@@ -90,17 +98,19 @@ func TestParseInput_ShouldParseInputWithOnlyTwoNumericCharactersCorrectly(
 ) {
 	input := "12\n"
 	expected := []int{12}
-	result := ParseInput(input)
+	result, err := ParseInput(input)
 
 	assert.Equal(t, expected, result)
+	assert.Nil(t, err)
 }
 
 func TestParseInput_ShouldHandleEmptyInput(t *testing.T) {
 	input := ""
 	expected := []int{}
-	result := ParseInput(input)
+	result, err := ParseInput(input)
 
 	assert.Equal(t, expected, result)
+	assert.Nil(t, err)
 }
 
 // Returns the first and last digit of a two-digit number.
@@ -109,21 +119,20 @@ func TestParseNumber_ShouldReturnFirstAndLastDigitOfTwoDigitNumber(
 ) {
 	input := "42"
 	expected := 42
-	result := ParseNumber(input)
+	result, err := ParseNumber(input)
 
 	assert.Equal(t, expected, result)
+	assert.Nil(t, err)
 }
 
 // Repeats a one-digit number twice and returns it.
 func TestParseNumber_ShouldRepeatOneDigitNumberTwice(t *testing.T) {
 	input := "5"
 	expected := 55
-	result := ParseNumber(input)
+	result, err := ParseNumber(input)
 
 	assert.Equal(t, expected, result)
-	if result != expected {
-		t.Errorf("Expected %d, but got %d", expected, result)
-	}
+	assert.Nil(t, err)
 }
 
 // Returns the first and last digit of a number with more than two
@@ -133,9 +142,10 @@ func TestParseNumber_ShouldReturnFirstAndLastDigitOfNumberWithMoreThanTwoDigits(
 ) {
 	input := "12345"
 	expected := 15
-	result := ParseNumber(input)
+	result, err := ParseNumber(input)
 
 	assert.Equal(t, expected, result)
+	assert.Nil(t, err)
 }
 
 func TestParseNumber_ShouldReturnZeroIfInputIsEmptyString(
@@ -143,9 +153,10 @@ func TestParseNumber_ShouldReturnZeroIfInputIsEmptyString(
 ) {
 	input := ""
 	expected := 0
-	result := ParseNumber(input)
+	result, err := ParseNumber(input)
 
 	assert.Equal(t, expected, result)
+	assert.Nil(t, err)
 }
 
 func TestParseNumber_ShouldHandleNegativeNumbersCorrectly(
@@ -153,9 +164,10 @@ func TestParseNumber_ShouldHandleNegativeNumbersCorrectly(
 ) {
 	input := "-42"
 	expected := -42
-	result := ParseNumber(input)
+	result, err := ParseNumber(input)
 
 	assert.Equal(t, expected, result)
+	assert.Nil(t, err)
 }
 
 func TestTokenizer_ReturnsData_WhenAtEOFIsFalseAndFirstByteOfDataIsANumber(

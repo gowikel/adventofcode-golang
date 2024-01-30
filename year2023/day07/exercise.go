@@ -2,13 +2,12 @@ package day07
 
 import (
 	"fmt"
-	"os"
 	"slices"
 )
 
 type Exercise struct{}
 
-func (e Exercise) Part1(data string) int {
+func (e Exercise) Part1(data string) (int, error) {
 	var result int
 
 	ranks, err := Parse(
@@ -17,8 +16,7 @@ func (e Exercise) Part1(data string) int {
 		BasicCardStrengthDeterminer,
 	)
 	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
+		return result, fmt.Errorf("Part1: %w", err)
 	}
 
 	slices.SortFunc[[]Rank](ranks, SortRanksByStrength)
@@ -27,10 +25,10 @@ func (e Exercise) Part1(data string) int {
 		result += (len(ranks) - i) * rank.Bid
 	}
 
-	return result
+	return result, nil
 }
 
-func (e Exercise) Part2(data string) int {
+func (e Exercise) Part2(data string) (int, error) {
 	var result int
 
 	ranks, err := Parse(
@@ -39,8 +37,7 @@ func (e Exercise) Part2(data string) int {
 		WildcardCardStrengthDeterminer,
 	)
 	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
+		return result, fmt.Errorf("Part2: %w", err)
 	}
 
 	slices.SortFunc[[]Rank](ranks, SortRanksByStrength)
@@ -49,7 +46,7 @@ func (e Exercise) Part2(data string) int {
 		result += (len(ranks) - i) * rank.Bid
 	}
 
-	return result
+	return result, nil
 }
 
 var basicCardStrengths = map[rune]int{

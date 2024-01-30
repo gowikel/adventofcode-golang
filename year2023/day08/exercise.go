@@ -11,17 +11,15 @@ import (
 
 type Exercise struct{}
 
-func (e Exercise) Part1(data string) int {
+func (e Exercise) Part1(data string) (int, error) {
 	lineBreak := strings.Index(data, "\n")
 	if lineBreak == -1 {
-		fmt.Fprintln(os.Stderr, "Invalid file")
-		os.Exit(1)
+		return 0, fmt.Errorf("Part1: invalid file")
 	}
 
 	directions, err := ParseDirectionsLine(data[:lineBreak])
 	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
+		return 0, fmt.Errorf("Part1: %w", err)
 	}
 
 	startNodes, err := ParseNodes(
@@ -31,26 +29,27 @@ func (e Exercise) Part1(data string) int {
 	)
 
 	if err != nil || len(startNodes) != 1 {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
+		return 0, fmt.Errorf(
+			"Part1: %w || len(startNodes) = %d",
+			err,
+			len(startNodes),
+		)
 	}
 
 	current := startNodes[0]
 
-	return findStepsToEndNode(directions, current)
+	return findStepsToEndNode(directions, current), nil
 }
 
-func (e Exercise) Part2(data string) int {
+func (e Exercise) Part2(data string) (int, error) {
 	lineBreak := strings.Index(data, "\n")
 	if lineBreak == -1 {
-		fmt.Fprintln(os.Stderr, "Invalid file")
-		os.Exit(1)
+		return 0, fmt.Errorf("Part2: invalid file")
 	}
 
 	directions, err := ParseDirectionsLine(data[:lineBreak])
 	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
+		return 0, fmt.Errorf("Part2: %w", err)
 	}
 
 	startNodes, err := ParseNodes(
@@ -60,8 +59,7 @@ func (e Exercise) Part2(data string) int {
 	)
 
 	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
+		return 0, fmt.Errorf("Part2: %w", err)
 	}
 
 	// This time, the amount of nodes, and the fact that I have
@@ -88,7 +86,7 @@ func (e Exercise) Part2(data string) int {
 		minStepsPerNode = append(minStepsPerNode, s)
 	}
 
-	return utils.LCM[int](minStepsPerNode...)
+	return utils.LCM[int](minStepsPerNode...), nil
 }
 
 func findStepsToEndNode(ds []Direction, n *Node) int {

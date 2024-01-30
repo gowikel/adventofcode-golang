@@ -13,7 +13,7 @@ var EXAMPLE string
 var e Exercise
 
 func TestDay03Part1(t *testing.T) {
-	got := e.Part1(EXAMPLE)
+	got, err := e.Part1(EXAMPLE)
 	want := 4361
 
 	assert.Equalf(
@@ -25,10 +25,11 @@ func TestDay03Part1(t *testing.T) {
 		got,
 		want,
 	)
+	assert.Nil(t, err)
 }
 
 func TestDay03Part2(t *testing.T) {
-	got := e.Part2(EXAMPLE)
+	got, err := e.Part2(EXAMPLE)
 	want := 467835
 
 	assert.Equalf(
@@ -40,4 +41,5 @@ func TestDay03Part2(t *testing.T) {
 		got,
 		want,
 	)
+	assert.Nil(t, err)
 }

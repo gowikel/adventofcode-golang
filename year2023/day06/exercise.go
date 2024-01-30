@@ -2,18 +2,16 @@ package day06
 
 import (
 	"fmt"
-	"os"
 )
 
 type Exercise struct{}
 
-func (e Exercise) Part1(data string) int {
+func (e Exercise) Part1(data string) (int, error) {
 	result := 1
 	races, err := Parse(data)
 
 	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
+		return result, fmt.Errorf("Part1: %w", err)
 	}
 
 	for _, race := range races {
@@ -21,17 +19,16 @@ func (e Exercise) Part1(data string) int {
 		result *= waysToWin
 	}
 
-	return result
+	return result, nil
 }
 
-func (e Exercise) Part2(data string) int {
+func (e Exercise) Part2(data string) (int, error) {
 
 	result := 1
 	race, err := ParsePart2(data)
 
 	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
+		return result, fmt.Errorf("Part2: %w", err)
 	}
 
 	// Surprised it was so easy, compared
@@ -39,5 +36,5 @@ func (e Exercise) Part2(data string) int {
 	waysToWin := CountWaysToWin(race)
 	result *= waysToWin
 
-	return result
+	return result, nil
 }

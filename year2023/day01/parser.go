@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
-	"os"
 	"regexp"
 	"strconv"
 	"strings"
@@ -24,7 +23,7 @@ var NOT_A_NUMBER = regexp.MustCompile(`\D`)
 // will be the first and last digit of the line.
 //
 // If the line has only one digit, it will be repeated twice.
-func ParseInput(input string) []int {
+func ParseInput(input string) ([]int, error) {
 	lines := strings.Split(input, "\n")
 	result := make([]int, 0, len(lines))
 
@@ -35,10 +34,15 @@ func ParseInput(input string) []int {
 			continue
 		}
 
-		result = append(result, ParseNumber(parsedLine))
+		parsedNumber, err := ParseNumber(parsedLine)
+		if err != nil {
+			return result, fmt.Errorf("ParseInput: %w", err)
+		}
+
+		result = append(result, parsedNumber)
 	}
 
-	return result
+	return result, nil
 }
 
 // tokenizer is a split function for a Scanner that will recognize
@@ -90,7 +94,7 @@ func Tokenizer(
 // words that represent numbers into the parsing.
 //
 // It returns a slice of ints.
-func EnhancedParseInput(input string) []int {
+func EnhancedParseInput(input string) ([]int, error) {
 	var sb strings.Builder
 	var scanner = bufio.NewScanner(strings.NewReader(input))
 	scanner.Split(Tokenizer)
@@ -99,7 +103,12 @@ func EnhancedParseInput(input string) []int {
 		sb.WriteString(scanner.Text())
 	}
 
-	return ParseInput(sb.String())
+	parsedInput, err := ParseInput(sb.String())
+	if err != nil {
+		return parsedInput, fmt.Errorf("EnhancedParseInput: %w", err)
+	}
+
+	return parsedInput, nil
 }
 
 // ParseNumber takes a string, which should be a number, and returns
@@ -108,9 +117,9 @@ func EnhancedParseInput(input string) []int {
 // If the number is only one digit, it will be repeated twice.
 //
 // This function panics if the input is not a number.
-func ParseNumber(input string) int {
+func ParseNumber(input string) (int, error) {
 	if len(input) == 0 {
-		return 0
+		return 0, nil
 	} else if len(input) == 1 {
 		input = strings.Repeat(input, 2)
 	} else {
@@ -125,14 +134,8 @@ func ParseNumber(input string) int {
 	parsedNumber, err := strconv.Atoi(input)
 
 	if err != nil {
-		fmt.Fprintf(
-			os.Stderr,
-			"Error while parsing %q: %s\n",
-			input,
-			err,
-		)
-		os.Exit(1)
+		return parsedNumber, fmt.Errorf("ParsedNumber: %w", err)
 	}
 
-	return parsedNumber
+	return parsedNumber, nil
 }
