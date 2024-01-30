@@ -32,7 +32,7 @@ func main() {
 
 	utils.MeasureExecutionTime(func() {
 		// TODO: Will be updated to run other years in the future
-		p1, p2, err := year2023.Run(opts.Day, data, opts.Part)
+		p1, p2, err := year2023.Run(opts.Day, data)
 
 		spinner.Stop()
 

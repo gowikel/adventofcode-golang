@@ -5,36 +5,15 @@ import (
 	"fmt"
 	"os"
 	"time"
-
-	"github.com/gowikel/adventofcode-golang/internal/puzzle"
 )
 
 type Configuration struct {
 	Year  int
 	Day   int
 	Input string
-	Part  puzzle.PuzzleRunSelector
 }
 
 var conf *Configuration
-
-// Given an integer, converts it to puzzlePartSelector.PuzzlePart
-func ParsePart(part int) (puzzle.PuzzleRunSelector, error) {
-	switch part {
-	// Default value, assume RunAll
-	case 0:
-		return puzzle.RunAll, nil
-	case 1:
-		return puzzle.RunPartOne, nil
-	case 2:
-		return puzzle.RunPartTwo, nil
-	}
-
-	return puzzle.RunAll, fmt.Errorf(
-		"invalid part: %v",
-		part,
-	)
-}
 
 // Given a year, y, validates that it is in a valid range
 func validateYear(y int) error {
@@ -74,7 +53,6 @@ func ParseCLI() {
 	}
 
 	result := Configuration{}
-	var part int
 
 	now := time.Now()
 	defaultYear := now.Year()
@@ -105,13 +83,6 @@ func ParseCLI() {
 		"Input file to pass to the solver (required)",
 	)
 
-	flag.IntVar(
-		&part,
-		"part",
-		0,
-		"Part to run. (Default both)",
-	)
-
 	flag.Parse()
 
 	if result.Year == 0 {
@@ -136,14 +107,6 @@ func ParseCLI() {
 		fmt.Fprintf(os.Stderr, "Invalid day: %s\n", err)
 		os.Exit(1)
 	}
-
-	parsedPart, err := ParsePart(part)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Invalid part: %s\n", err)
-		os.Exit(1)
-	}
-
-	result.Part = parsedPart
 
 	conf = &result
 }

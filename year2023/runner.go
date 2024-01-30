@@ -3,7 +3,6 @@ package year2023
 import (
 	"fmt"
 
-	"github.com/gowikel/adventofcode-golang/internal/puzzle"
 	D01 "github.com/gowikel/adventofcode-golang/year2023/day01"
 	D02 "github.com/gowikel/adventofcode-golang/year2023/day02"
 	D03 "github.com/gowikel/adventofcode-golang/year2023/day03"
@@ -32,11 +31,7 @@ var solvers = map[int]solver{
 	9: D09.Exercise{},
 }
 
-func Run(
-	day int,
-	data string,
-	pps puzzle.PuzzleRunSelector,
-) (p1 int, p2 int, err error) {
+func Run(day int, data string) (p1 int, p2 int, err error) {
 	solver, ok := solvers[day]
 
 	if !ok {
@@ -44,19 +39,11 @@ func Run(
 		return
 	}
 
-	switch pps {
-	case puzzle.RunAll:
-		p1, err = solver.Part1(data)
-		if err != nil {
-			return
-		}
-
-		p2, err = solver.Part2(data)
-	case puzzle.RunPartOne:
-		p1, err = solver.Part1(data)
-	case puzzle.RunPartTwo:
-		p2, err = solver.Part2(data)
+	p1, err = solver.Part1(data)
+	if err != nil {
+		return
 	}
 
+	p2, err = solver.Part2(data)
 	return
 }
