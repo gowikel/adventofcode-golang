@@ -17,7 +17,7 @@ var conf *Configuration
 
 // Given a year, y, validates that it is in a valid range
 func validateYear(y int) error {
-	minYear, maxYear := 2023, 2023
+	minYear, maxYear := 2023, 2024
 
 	if y < minYear || y > maxYear {
 		return fmt.Errorf(

@@ -9,6 +9,7 @@ import (
 	"github.com/gowikel/adventofcode-golang/internal/puzzle"
 	"github.com/gowikel/adventofcode-golang/internal/utils"
 	"github.com/gowikel/adventofcode-golang/year2023"
+	"github.com/gowikel/adventofcode-golang/year2024"
 	"github.com/pterm/pterm"
 )
 
@@ -32,7 +33,16 @@ func main() {
 
 	utils.MeasureExecutionTime(func() {
 		// TODO: Will be updated to run other years in the future
-		p1, p2, err := year2023.Run(opts.Day, data)
+		var p1 int
+		var p2 int
+		var err error
+		switch opts.Year {
+		case 2023:
+			p1, p2, err = year2023.Run(opts.Day, data)
+
+		case 2024:
+			p1, p2, err = year2024.Run(opts.Day, data)
+		}
 
 		spinner.Stop()
 
