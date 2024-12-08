@@ -65,7 +65,7 @@ func ParseCLI() {
 	flag.IntVar(
 		&result.Year,
 		"year",
-		0,
+		defaultYear,
 		"Year to run (defaults to current on December, otherwise to previous year)",
 	)
 
@@ -84,10 +84,6 @@ func ParseCLI() {
 	)
 
 	flag.Parse()
-
-	if result.Year == 0 {
-		result.Year = defaultYear
-	}
 
 	if result.Day == 0 && now.Month() == time.December {
 		result.Day = defaultDay
