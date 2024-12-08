@@ -7,6 +7,7 @@ import (
 	"github.com/gowikel/adventofcode-golang/internal/conf"
 	"github.com/gowikel/adventofcode-golang/internal/constants"
 	"github.com/gowikel/adventofcode-golang/internal/puzzle"
+	"github.com/gowikel/adventofcode-golang/internal/runner"
 	"github.com/gowikel/adventofcode-golang/internal/utils"
 	"github.com/gowikel/adventofcode-golang/year2023"
 	"github.com/gowikel/adventofcode-golang/year2024"
@@ -14,6 +15,7 @@ import (
 )
 
 func main() {
+	var solvers map[int]runner.Solver
 	conf.ParseCLI()
 	opts := conf.Conf()
 
@@ -31,18 +33,18 @@ func main() {
 	spinner, _ := pterm.DefaultSpinner.WithRemoveWhenDone().
 		Start("Running solver...")
 
-	utils.MeasureExecutionTime(func() {
-		// TODO: Will be updated to run other years in the future
-		var p1 int
-		var p2 int
-		var err error
-		switch opts.Year {
-		case 2023:
-			p1, p2, err = year2023.Run(opts.Day, data)
+	switch opts.Year {
+	case 2023:
+		solvers = year2023.Solvers
 
-		case 2024:
-			p1, p2, err = year2024.Run(opts.Day, data)
-		}
+	case 2024:
+		solvers = year2024.Solvers
+	}
+
+	runner := runner.New(solvers)
+
+	utils.MeasureExecutionTime(func() {
+		p1, p2, err := runner.Run(opts.Day, data)
 
 		spinner.Stop()
 

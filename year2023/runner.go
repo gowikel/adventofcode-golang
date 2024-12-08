@@ -1,7 +1,7 @@
 package year2023
 
 import (
-	"fmt"
+	"github.com/gowikel/adventofcode-golang/internal/runner"
 
 	D01 "github.com/gowikel/adventofcode-golang/year2023/day01"
 	D02 "github.com/gowikel/adventofcode-golang/year2023/day02"
@@ -14,12 +14,7 @@ import (
 	D09 "github.com/gowikel/adventofcode-golang/year2023/day09"
 )
 
-type solver interface {
-	Part1(data string) (int, error)
-	Part2(data string) (int, error)
-}
-
-var solvers = map[int]solver{
+var Solvers = map[int]runner.Solver{
 	1: D01.Exercise{},
 	2: D02.Exercise{},
 	3: D03.Exercise{},
@@ -29,21 +24,4 @@ var solvers = map[int]solver{
 	7: D07.Exercise{},
 	8: D08.Exercise{},
 	9: D09.Exercise{},
-}
-
-func Run(day int, data string) (p1 int, p2 int, err error) {
-	solver, ok := solvers[day]
-
-	if !ok {
-		err = fmt.Errorf("solver not implemented")
-		return
-	}
-
-	p1, err = solver.Part1(data)
-	if err != nil {
-		return
-	}
-
-	p2, err = solver.Part2(data)
-	return
 }
