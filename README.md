@@ -63,7 +63,7 @@ task fmt
 
 ## Authors
 
-- Pedro Jose Piquero Plaza - gowikel@gmail.com
+- Pedro Jose Piquero Plaza - pedropiqueroplaza@proton.me
 
 ## License
 
