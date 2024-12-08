@@ -12,6 +12,15 @@ tasks:
     desc: Run a specific test
     cmds:
       - go test {{.CLI_ARGS}}
+  fuzz:
+    desc: Run fuzz tests
+    cmds:
+      - go test {{.PACKAGE}} -fuzz {{.FUZZ}} -fuzztime={{.FUZZTIME}} {{.CLI_ARGS}}
+    requires:
+      vars:
+        - PACKAGE
+        - FUZZ
+        - FUZZTIME
   run:
     desc: Run the executable
     cmds:
