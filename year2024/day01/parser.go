@@ -3,16 +3,22 @@ package day01
 import (
 	"bufio"
 	"fmt"
+	"os"
 	"strconv"
 	"strings"
 )
 
-func Parse(data string) ([]int, []int, error) {
-	scanner := bufio.NewScanner(strings.NewReader(data))
+func Parse(path string) ([]int, []int, error) {
+	file, err := os.Open(path)
+	if err != nil {
+		return nil, nil, fmt.Errorf("open: %w", err)
+	}
+	defer file.Close()
 
-	n := strings.Count(data, "\n")
-	l1 := make([]int, 0, n)
-	l2 := make([]int, 0, n)
+	scanner := bufio.NewScanner(file)
+
+	l1 := make([]int, 0)
+	l2 := make([]int, 0)
 
 	for scanner.Scan() {
 		line := scanner.Text()

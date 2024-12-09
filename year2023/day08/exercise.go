@@ -11,7 +11,13 @@ import (
 
 type Exercise struct{}
 
-func (e Exercise) Part1(data string) (int, error) {
+func (e Exercise) Part1(path string) (int, error) {
+	contents, err := os.ReadFile(path)
+	if err != nil {
+		return 0, fmt.Errorf("Part1: %w", err)
+	}
+	data := string(contents)
+
 	lineBreak := strings.Index(data, "\n")
 	if lineBreak == -1 {
 		return 0, fmt.Errorf("Part1: invalid file")
@@ -41,7 +47,13 @@ func (e Exercise) Part1(data string) (int, error) {
 	return findStepsToEndNode(directions, current), nil
 }
 
-func (e Exercise) Part2(data string) (int, error) {
+func (e Exercise) Part2(path string) (int, error) {
+	contents, err := os.ReadFile(path)
+	if err != nil {
+		return 0, fmt.Errorf("Part2: %w", err)
+	}
+	data := string(contents)
+
 	lineBreak := strings.Index(data, "\n")
 	if lineBreak == -1 {
 		return 0, fmt.Errorf("Part2: invalid file")

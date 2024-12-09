@@ -1,11 +1,19 @@
 package day01
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 type Exercise struct{}
 
-func (e Exercise) Part1(data string) (int, error) {
-	numbers, err := ParseInput(data)
+func (e Exercise) Part1(path string) (int, error) {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return 0, fmt.Errorf("Part1: %w", err)
+	}
+
+	numbers, err := ParseInput(string(data))
 	if err != nil {
 		return 0, fmt.Errorf("Part1: %w", err)
 	}
@@ -19,8 +27,13 @@ func (e Exercise) Part1(data string) (int, error) {
 	return sum, nil
 }
 
-func (e Exercise) Part2(data string) (int, error) {
-	numbers, err := EnhancedParseInput(data)
+func (e Exercise) Part2(path string) (int, error) {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return 0, fmt.Errorf("Part2: %w", err)
+	}
+
+	numbers, err := EnhancedParseInput(string(data))
 	if err != nil {
 		return 0, fmt.Errorf("Part2: %w", err)
 	}

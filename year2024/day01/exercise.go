@@ -8,8 +8,8 @@ import (
 
 type Exercise struct{}
 
-func (e Exercise) Part1(data string) (int, error) {
-	l1, l2, err := Parse(data)
+func (e Exercise) Part1(path string) (int, error) {
+	l1, l2, err := Parse(path)
 	if err != nil {
 		return 0, fmt.Errorf("part1: %w", err)
 	}
@@ -38,8 +38,8 @@ func (e Exercise) Part1(data string) (int, error) {
 	return result, nil
 }
 
-func (e Exercise) Part2(data string) (int, error) {
-	l1, l2, err := Parse(data)
+func (e Exercise) Part2(path string) (int, error) {
+	l1, l2, err := Parse(path)
 	if err != nil {
 		return 0, fmt.Errorf("part2: %w", err)
 	}

@@ -2,7 +2,8 @@ package day02
 
 import (
 	"bufio"
-	"strings"
+	"fmt"
+	"os"
 )
 
 const REQUIRED_RED_CUBES = 12
@@ -11,10 +12,16 @@ const REQUIRED_GREEN_CUBES = 13
 
 type Exercise struct{}
 
-func (e Exercise) Part1(data string) (int, error) {
+func (e Exercise) Part1(path string) (int, error) {
 	var result int
 
-	scanner := bufio.NewScanner(strings.NewReader(data))
+	file, err := os.Open(path)
+	if err != nil {
+		return result, fmt.Errorf("Part1: %w", err)
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
 	scanner.Split(bufio.ScanLines)
 
 	for scanner.Scan() {
@@ -39,10 +46,16 @@ func (e Exercise) Part1(data string) (int, error) {
 	return result, nil
 }
 
-func (e Exercise) Part2(data string) (int, error) {
+func (e Exercise) Part2(path string) (int, error) {
 	var result int
 
-	scanner := bufio.NewScanner(strings.NewReader(data))
+	file, err := os.Open(path)
+	if err != nil {
+		return result, fmt.Errorf("Part2: %w", err)
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
 	scanner.Split(bufio.ScanLines)
 
 	for scanner.Scan() {

@@ -2,16 +2,23 @@ package day03
 
 import (
 	"fmt"
+	"os"
 	"strings"
 )
 
 type Exercise struct{}
 
-func (e Exercise) Part1(data string) (int, error) {
-	points := GetPoints(data)
-	ranges := GetRanges(data, points)
-	numberRanges := LocateNumbers(data, ranges)
-	lines := strings.Split(data, "\n")
+func (e Exercise) Part1(path string) (int, error) {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return 0, fmt.Errorf("Part1: %w", err)
+	}
+	data_str := string(data)
+
+	points := GetPoints(data_str)
+	ranges := GetRanges(data_str, points)
+	numberRanges := LocateNumbers(data_str, ranges)
+	lines := strings.Split(data_str, "\n")
 
 	var result int
 
@@ -35,15 +42,22 @@ func (e Exercise) Part1(data string) (int, error) {
 	return result, nil
 }
 
-func (e Exercise) Part2(data string) (int, error) {
-	lines := strings.Split(data, "\n")
-	potentialGears := GetGears(data)
+func (e Exercise) Part2(path string) (int, error) {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return 0, fmt.Errorf("Part2: %w", err)
+	}
+
+	data_str := string(data)
+
+	lines := strings.Split(data_str, "\n")
+	potentialGears := GetGears(data_str)
 
 	var result int
 
 	for _, potentialGear := range potentialGears {
-		ranges := GetRanges(data, [][2]int{potentialGear})
-		numberRanges := LocateNumbers(data, ranges)
+		ranges := GetRanges(data_str, [][2]int{potentialGear})
+		numberRanges := LocateNumbers(data_str, ranges)
 
 		// To be a gear, you must have two different numbers around
 		if len(numberRanges) == 2 {

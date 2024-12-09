@@ -1,10 +1,7 @@
 package main
 
 import (
-	"os"
-
 	"github.com/gowikel/adventofcode-golang/internal/conf"
-	"github.com/gowikel/adventofcode-golang/internal/puzzle"
 	"github.com/gowikel/adventofcode-golang/internal/runner"
 	"github.com/gowikel/adventofcode-golang/internal/summary"
 	"github.com/gowikel/adventofcode-golang/internal/utils"
@@ -17,12 +14,6 @@ func main() {
 	var solvers map[int]runner.Solver
 	conf.ParseCLI()
 	opts := conf.Conf()
-
-	data, err := puzzle.Read(opts.Input)
-	if err != nil {
-		pterm.Error.Println(err)
-		os.Exit(1)
-	}
 
 	pterm.DefaultSection.Println("Advent of Code")
 
@@ -43,8 +34,8 @@ func main() {
 	r := runner.New(solvers)
 
 	utils.MeasureExecutionTime(func() {
-		p1, p1err := r.RunPart1(opts.Day, data)
-		p2, p2err := r.RunPart2(opts.Day, data)
+		p1, p1err := r.RunPart1(opts.Day, opts.Input)
+		p2, p2err := r.RunPart2(opts.Day, opts.Input)
 
 		spinner.Stop()
 

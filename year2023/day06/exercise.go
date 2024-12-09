@@ -2,11 +2,18 @@ package day06
 
 import (
 	"fmt"
+	"os"
 )
 
 type Exercise struct{}
 
-func (e Exercise) Part1(data string) (int, error) {
+func (e Exercise) Part1(path string) (int, error) {
+	contents, err := os.ReadFile(path)
+	if err != nil {
+		return 0, fmt.Errorf("Part1: %w", err)
+	}
+	data := string(contents)
+
 	result := 1
 	races, err := Parse(data)
 
@@ -22,7 +29,12 @@ func (e Exercise) Part1(data string) (int, error) {
 	return result, nil
 }
 
-func (e Exercise) Part2(data string) (int, error) {
+func (e Exercise) Part2(path string) (int, error) {
+	contents, err := os.ReadFile(path)
+	if err != nil {
+		return 0, fmt.Errorf("Part2: %w", err)
+	}
+	data := string(contents)
 
 	result := 1
 	race, err := ParsePart2(data)

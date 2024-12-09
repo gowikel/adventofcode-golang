@@ -3,6 +3,7 @@ package day05
 import (
 	"fmt"
 	"math"
+	"os"
 	"slices"
 	"strings"
 
@@ -27,7 +28,13 @@ func ApplyFuncs(
 	return currentValue
 }
 
-func (e Exercise) Part1(data string) (int, error) {
+func (e Exercise) Part1(path string) (int, error) {
+	contents, err := os.ReadFile(path)
+	if err != nil {
+		return 0, fmt.Errorf("Part1: %w", err)
+	}
+	data := string(contents)
+
 	result := math.MaxInt
 
 	seedsPart := strings.Index(data, "\n\n")
@@ -147,7 +154,13 @@ func FindSeedPointsToTest(
 	return result
 }
 
-func (e Exercise) Part2(data string) (int, error) {
+func (e Exercise) Part2(path string) (int, error) {
+	contents, err := os.ReadFile(path)
+	if err != nil {
+		return 0, fmt.Errorf("Part2: %w", err)
+	}
+	data := string(contents)
+
 	result := math.MaxInt
 
 	seedsPart := strings.Index(data, "\n\n")
