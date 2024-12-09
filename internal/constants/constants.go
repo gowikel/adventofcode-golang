@@ -8,6 +8,12 @@ var ERROR_BOX = pterm.NewStyle(
 	pterm.Bold,
 )
 
+var WARNING_BOX = pterm.NewStyle(
+	pterm.BgLightYellow,
+	pterm.FgBlack,
+	pterm.Bold,
+)
+
 var DONE_BOX = pterm.NewStyle(
 	pterm.BgLightGreen,
 	pterm.FgBlack,

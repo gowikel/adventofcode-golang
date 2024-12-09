@@ -24,15 +24,8 @@ type Runner struct {
 	solvers map[int]Solver
 }
 
-// ErrSolverNotImplemented is returned when attempting to run a solution for a day
-// that has not been implemented.
-type ErrSolverNotImplemented struct {
-	day int
-}
-
-func (e ErrSolverNotImplemented) Error() string {
-	return fmt.Sprintf("solver for day %d not implemented", e.day)
-}
+// ErrSolverNotImplemented is returned when the solver code is not added.
+var ErrSolverNotImplemented = errors.New("solver not implemented")
 
 // ErrPartNotImplemented is returned when a specific part (1 or 2) of a day's solution
 // has not been implemented.
@@ -51,7 +44,7 @@ func (r *Runner) RunPart1(day int, data string) (p1 int, err error) {
 	solver, ok := r.solvers[day]
 
 	if !ok {
-		return 0, ErrSolverNotImplemented{day}
+		return 0, fmt.Errorf("day %d: %w", day, ErrSolverNotImplemented)
 	}
 
 	return solver.Part1(data)
@@ -63,7 +56,7 @@ func (r *Runner) RunPart2(day int, data string) (p2 int, err error) {
 	solver, ok := r.solvers[day]
 
 	if !ok {
-		return 0, fmt.Errorf("solver not implemented")
+		return 0, fmt.Errorf("day %d: %w", day, ErrSolverNotImplemented)
 	}
 
 	return solver.Part2(data)

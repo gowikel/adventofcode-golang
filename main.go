@@ -6,6 +6,7 @@ import (
 	"github.com/gowikel/adventofcode-golang/internal/conf"
 	"github.com/gowikel/adventofcode-golang/internal/puzzle"
 	"github.com/gowikel/adventofcode-golang/internal/runner"
+	"github.com/gowikel/adventofcode-golang/internal/summary"
 	"github.com/gowikel/adventofcode-golang/internal/utils"
 	"github.com/gowikel/adventofcode-golang/year2023"
 	"github.com/gowikel/adventofcode-golang/year2024"
@@ -39,17 +40,23 @@ func main() {
 		solvers = year2024.Solvers
 	}
 
-	runner := runner.New(solvers)
+	r := runner.New(solvers)
 
 	utils.MeasureExecutionTime(func() {
-		p1, p1err := runner.RunPart1(opts.Day, data)
-		p2, p2err := runner.RunPart2(opts.Day, data)
+		p1, p1err := r.RunPart1(opts.Day, data)
+		p2, p2err := r.RunPart2(opts.Day, data)
 
 		spinner.Stop()
 
-		utils.PrintStatus(p1err, p2err)
+		summary := summary.BuildSummary(
+			opts.Year,
+			opts.Day,
+			p1,
+			p1err,
+			p2,
+			p2err,
+		)
 
-		table := utils.BuildExecutionTable(p1, p1err, p2, p2err)
-		table.Render()
+		summary.RenderSummary()
 	})()
 }
