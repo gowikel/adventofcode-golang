@@ -1,11 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/gowikel/adventofcode-golang/internal/conf"
-	"github.com/gowikel/adventofcode-golang/internal/constants"
 	"github.com/gowikel/adventofcode-golang/internal/puzzle"
 	"github.com/gowikel/adventofcode-golang/internal/runner"
 	"github.com/gowikel/adventofcode-golang/internal/utils"
@@ -44,29 +42,14 @@ func main() {
 	runner := runner.New(solvers)
 
 	utils.MeasureExecutionTime(func() {
-		p1, p2, err := runner.Run(opts.Day, data)
+		p1, p1err := runner.RunPart1(opts.Day, data)
+		p2, p2err := runner.RunPart2(opts.Day, data)
 
 		spinner.Stop()
 
-		if err != nil {
-			pterm.DefaultBasicText.Printf(
-				"Status: %s\n\n",
-				constants.ERROR_BOX.Sprint("ERROR"),
-			)
-			pterm.DefaultBasicText.Printf("%s\n\n", err.Error())
-			return
-		}
+		utils.PrintStatus(p1err, p2err)
 
-		pterm.DefaultBasicText.Printf(
-			"Status: %s\n\n",
-			constants.DONE_BOX.Sprint("DONE"),
-		)
-
-		pterm.DefaultTable.WithHasHeader().WithData(
-			pterm.TableData{
-				{"P1", "P2"},
-				{fmt.Sprint(p1), fmt.Sprint(p2)},
-			},
-		).Render()
+		table := utils.BuildExecutionTable(p1, p1err, p2, p2err)
+		table.Render()
 	})()
 }

@@ -17,19 +17,22 @@ func New(solvers map[int]Solver) *Runner {
 	}
 }
 
-func (r *Runner) Run(day int, data string) (p1 int, p2 int, err error) {
+func (r *Runner) RunPart1(day int, data string) (p1 int, err error) {
 	solver, ok := r.solvers[day]
 
 	if !ok {
-		err = fmt.Errorf("solver not implemented")
-		return
+		return 0, fmt.Errorf("solver not implemented")
 	}
 
-	p1, err = solver.Part1(data)
-	if err != nil {
-		return
+	return solver.Part1(data)
+}
+
+func (r *Runner) RunPart2(day int, data string) (p2 int, err error) {
+	solver, ok := r.solvers[day]
+
+	if !ok {
+		return 0, fmt.Errorf("solver not implemented")
 	}
 
-	p2, err = solver.Part2(data)
-	return
+	return solver.Part2(data)
 }
