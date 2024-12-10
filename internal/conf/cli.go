@@ -5,6 +5,9 @@ import (
 	"fmt"
 	"os"
 	"time"
+
+	"github.com/gowikel/adventofcode-golang/internal/constants"
+	"github.com/pterm/pterm"
 )
 
 type Configuration struct {
@@ -14,6 +17,8 @@ type Configuration struct {
 }
 
 var conf *Configuration
+
+var errPrinter = pterm.BasicTextPrinter{}.WithWriter(os.Stderr)
 
 // Given a year, y, validates that it is in a valid range
 func validateYear(y int) error {
@@ -88,19 +93,22 @@ func ParseCLI() {
 	if result.Day == 0 && now.Month() == time.December {
 		result.Day = defaultDay
 	} else if result.Day == 0 {
-		fmt.Fprintln(os.Stderr, "Day is required")
+		errPrinter.Print("Status: " + constants.ERROR_BOX.Sprint("ERROR"))
+		errPrinter.Print(" - Day is required")
 		os.Exit(1)
 	}
 
 	err := validateYear(result.Year)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Invalid year: %s\n", err)
+		errPrinter.Print("Status: " + constants.ERROR_BOX.Sprint("ERROR"))
+		errPrinter.Printfln(" - Invalid year: %s", err)
 		os.Exit(1)
 	}
 
 	err = validateDay(result.Day)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Invalid day: %s\n", err)
+		errPrinter.Print("Status: " + constants.ERROR_BOX.Sprint("ERROR"))
+		errPrinter.Printfln(" - Invalid day: %d", result.Day)
 		os.Exit(1)
 	}
 
