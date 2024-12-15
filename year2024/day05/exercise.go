@@ -19,7 +19,7 @@ func (e Exercise) Part1(path string) (int, error) {
 outer:
 	for _, pages := range pageData.Pages {
 		// First, we check the first page
-		writtenPages := mapset.NewSet([]int{}...)
+		writtenPages := mapset.NewSetWithSize[int](len(pages))
 
 		for _, page := range pages {
 			beforeRules := pageData.BeforeRules[page]
@@ -51,7 +51,7 @@ func (e Exercise) Part2(path string) (int, error) {
 	// Extract wrong page lists
 outer:
 	for idx, pages := range pageData.Pages {
-		writtenPages := mapset.NewSet([]int{}...)
+		writtenPages := mapset.NewSetWithSize[int](len(pages))
 
 		for _, page := range pages {
 			beforeRules := pageData.BeforeRules[page]

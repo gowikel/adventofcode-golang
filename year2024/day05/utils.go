@@ -11,7 +11,7 @@ import (
 // pages and a boolean, that indicates if any movement has happened.
 func sortManualPages(pages []int, rules map[int][]int) ([]int, bool) {
 	sorted := make([]int, 0, len(pages))
-	written := mapset.NewSet([]int{}...)
+	written := mapset.NewSetWithSize[int](len(pages))
 	pageMoved := false
 
 	for _, p := range pages {
