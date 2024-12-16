@@ -72,7 +72,10 @@ outer:
 
 		// Sort the page list, one page at a time.
 		for cont {
-			sortedLst, cont = sortManualPages(sortedLst, pageData.BeforeRules)
+			sortedLst, cont = sortManualPages(
+				sortedLst,
+				pageData.BeforeRules,
+			)
 		}
 
 		// Get the middle page and sum them up
