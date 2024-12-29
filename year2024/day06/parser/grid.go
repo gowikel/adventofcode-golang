@@ -136,26 +136,41 @@ func (g *Grid) nextCellPosition() (int, int) {
 	return nextCellX, nextCellY
 }
 
-// NextCell reveals the next cell that is in front of the guard.
-// It also returns if the guard is active in the grid
-func (g *Grid) NextCell() (FutureCell, bool) {
+type NextCellResult struct {
+	X, Y int
+	Cell Cell
+	IsGuardActive bool
+	IsNextCellInBounds bool
+}
+
+// NextCell reveals the next cell that is in front of the guard
+// with important metadata around it.
+func (g *Grid) NextCell() NextCellResult {
 	if !g.isGuardActive {
-		return FutureCellOutsideGrid, false
+		return NextCellResult{
+			IsGuardActive: false,
+			IsNextCellInBounds: false,
+		}
 	}
 
 	x, y := g.nextCellPosition()
 
 	if x < 0 || y < 0 || x >= g.rows || y >= g.cols {
-		return FutureCellOutsideGrid, true
+		return NextCellResult{
+			IsGuardActive: true,
+			IsNextCellInBounds: false,
+		}
 	}
 
 	cell := g.data[x][y]
 
-	if cell == BlockedCell {
-		return FutureCellBlocked, true
+	return NextCellResult{
+		X:             x,
+		Y:             y,
+		Cell:          cell,
+		IsGuardActive: true,
+		IsNextCellInBounds: true,
 	}
-
-	return FutureCellEmpty, true
 }
 
 // Move moves the guard to the next cell. It returns true if the guard moved

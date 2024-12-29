@@ -2,8 +2,9 @@ package day06
 
 import (
 	"fmt"
-	"github.com/gowikel/adventofcode-golang/year2024/day06/parser"
 	"os"
+
+	"github.com/gowikel/adventofcode-golang/year2024/day06/parser"
 
 	"github.com/gowikel/adventofcode-golang/internal/runner"
 )
@@ -22,13 +23,13 @@ func (e Exercise) Part1(path string) (int, error) {
 		return 0, fmt.Errorf("part1: %w", err)
 	}
 
-	nc, ga := g.NextCell()
-	for ga {
-		if nc == parser.FutureCellBlocked {
+	nc := g.NextCell()
+	for nc.IsGuardActive {
+		if nc.Cell == parser.BlockedCell {
 			g.RotateRight()
 		}
 		g.Move()
-		nc, ga = g.NextCell()
+		nc = g.NextCell()
 	}
 
 	return g.VisitedCells(), nil
