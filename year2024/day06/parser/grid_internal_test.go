@@ -6,145 +6,280 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestGrid_String_Empty(t *testing.T) {
+
+func Test_IsNextCellOutsideGrid(t *testing.T) {
+	tests := []struct {
+		name string
+		guardPosition [2]int
+		direction Direction
+		guardActive bool
+		want bool
+	}{
+		{
+			name: "OutsideGridTest",
+			guardPosition: [2]int{0, 0},
+			direction: DirectionUp,
+			guardActive: true,
+			want: true,
+		},
+		{
+			name: "InsideGridTest",
+			guardPosition: [2]int{0, 0},
+			direction: DirectionRight,
+			guardActive: true,
+			want: false,
+		},
+		{
+			name: "NoGuardTest",
+			guardPosition: [2]int{0, 0},
+			direction: DirectionRight,
+			guardActive: false,
+			want: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			g := newGrid(3, 3)
+			g.guardPosition = tt.guardPosition
+			g.direction = tt.direction
+			g.guardActive = tt.guardActive
+
+			assert.Equal(t, tt.want, g.IsNextCellOutsideGrid())
+		})
+	}
+}
+
+func Test_IsNextCellOutsideGrid_OutsideGridTest(t *testing.T) {
 	g := newGrid(3, 3)
-	expected := "...\n...\n..."
-	got := g.String()
-
-	assert.Equal(t, expected, got)
-}
-
-func TestGrid_NewGrid_Rows(t *testing.T) {
-	g := newGrid(4, 5)
-	expected := 4
-	got := g.Rows()
-
-	assert.Equal(t, expected, got)
-}
-
-func TestGrid_NewGrid_Columns(t *testing.T) {
-	g := newGrid(4, 5)
-	expected := 5
-	got := g.Columns()
-
-	assert.Equal(t, expected, got)
-}
-
-func TestGrid_NewGrid_IsGuardActive_False(t *testing.T) {
-	g := newGrid(3, 3)
-	expected := false
-	got := g.isGuardActive
-
-	assert.Equal(t, expected, got)
-}
-
-func TestGrid_NewGrid_InitialGuardPosition(t *testing.T) {
-	g := newGrid(3, 3)
-	expected := [2]int{-1, -1}
-	got := g.guardPosition
-
-	assert.Equal(t, expected, got)
-}
-
-func TestGrid_GuardPosition_InBounds(t *testing.T) {
-	g := newGrid(3, 3)
-	g.isGuardActive = true
-	g.guardPosition = [2]int{1, 2}
-
-	expectedGuardPosition := GuardPositionInsideGrid
-	expectedCoordinates := [2]int{1, 2}
-	gotGuardPosition, gotCoordinates := g.GuardPosition()
-
-	assert.Equal(t, expectedGuardPosition, gotGuardPosition)
-	assert.Equal(t, expectedCoordinates, gotCoordinates)
-}
-
-func TestGrid_GuardPosition_OutBounds(t *testing.T) {
-	g := newGrid(3, 3)
-	g.isGuardActive = false
-	g.guardPosition = [2]int{2, 1}
-
-	expectedGuardPosition := GuardPositionOutsideGrid
-	expectedCoordinates := [2]int{2, 1}
-	gotGuardPosition, gotCoordinates := g.GuardPosition()
-
-	assert.Equal(t, expectedGuardPosition, gotGuardPosition)
-	assert.Equal(t, expectedCoordinates, gotCoordinates)
-}
-
-func Test_Move_GuardTop(t *testing.T) {
-	// ...
-	// .^.
-	// ...
-	g := newGrid(3, 3)
-	g.isGuardActive = true
-	g.guardPosition = [2]int{1, 1}
-	g.data[1][1] = GuardTop
-
-	r := g.Move()
-
-	assert.Equal(t, [2]int{0, 1}, g.guardPosition)
-	assert.Equal(t, true, g.isGuardActive)
-	assert.Equal(t, GuardTop, g.data[0][1])
-	assert.Equal(t, VisitedCell, g.data[1][1])
-	assert.Equal(t, true, r)
-}
-
-func Test_Move_GuardTop_Blocked(t *testing.T) {
-	// .#.
-	// .^.
-	// ...
-	g := newGrid(3, 3)
-	g.isGuardActive = true
-	g.guardPosition = [2]int{1, 1}
-	g.data[0][1] = BlockedCell
-	g.data[1][1] = GuardTop
-
-	r := g.Move()
-
-	assert.Equal(t, [2]int{1, 1}, g.guardPosition)
-	assert.Equal(t, true, g.isGuardActive)
-	assert.Equal(t, GuardTop, g.data[1][1])
-	assert.Equal(t, false, r)
-}
-
-func Test_Move_GuardTop_OutBounds(t *testing.T) {
-	// .^.
-	// ...
-	// ...
-	g := newGrid(3, 3)
-	g.isGuardActive = true
-	g.guardPosition = [2]int{0, 1}
-	g.data[0][1] = GuardTop
-
-	r := g.Move()
-
-	assert.Equal(t, [2]int{0, 1}, g.guardPosition)
-	assert.Equal(t, false, g.isGuardActive)
-	assert.Equal(t, VisitedCell, g.data[0][1])
-	assert.Equal(t, true, r)
-}
-
-func Test_Move_NoGuard(t *testing.T) {
-	g := newGrid(3, 3)
-	g.isGuardActive = false
 	g.guardPosition = [2]int{0, 0}
+	g.direction = DirectionUp
+	g.guardActive = true
 
-	r := g.Move()
-
-	assert.Equal(t, [2]int{0, 0}, g.guardPosition)
-	assert.Equal(t, false, g.isGuardActive)
-	assert.Equal(t, false, r)
+	assert.True(t, g.IsNextCellOutsideGrid())
 }
 
-func Test_Move_NoGuard_InvalidPosition(t *testing.T) {
+func Test_RemoveGuard(t *testing.T) {
 	g := newGrid(3, 3)
-	g.isGuardActive = false
-	g.guardPosition = [2]int{-1, -1}
+	g.guardPosition = [2]int{0, 0}
+	g.direction = DirectionRight
+	g.guardActive = true
 
-	r := g.Move()
+	g.RemoveGuard()
 
-	assert.Equal(t, [2]int{-1, -1}, g.guardPosition)
-	assert.Equal(t, false, g.isGuardActive)
-	assert.Equal(t, false, r)
+	assert.False(t, g.guardActive)
+}
+
+func Test_IsGuardActive(t *testing.T) {
+	tests := []struct {
+		name string
+		isGuardActive bool
+		want bool
+	}{
+		{
+			name: "Active",
+			isGuardActive: true,
+			want: true,
+		},
+		{
+			name: "Inactive",
+			isGuardActive: false,
+			want: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			g := &Grid{
+				guardActive: tt.isGuardActive,
+			}
+			assert.Equal(t, tt.want, g.IsGuardActive())
+		})
+	}
+}
+
+
+func Test_IsNextCellBlocked(t *testing.T) {
+	tests := []struct {
+		name string
+		guardPosition [2]int
+		direction Direction
+		guardActive bool
+		want bool
+		blockedCells [][]bool
+	}{
+		{
+			name: "BlockedTest",
+			guardPosition: [2]int{0, 0},
+			direction: DirectionRight,
+			guardActive: true,
+			want: true,
+			blockedCells: [][]bool{
+				{false, true, false},
+				{false, false, false},
+				{false, false, false},
+			},
+		},
+		{
+			name: "NotBlockedTest",
+			guardPosition: [2]int{0, 0},
+			direction: DirectionRight,
+			guardActive: true,
+			want: false,
+			blockedCells: [][]bool{
+				{false, false, false},
+				{false, true, false},
+				{false, false, false},
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			g := newGrid(3, 3)
+			g.guardPosition = tt.guardPosition
+			g.direction = tt.direction
+			g.guardActive = tt.guardActive
+			g.blockedCells = tt.blockedCells
+
+			assert.Equal(t, tt.want, g.IsNextCellBlocked())
+		})
+	}
+}
+
+func Test_String(t *testing.T) {
+	tests := []struct {
+		name string
+		rows int
+		cols int
+		guardPosition [2]int
+		direction Direction
+		guardActive bool
+		blockedCells [][]bool
+		data [][]int
+		want string
+	}{
+		{
+			name: "GuardTop",
+			rows: 1,
+			cols: 3,
+			guardPosition: [2]int{0, 0},
+			direction: DirectionUp,
+			guardActive: true,
+			blockedCells: [][]bool{
+				{false, false, false},
+			},
+			data: [][]int{
+				{0, 0, 0},
+			},
+			want: "^..\n",
+		},
+		{
+			name: "GuardRight",
+			rows: 1,
+			cols: 3,
+			guardPosition: [2]int{0, 0},
+			direction: DirectionRight,
+			guardActive: true,
+			blockedCells: [][]bool{
+				{false, false, false},
+			},
+			data: [][]int{
+				{0, 0, 0},
+			},
+			want: ">..\n",
+		},
+		{
+			name: "GuardDown",
+			rows: 1,
+			cols: 3,
+			guardPosition: [2]int{0, 0},
+			direction: DirectionDown,
+			guardActive: true,
+			blockedCells: [][]bool{
+				{false, false, false},
+			},
+			data: [][]int{
+				{0, 0, 0},
+			},
+			want: "v..\n",
+		},
+		{
+			name: "GuardLeft",
+			rows: 1,
+			cols: 3,
+			guardPosition: [2]int{0, 0},
+			direction: DirectionLeft,
+			guardActive: true,
+			blockedCells: [][]bool{
+				{false, false, false},
+			},
+			data: [][]int{
+				{0, 0, 0},
+			},
+			want: "<..\n",
+		},
+		{
+			name: "NoGuard",
+			rows: 1,
+			cols: 3,
+			guardPosition: [2]int{0, 0},
+			direction: DirectionRight,
+			guardActive: false,
+			blockedCells: [][]bool{
+				{false, false, false},
+			},
+			data: [][]int{
+				{0, 0, 0},
+			},
+			want: "...\n",
+		},
+		{
+			name: "BlockedAndVisitedCells",
+			rows: 1,
+			cols: 3,
+			guardPosition: [2]int{0, 0},
+			direction: DirectionRight,
+			guardActive: true,
+			blockedCells: [][]bool{
+				{false, true, false},
+			},
+			data: [][]int{
+				{0, 0, 1},
+			},
+			want: ">#X\n",
+		},
+		{
+			name: "MultipleLines",
+			rows: 3,
+			cols: 3,
+			guardPosition: [2]int{0, 1},
+			direction: DirectionUp,
+			guardActive: true,
+			blockedCells: [][]bool{
+				{false, false, false},
+				{true, false, false},
+				{false, false, true},
+			},
+			data: [][]int{
+				{0, 1, 1},
+				{0, 1, 1},
+				{0, 0, 0},
+			},
+			want: ".^X\n#XX\n..#\n",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			g := newGrid(tt.rows, tt.cols)
+			g.guardPosition = tt.guardPosition
+			g.direction = tt.direction
+			g.guardActive = tt.guardActive
+			g.blockedCells = tt.blockedCells
+			g.data = tt.data
+
+			assert.Equal(t, tt.want, g.String())
+		})
+	}
 }

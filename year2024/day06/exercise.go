@@ -5,8 +5,6 @@ import (
 	"os"
 
 	"github.com/gowikel/adventofcode-golang/year2024/day06/parser"
-
-	"github.com/gowikel/adventofcode-golang/internal/runner"
 )
 
 type Exercise struct{}
@@ -23,18 +21,42 @@ func (e Exercise) Part1(path string) (int, error) {
 		return 0, fmt.Errorf("part1: %w", err)
 	}
 
-	nc := g.NextCell()
-	for nc.IsGuardActive {
-		if nc.Cell == parser.BlockedCell {
-			g.RotateRight()
-		}
-		g.Move()
-		nc = g.NextCell()
-	}
+	iterateGrid(g)
 
-	return g.VisitedCells(), nil
+	return g.CountVisitedCells(), nil
 }
 
 func (e Exercise) Part2(path string) (int, error) {
-	return 0, runner.ErrPartNotImplemented
+	contents, err := os.ReadFile(path)
+	if err != nil {
+		return 0, fmt.Errorf("part2: %w", err)
+	}
+	
+	data := string(contents)
+	g, err := parser.Parse(data)
+	if err != nil {
+		return 0, fmt.Errorf("part2: %w", err)
+	}
+
+	cpy := g.Clone()
+	result := 0
+
+	iterateGrid(g)
+
+	for i := 0; i < g.Rows(); i++ {
+		for j := 0; j < g.Cols(); j++ {
+			if g.IsCellBlocked(i, j) || g.GetVisitsAt(i, j) == 0 {
+				continue
+			}
+
+			gcpy := cpy.Clone()
+			gcpy.SetBlockedCellAt(i, j)
+		
+			if iterateGridWithCycleDetection(gcpy) {
+				result++
+			}
+		}
+	}
+
+	return result, nil
 }

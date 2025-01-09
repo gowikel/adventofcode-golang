@@ -4,242 +4,240 @@ import (
 	"strings"
 )
 
-type GuardPosition int
+type Direction int
 
 const (
-	GuardPositionOutsideGrid GuardPosition = iota
-	GuardPositionInsideGrid
+	DirectionRight Direction = iota
+	DirectionLeft
+	DirectionUp
+	DirectionDown
 )
 
-type Cell rune
-
-const (
-	EmptyCell   Cell = '.'
-	BlockedCell Cell = '#'
-	VisitedCell Cell = 'x'
-	GuardTop    Cell = '^'
-	GuardRight  Cell = '>'
-	GuardBottom Cell = 'v'
-	GuardLeft   Cell = '<'
-)
-
-var registeredCells = map[Cell]struct{}{
-	EmptyCell:   {},
-	BlockedCell: {},
-	VisitedCell: {},
-	GuardTop:    {},
-	GuardRight:  {},
-	GuardBottom: {},
-	GuardLeft:   {},
-}
-
-func (c Cell) String() string {
-	return string(c)
-}
-
-func IsValidCell(c Cell) bool {
-	_, ok := registeredCells[c]
-	return ok
-}
-
-type FutureCell int
-
-const (
-	FutureCellOutsideGrid FutureCell = iota
-	FutureCellEmpty
-	FutureCellBlocked
-)
-
-// Grid Represents a 2D grid, where are the action happens
 type Grid struct {
-	rows          int
-	cols          int
-	data          [][]Cell
-	isGuardActive bool
-	guardPosition [2]int
+	data           [][]int
+	blockedCells   [][]bool
+	guardPosition  [2]int
+	guardActive    bool
+	direction      Direction
+	rows           int
+	cols           int
+	visitedCells   int
 }
 
 func newGrid(rows, cols int) *Grid {
-	data := make([][]Cell, rows)
+	data := make([][]int, rows)
+	blockedCells := make([][]bool, rows)
 
-	for i := range data {
-		data[i] = make([]Cell, cols)
-
-		for j := range data[i] {
-			data[i][j] = EmptyCell
-		}
+	for i := 0; i < rows; i++ {
+		data[i] = make([]int, cols)
+		blockedCells[i] = make([]bool, cols)
 	}
 
 	return &Grid{
-		rows:          rows,
-		cols:          cols,
-		data:          data,
-		guardPosition: [2]int{-1, -1},
+		data:         data,
+		blockedCells: blockedCells,
+		rows:         rows,
+		cols:         cols,
 	}
 }
 
-// String returns a string representation of the grid
+// Checks if the cell that the guard is looking at is still active
+// If the guard is not present, it returns true
+func (g *Grid) IsNextCellOutsideGrid() bool {
+	if !g.guardActive {
+		return true
+	}
+
+	x, y := g.guardPosition[0], g.guardPosition[1]
+
+	switch g.direction {
+	case DirectionRight:
+		return y+1 == g.cols
+	case DirectionLeft:
+		return y-1 == -1
+	case DirectionUp:
+		return x-1 == -1
+	case DirectionDown:
+		return x+1 == g.rows
+	}
+
+	panic("Unknown direction. Unreachable position.")
+}
+
+// Removes the guard from the grid
+func (g *Grid) RemoveGuard() {
+	g.guardActive = false
+}
+
+// Returns if the guard is present or not
+func (g *Grid) IsGuardActive() bool {
+	return g.guardActive
+}
+
+// Returns true if the next cell is blocked
+// If the guard is not present, it returns false
+func (g *Grid) IsNextCellBlocked() bool {
+	if !g.guardActive || g.IsNextCellOutsideGrid() {
+		return false
+	}
+
+	x, y := g.guardPosition[0], g.guardPosition[1]
+
+	switch g.direction {
+	case DirectionRight:
+		return g.blockedCells[x][y+1]
+	case DirectionLeft:
+		return g.blockedCells[x][y-1]
+	case DirectionUp:
+		return g.blockedCells[x-1][y]
+	case DirectionDown:
+		return g.blockedCells[x+1][y]
+	}
+
+	panic("Unknown direction. Unreachable position.")
+}
+
+// Returns a string representation of the grid
 func (g *Grid) String() string {
 	var sb strings.Builder
 
-	for i, row := range g.data {
-		for _, c := range row {
-			sb.WriteRune(rune(c))
+	for i := 0; i < g.rows; i++ {
+		for j := 0; j < g.cols; j++ {
+			if g.guardActive && i == g.guardPosition[0] && j == g.guardPosition[1] {
+				switch g.direction {
+				case DirectionRight:
+					sb.WriteRune('>')
+				case DirectionLeft:
+					sb.WriteRune('<')
+				case DirectionUp:
+					sb.WriteRune('^')
+				case DirectionDown:
+					sb.WriteRune('v')
+				}
+			} else if g.blockedCells[i][j] {
+				sb.WriteRune('#')
+			} else if g.data[i][j] > 0 {
+				sb.WriteRune('X')
+			} else {
+				sb.WriteRune('.')
+			}
 		}
-
-		if i < len(g.data)-1 {
-			sb.WriteRune('\n')
-		}
+		sb.WriteRune('\n')
 	}
 
 	return sb.String()
 }
 
+// Moves the guard to the next cell, if possible
+func (g *Grid) Move() {
+	if g.IsNextCellOutsideGrid() {
+		g.RemoveGuard()
+		return
+	}
+
+	if g.IsNextCellBlocked() {
+		return
+	}
+
+	x, y := g.guardPosition[0], g.guardPosition[1]
+	fx, fy := x, y
+
+	switch g.direction {
+	case DirectionRight:
+		fy++
+		g.guardPosition[1]++
+	case DirectionLeft:
+		fy--
+		g.guardPosition[1]--
+	case DirectionUp:
+		fx--
+		g.guardPosition[0]--
+	case DirectionDown:
+		fx++
+		g.guardPosition[0]++
+	}
+
+	g.data[fx][fy]++
+
+	if g.data[fx][fy] == 1 {
+		g.visitedCells++
+	}
+}
+
+// RotateRight rotates the guard to the right
+func (g *Grid) RotateRight() {
+	switch g.direction {
+	case DirectionRight:
+		g.direction = DirectionDown
+	case DirectionDown:
+		g.direction = DirectionLeft
+	case DirectionLeft:
+		g.direction = DirectionUp
+	case DirectionUp:
+		g.direction = DirectionRight
+	}
+}
+
+// Creates a clone of the grid
+func (g *Grid) Clone() *Grid {
+	data := make([][]int, g.rows)
+	blockedCells := make([][]bool, g.rows)
+
+	for i := 0; i < g.rows; i++ {
+		data[i] = make([]int, g.cols)
+		blockedCells[i] = make([]bool, g.cols)
+		for j := 0; j < g.cols; j++ {
+			data[i][j] = g.data[i][j]
+			blockedCells[i][j] = g.blockedCells[i][j]
+		}
+	}
+
+	return &Grid{
+		data:          data,
+		blockedCells:  blockedCells,
+		guardPosition: g.guardPosition,
+		guardActive:   g.guardActive,
+		direction:     g.direction,
+		rows:          g.rows,
+		cols:          g.cols,
+	}
+}
+
+// SetBlockedCellAt: Blocks the given coordinates
+func (g *Grid) SetBlockedCellAt(x, y int) {
+	g.blockedCells[x][y] = true
+}
+
+// Rows: Returns the number of rows of the grid
 func (g *Grid) Rows() int {
 	return g.rows
 }
 
-func (g *Grid) Columns() int {
+// Cols: Returns the number of columns of the grid
+func (g *Grid) Cols() int {
 	return g.cols
 }
 
-// GuardPosition returns if the guard is inside or outside the grid
-// along with the last known position of the guard.
-// If there is no known guard position, [2]int{-1, -1} should be
-// returned
-func (g *Grid) GuardPosition() (GuardPosition, [2]int) {
-	if g.isGuardActive {
-		return GuardPositionInsideGrid, g.guardPosition
-	}
-
-	return GuardPositionOutsideGrid, g.guardPosition
+// IsCellBlocked: Returns true if the given coordinates are blocked
+func (g *Grid) IsCellBlocked(x, y int) bool {
+	return g.blockedCells[x][y]
 }
 
-// nextCellPosition calculates where the next cell will be
-func (g *Grid) nextCellPosition() (int, int) {
-	x, y := g.guardPosition[0], g.guardPosition[1]
-	guard := g.data[x][y]
-
-	var nextCellX, nextCellY int
-
-	switch guard {
-	case GuardTop:
-		nextCellX, nextCellY = x-1, y
-	case GuardRight:
-		nextCellX, nextCellY = x, y+1
-	case GuardBottom:
-		nextCellX, nextCellY = x+1, y
-	case GuardLeft:
-		nextCellX, nextCellY = x, y-1
-	}
-
-	return nextCellX, nextCellY
+// GetCurrentGuardPosition: Returns the current position of the guard and if it's active
+func (g *Grid) GetCurrentGuardPosition() ([2]int, bool) {
+	return g.guardPosition, g.guardActive
 }
 
-type NextCellResult struct {
-	X, Y int
-	Cell Cell
-	IsGuardActive bool
-	IsNextCellInBounds bool
+// GetGuardDirection: Returns the direction of the guard
+func (g *Grid) GetGuardDirection() Direction {
+	return g.direction
 }
 
-// NextCell reveals the next cell that is in front of the guard
-// with important metadata around it.
-func (g *Grid) NextCell() NextCellResult {
-	if !g.isGuardActive {
-		return NextCellResult{
-			IsGuardActive: false,
-			IsNextCellInBounds: false,
-		}
-	}
-
-	x, y := g.nextCellPosition()
-
-	if x < 0 || y < 0 || x >= g.rows || y >= g.cols {
-		return NextCellResult{
-			IsGuardActive: true,
-			IsNextCellInBounds: false,
-		}
-	}
-
-	cell := g.data[x][y]
-
-	return NextCellResult{
-		X:             x,
-		Y:             y,
-		Cell:          cell,
-		IsGuardActive: true,
-		IsNextCellInBounds: true,
-	}
+// CountVisitedCells: Returns the number of visited cells
+func (g *Grid) CountVisitedCells() int {
+	return g.visitedCells
 }
 
-// Move moves the guard to the next cell. It returns true if the guard moved
-// false otherwise.
-func (g *Grid) Move() bool {
-	if !g.isGuardActive {
-		return false
-	}
-
-	x, y := g.guardPosition[0], g.guardPosition[1]
-	nx, ny := g.nextCellPosition()
-
-	guard := g.data[x][y]
-	g.data[x][y] = VisitedCell
-
-	if nx < 0 || ny < 0 || nx >= g.rows || ny >= g.cols {
-		g.isGuardActive = false
-		return true
-	}
-
-	nc := g.data[nx][ny]
-
-	if nc == BlockedCell {
-		g.data[x][y] = guard
-		return false
-	}
-
-	g.data[nx][ny] = guard
-	g.guardPosition = [2]int{nx, ny}
-
-	return true
-}
-
-// RotateRight rotates the guard if it is active. It does
-// nothing otherwise. It will return true if the guard has
-// been rotated, false otherwise.
-func (g *Grid) RotateRight() bool {
-	if !g.isGuardActive {
-		return false
-	}
-
-	x, y := g.guardPosition[0], g.guardPosition[1]
-	guard := g.data[x][y]
-
-	switch guard {
-	case GuardLeft:
-		g.data[x][y] = GuardTop
-	case GuardTop:
-		g.data[x][y] = GuardRight
-	case GuardRight:
-		g.data[x][y] = GuardBottom
-	case GuardBottom:
-		g.data[x][y] = GuardLeft
-	}
-
-	return true
-}
-
-// VisitedCells returns the number of visited cells
-func (g *Grid) VisitedCells() int {
-	var result int
-
-	for _, row := range g.data {
-		for _, cell := range row {
-			if cell == VisitedCell {
-				result++
-			}
-		}
-	}
-
-	return result
+func (g *Grid) GetVisitsAt(x, y int) int {
+	return g.data[x][y]
 }

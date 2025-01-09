@@ -1,7 +1,6 @@
 package parser
 
 import (
-	"fmt"
 	"strings"
 )
 
@@ -24,16 +23,24 @@ func Parse(data string) (*Grid, error) {
 
 	for i, line := range lines {
 		for j, c := range line {
-			c := Cell(c)
-			if !IsValidCell(c) {
-				return g, fmt.Errorf("invalid cell: %c", c)
-			}
-
-			g.data[i][j] = c
-
-			if c == GuardTop || c == GuardRight || c == GuardBottom || c == GuardLeft {
-				g.isGuardActive = true
+			if c == '#' {
+				g.blockedCells[i][j] = true
+			} else if c == '^' {
 				g.guardPosition = [2]int{i, j}
+				g.direction = DirectionUp
+				g.guardActive = true
+			} else if c == 'v' {
+				g.guardPosition = [2]int{i, j}
+				g.direction = DirectionDown
+				g.guardActive = true
+			} else if c == '>' {
+				g.guardPosition = [2]int{i, j}
+				g.direction = DirectionRight
+				g.guardActive = true
+			} else if c == '<' {
+				g.guardPosition = [2]int{i, j}
+				g.direction = DirectionLeft
+				g.guardActive = true
 			}
 		}
 	}
