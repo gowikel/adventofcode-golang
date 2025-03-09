@@ -1,3 +1,1 @@
 inputs/** filter=git-crypt diff=git-crypt
-config.toml filter=git-crypt diff=git-crypt
-.env filter=git-crypt diff=git-crypt
