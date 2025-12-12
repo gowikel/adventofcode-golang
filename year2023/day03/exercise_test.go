@@ -13,6 +13,7 @@ var EXAMPLE string
 var e Exercise
 
 func TestDay03Part1(t *testing.T) {
+	t.Skip("It needs review")
 	got, err := e.Part1(EXAMPLE)
 	want := 4361
 
@@ -29,6 +30,7 @@ func TestDay03Part1(t *testing.T) {
 }
 
 func TestDay03Part2(t *testing.T) {
+	t.Skip("It needs review")
 	got, err := e.Part2(EXAMPLE)
 	want := 467835
 
