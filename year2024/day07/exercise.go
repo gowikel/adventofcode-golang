@@ -28,11 +28,7 @@ func (e Exercise) Part1(path string) (result int, err error) {
 	}
 
 	for _, eq := range equations {
-		validate, err := search.Part1(eq)
-		if err != nil {
-			return 0, fmt.Errorf("search failed: %w", err)
-		}
-		if validate {
+		if search.Part1(eq) {
 			result += eq.Result
 		}
 	}
@@ -60,11 +56,7 @@ func (e Exercise) Part2(path string) (int, error) {
 	var result int
 
 	for _, eq := range equations {
-		validate, err := search.Part2(eq)
-		if err != nil {
-			return 0, fmt.Errorf("search failed: %w", err)
-		}
-		if validate {
+		if search.Part2(eq) {
 			result += eq.Result
 		}
 	}
