@@ -70,11 +70,9 @@ func searchAlgorithm(eq parser.Equation, generator func([]int, int) []int) bool 
 
 	for _, operand := range eq.Operands[1:] {
 		newValues := generator(buffer, operand)
-
 		newValues = slices.DeleteFunc(newValues, func(value int) bool {
 			return value > eq.Result
 		})
-
 		buffer = newValues
 	}
 
