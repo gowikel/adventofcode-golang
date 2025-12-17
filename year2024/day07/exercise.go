@@ -10,21 +10,12 @@ import (
 
 type Exercise struct{}
 
-func (e Exercise) Part1(path string) (result int, err error) {
-	file, err := os.Open(path)
-	if err != nil {
-		return 0, fmt.Errorf("unable to open file: %w", err)
-	}
-	defer func() {
-		err = file.Close()
-		if err != nil {
-			err = fmt.Errorf("error while closing the file: %w", err)
-		}
-	}()
+func (e Exercise) Part1(path string) (int, error) {
+	var result int
 
-	equations, err := parser.Parse(file)
+	equations, err := parseFile(path)
 	if err != nil {
-		return 0, fmt.Errorf("parse: %w", err)
+		return 0, fmt.Errorf("part1: %w", err)
 	}
 
 	for _, eq := range equations {
@@ -37,9 +28,25 @@ func (e Exercise) Part1(path string) (result int, err error) {
 }
 
 func (e Exercise) Part2(path string) (int, error) {
+	var result int
+
+	equations, err := parseFile(path)
+	if err != nil {
+		return 0, fmt.Errorf("part2: %w", err)
+	}
+
+	for _, eq := range equations {
+		if search.Part2(eq) {
+			result += eq.Result
+		}
+	}
+	return result, nil
+}
+
+func parseFile(path string) (result []parser.Equation, err error) {
 	file, err := os.Open(path)
 	if err != nil {
-		return 0, fmt.Errorf("unable to open file: %w", err)
+		return nil, fmt.Errorf("unable to open file: %w", err)
 	}
 	defer func() {
 		err = file.Close()
@@ -50,15 +57,8 @@ func (e Exercise) Part2(path string) (int, error) {
 
 	equations, err := parser.Parse(file)
 	if err != nil {
-		return 0, fmt.Errorf("parse: %w", err)
+		return nil, fmt.Errorf("parse: %w", err)
 	}
 
-	var result int
-
-	for _, eq := range equations {
-		if search.Part2(eq) {
-			result += eq.Result
-		}
-	}
-	return result, nil
+	return equations, nil
 }
