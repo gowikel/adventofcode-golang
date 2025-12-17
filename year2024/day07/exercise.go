@@ -26,7 +26,7 @@ func (e Exercise) Part1(path string) (result int, err error) {
 	}
 
 	for _, eq := range equations {
-		if search.Search(eq) {
+		if search.SearchPart1(eq) {
 			result += eq.Result
 		}
 	}

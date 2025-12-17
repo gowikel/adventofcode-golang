@@ -6,7 +6,7 @@ import (
 	"github.com/gowikel/adventofcode-golang/year2024/day07/parser"
 )
 
-func Search(eq parser.Equation) bool {
+func SearchPart1(eq parser.Equation) bool {
 	if len(eq.Operands) == 0 && eq.Result != 0 {
 		return false
 	}
