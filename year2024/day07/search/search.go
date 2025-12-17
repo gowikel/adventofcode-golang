@@ -49,20 +49,8 @@ func Part2(eq parser.Equation) bool {
 }
 
 func searchAlgorithm(eq parser.Equation, generator func([]int, int) []int) bool {
-	if len(eq.Operands) == 0 && eq.Result != 0 {
-		return false
-	}
-
-	if len(eq.Operands) == 0 && eq.Result == 0 {
-		return true
-	}
-
-	if eq.Result == 0 && len(eq.Operands) > 1 {
-		return false
-	}
-
-	if eq.Result == 0 && len(eq.Operands) == 1 {
-		return eq.Operands[0] == 0
+	if len(eq.Operands) == 0 {
+		return eq.Result == 0
 	}
 
 	buffer := make([]int, 1)
