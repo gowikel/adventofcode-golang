@@ -6,7 +6,7 @@ import (
 	"github.com/gowikel/adventofcode-golang/year2024/day07/parser"
 )
 
-func SearchPart1(eq parser.Equation) bool {
+func Part1(eq parser.Equation) bool {
 	generator := func(lst []int, value int) []int {
 		newValues := make([]int, 2*len(lst))
 

@@ -13,7 +13,7 @@ func TestSearch__one_operand(t *testing.T) {
 		Result:   12,
 		Operands: []int{12},
 	}
-	result := search.SearchPart1(eq)
+	result := search.Part1(eq)
 	assert.True(t, result)
 }
 
@@ -22,7 +22,7 @@ func TestSearch__one_operand_no_solution(t *testing.T) {
 		Result:   12,
 		Operands: []int{13},
 	}
-	result := search.SearchPart1(eq)
+	result := search.Part1(eq)
 	assert.False(t, result)
 }
 
@@ -31,7 +31,7 @@ func TestSearch__zero_special_case(t *testing.T) {
 		Result:   0,
 		Operands: []int{},
 	}
-	result := search.SearchPart1(eq)
+	result := search.Part1(eq)
 	assert.True(t, result)
 }
 
@@ -40,7 +40,7 @@ func TestSearch__zero_one_operand(t *testing.T) {
 		Result:   0,
 		Operands: []int{0},
 	}
-	result := search.SearchPart1(eq)
+	result := search.Part1(eq)
 	assert.True(t, result)
 }
 
@@ -50,7 +50,7 @@ func TestSearch__n408__simple_multiplication(t *testing.T) {
 		Operands: []int{12, 34},
 	}
 
-	result := search.SearchPart1(eq)
+	result := search.Part1(eq)
 	assert.True(t, result)
 }
 
@@ -60,7 +60,7 @@ func TestSearch__n46__simple_addition(t *testing.T) {
 		Operands: []int{12, 34},
 	}
 
-	result := search.SearchPart1(eq)
+	result := search.Part1(eq)
 	assert.True(t, result)
 }
 
@@ -69,7 +69,7 @@ func TestSearch__n409__no_solution(t *testing.T) {
 		Result:   409,
 		Operands: []int{12, 34},
 	}
-	result := search.SearchPart1(eq)
+	result := search.Part1(eq)
 	assert.False(t, result)
 }
 
@@ -78,7 +78,7 @@ func TestSearch__n2576_addition_first(t *testing.T) {
 		Result:   2576,
 		Operands: []int{12, 34, 56},
 	}
-	result := search.SearchPart1(eq)
+	result := search.Part1(eq)
 	assert.True(t, result)
 }
 
@@ -87,7 +87,7 @@ func TestSearch__n464_multiplication_first(t *testing.T) {
 		Result:   464,
 		Operands: []int{12, 34, 56},
 	}
-	result := search.SearchPart1(eq)
+	result := search.Part1(eq)
 	assert.True(t, result)
 }
 
@@ -96,7 +96,7 @@ func TestSearch__n100_no_solution(t *testing.T) {
 		Result:   100,
 		Operands: []int{12, 34, 56},
 	}
-	result := search.SearchPart1(eq)
+	result := search.Part1(eq)
 	assert.False(t, result)
 }
 
@@ -105,7 +105,7 @@ func TestSearch__n180_valid(t *testing.T) {
 		Result:   180,
 		Operands: []int{12, 34, 56, 78},
 	}
-	result := search.SearchPart1(eq)
+	result := search.Part1(eq)
 	assert.True(t, result)
 }
 
@@ -114,7 +114,7 @@ func TestSearch__n1782144_valid(t *testing.T) {
 		Result:   1_782_144,
 		Operands: []int{12, 34, 56, 78},
 	}
-	result := search.SearchPart1(eq)
+	result := search.Part1(eq)
 	assert.True(t, result)
 }
 
@@ -123,7 +123,7 @@ func TestSearch__n7956_valid(t *testing.T) {
 		Result:   7956,
 		Operands: []int{12, 34, 56, 78},
 	}
-	result := search.SearchPart1(eq)
+	result := search.Part1(eq)
 	assert.True(t, result)
 }
 
@@ -132,7 +132,7 @@ func TestSearch__n2654_valid(t *testing.T) {
 		Result:   2654,
 		Operands: []int{12, 34, 56, 78},
 	}
-	result := search.SearchPart1(eq)
+	result := search.Part1(eq)
 	assert.True(t, result)
 }
 
@@ -141,7 +141,7 @@ func TestSearch__n542_valid(t *testing.T) {
 		Result:   542,
 		Operands: []int{12, 34, 56, 78},
 	}
-	result := search.SearchPart1(eq)
+	result := search.Part1(eq)
 	assert.True(t, result)
 }
 
@@ -150,7 +150,7 @@ func TestSearch__valid(t *testing.T) {
 		Result:   22926,
 		Operands: []int{12, 34, 56, 78},
 	}
-	result := search.SearchPart1(eq)
+	result := search.Part1(eq)
 	assert.True(t, result)
 }
 
@@ -159,7 +159,7 @@ func TestSearch__n185_no_solution(t *testing.T) {
 		Result:   185,
 		Operands: []int{12, 34, 56, 78},
 	}
-	result := search.SearchPart1(eq)
+	result := search.Part1(eq)
 	assert.False(t, result)
 }
 
@@ -168,6 +168,6 @@ func TestSearch__n3267(t *testing.T) {
 		Result:   3267,
 		Operands: []int{81, 40, 27},
 	}
-	result := search.SearchPart1(eq)
+	result := search.Part1(eq)
 	assert.True(t, result)
 }
