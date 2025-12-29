@@ -10,6 +10,7 @@ import (
 	D06 "github.com/gowikel/adventofcode-golang/year2024/day06"
 	D07 "github.com/gowikel/adventofcode-golang/year2024/day07"
 	D08 "github.com/gowikel/adventofcode-golang/year2024/day08"
+	D09 "github.com/gowikel/adventofcode-golang/year2024/day09"
 )
 
 var Solvers = map[int]runner.Solver{
@@ -21,4 +22,5 @@ var Solvers = map[int]runner.Solver{
 	6: D06.Exercise{},
 	7: D07.Exercise{},
 	8: D08.Exercise{},
+	9: D09.Exercise{},
 }
