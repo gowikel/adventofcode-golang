@@ -13,5 +13,5 @@ func parseFilePart1(path string) (result *parser.MemoryMap, err error) {
 	}
 	defer file.Close()
 
-	return parser.Parse(file)
+	return parser.ParsePart1(file)
 }

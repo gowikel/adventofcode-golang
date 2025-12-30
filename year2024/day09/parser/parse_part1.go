@@ -13,7 +13,7 @@ type MemoryMap struct {
 	TotalSize int
 }
 
-func Parse(input io.Reader) (*MemoryMap, error) {
+func ParsePart1(input io.Reader) (*MemoryMap, error) {
 	scanner := bufio.NewScanner(input)
 	scanner.Split(bufio.ScanRunes)
 

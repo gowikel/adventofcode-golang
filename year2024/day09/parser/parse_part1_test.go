@@ -8,17 +8,17 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestParse_EmptyInput(t *testing.T) {
+func TestParsePart1_EmptyInput(t *testing.T) {
 	data := ""
 	input := strings.NewReader(data)
 	expected := &parser.MemoryMap{FileInfo: map[int]int{}, MemoryMap: []int{}}
-	got, err := parser.Parse(input)
+	got, err := parser.ParsePart1(input)
 
 	assert.Nil(t, err)
 	assert.Equal(t, expected, got)
 }
 
-func TestParse_OneElement(t *testing.T) {
+func TestParsePart1_OneElement(t *testing.T) {
 	data := "5"
 	input := strings.NewReader(data)
 	expected := &parser.MemoryMap{
@@ -26,13 +26,13 @@ func TestParse_OneElement(t *testing.T) {
 		MemoryMap: []int{0},
 		TotalSize: 5,
 	}
-	got, err := parser.Parse(input)
+	got, err := parser.ParsePart1(input)
 
 	assert.Nil(t, err)
 	assert.Equal(t, expected, got)
 }
 
-func TestParse_TwoElements(t *testing.T) {
+func TestParsePart1_TwoElements(t *testing.T) {
 	data := "56"
 	input := strings.NewReader(data)
 	expected := &parser.MemoryMap{
@@ -41,12 +41,12 @@ func TestParse_TwoElements(t *testing.T) {
 		TotalSize: 5,
 	}
 
-	got, err := parser.Parse(input)
+	got, err := parser.ParsePart1(input)
 	assert.Nil(t, err)
 	assert.Equal(t, expected, got)
 }
 
-func TestParse_MultipleElements(t *testing.T) {
+func TestParsePart1_MultipleElements(t *testing.T) {
 	data := "567810"
 	input := strings.NewReader(data)
 	expected := &parser.MemoryMap{
@@ -54,16 +54,16 @@ func TestParse_MultipleElements(t *testing.T) {
 		MemoryMap: []int{0, 6, 1, 8, 2, 0},
 		TotalSize: 13,
 	}
-	got, err := parser.Parse(input)
+	got, err := parser.ParsePart1(input)
 
 	assert.Nil(t, err)
 	assert.Equal(t, expected, got)
 }
 
-func TestParse_InvalidInput(t *testing.T) {
+func TestParsePart1_InvalidInput(t *testing.T) {
 	data := "5a"
 	input := strings.NewReader(data)
-	_, err := parser.Parse(input)
+	_, err := parser.ParsePart1(input)
 
 	assert.Error(t, err)
 	assert.EqualError(
