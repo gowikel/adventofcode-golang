@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestEmptyInput(t *testing.T) {
+func TestParsePart1_EmptyInput(t *testing.T) {
 	data := ""
 	input := strings.NewReader(data)
 	expected := &parser.MemoryMap{FileInfo: map[int]int{}, MemoryMap: []int{}}
@@ -18,7 +18,7 @@ func TestEmptyInput(t *testing.T) {
 	assert.Equal(t, expected, got)
 }
 
-func TestOneElement(t *testing.T) {
+func TestParsePart1_OneElement(t *testing.T) {
 	data := "5"
 	input := strings.NewReader(data)
 	expected := &parser.MemoryMap{
@@ -32,7 +32,7 @@ func TestOneElement(t *testing.T) {
 	assert.Equal(t, expected, got)
 }
 
-func TestTwoElements(t *testing.T) {
+func TestParsePart1_TwoElements(t *testing.T) {
 	data := "56"
 	input := strings.NewReader(data)
 	expected := &parser.MemoryMap{
@@ -46,7 +46,7 @@ func TestTwoElements(t *testing.T) {
 	assert.Equal(t, expected, got)
 }
 
-func TestMultipleElements(t *testing.T) {
+func TestParsePart1_MultipleElements(t *testing.T) {
 	data := "567810"
 	input := strings.NewReader(data)
 	expected := &parser.MemoryMap{
@@ -60,7 +60,7 @@ func TestMultipleElements(t *testing.T) {
 	assert.Equal(t, expected, got)
 }
 
-func TestInvalidInput(t *testing.T) {
+func TestParsePart1_InvalidInput(t *testing.T) {
 	data := "5a"
 	input := strings.NewReader(data)
 	_, err := parser.ParsePart1(input)
