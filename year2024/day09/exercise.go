@@ -23,7 +23,8 @@ func (e Exercise) Part1(input string) (int, error) {
 		rightIndex--
 	}
 
-	for range fileInfo[memoryMap[leftIndex]] {
+	firstFileSize := fileInfo[memoryMap[leftIndex]]
+	for range firstFileSize {
 		movedFiles = append(movedFiles, memoryMap[leftIndex])
 	}
 	leftIndex++
