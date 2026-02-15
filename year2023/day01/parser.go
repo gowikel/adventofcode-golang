@@ -59,30 +59,32 @@ func Tokenizer(
 	data []byte,
 	atEOF bool,
 ) (advance int, token []byte, err error) {
-	if atEOF && len(data) == 0 {
+	switch {
+	case atEOF && len(data) == 0:
 		return 0, nil, nil
-	} else if NUMBER.Match(data[:1]) {
+	case NUMBER.Match(data[:1]):
 		return 1, data[:1], nil
-	} else if STARTS_WITH_WORD_NUMBER.Match(data) {
-		if bytes.HasPrefix(data, []byte("one")) {
+	case STARTS_WITH_WORD_NUMBER.Match(data):
+		switch {
+		case bytes.HasPrefix(data, []byte("one")):
 			return 1, []byte("1"), nil
-		} else if bytes.HasPrefix(data, []byte("two")) {
+		case bytes.HasPrefix(data, []byte("two")):
 			return 1, []byte("2"), nil
-		} else if bytes.HasPrefix(data, []byte("three")) {
+		case bytes.HasPrefix(data, []byte("three")):
 			return 1, []byte("3"), nil
-		} else if bytes.HasPrefix(data, []byte("four")) {
+		case bytes.HasPrefix(data, []byte("four")):
 			return 1, []byte("4"), nil
-		} else if bytes.HasPrefix(data, []byte("five")) {
+		case bytes.HasPrefix(data, []byte("five")):
 			return 1, []byte("5"), nil
-		} else if bytes.HasPrefix(data, []byte("six")) {
+		case bytes.HasPrefix(data, []byte("six")):
 			return 1, []byte("6"), nil
-		} else if bytes.HasPrefix(data, []byte("seven")) {
+		case bytes.HasPrefix(data, []byte("seven")):
 			return 1, []byte("7"), nil
-		} else if bytes.HasPrefix(data, []byte("eight")) {
+		case bytes.HasPrefix(data, []byte("eight")):
 			return 1, []byte("8"), nil
-		} else if bytes.HasPrefix(data, []byte("nine")) {
+		case bytes.HasPrefix(data, []byte("nine")):
 			return 1, []byte("9"), nil
-		} else if bytes.HasPrefix(data, []byte("zero")) {
+		case bytes.HasPrefix(data, []byte("zero")):
 			return 1, []byte("0"), nil
 		}
 	}
