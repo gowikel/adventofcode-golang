@@ -19,10 +19,6 @@ the intended solution, plus one flag, --example, to pass the example input.
 aoc solve 2023 5 --example
 ```
 
-## Dependencies
-
-- [pkgsite](https://github.com/golang/pkgsite) to generate the docs
-
 ## Authors
 
 - Pedro Jose Piquero Plaza - pedropiqueroplaza@proton.me
