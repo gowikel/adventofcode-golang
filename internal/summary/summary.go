@@ -10,6 +10,10 @@ import (
 	"go.eryndalor.dev/adventofcode-golang/internal/runner"
 )
 
+func isRealError(err error) bool {
+	return err != nil && !errors.Is(err, runner.ErrPartNotImplemented)
+}
+
 type Summary struct {
 	year  int
 	day   int
@@ -47,22 +51,23 @@ func (s Summary) RenderSummary() {
 }
 
 func (s Summary) renderStatus() {
-	if errors.Is(s.p1Err, runner.ErrSolverNotImplemented) {
+	switch {
+	case errors.Is(s.p1Err, runner.ErrSolverNotImplemented):
 		pterm.DefaultBasicText.Printf(
 			"Status: %s\n\n",
 			constants.ERROR_BOX.Sprint("Solver not implemented"),
 		)
-	} else if (s.p1Err != nil && !errors.Is(s.p1Err, runner.ErrPartNotImplemented)) || (s.p2Err != nil && !errors.Is(s.p2Err, runner.ErrPartNotImplemented)) {
+	case isRealError(s.p1Err) || isRealError(s.p2Err):
 		pterm.DefaultBasicText.Printf(
 			"Status: %s\n\n",
 			constants.ERROR_BOX.Sprint("ERROR"),
 		)
-	} else if s.p1Err != nil || s.p2Err != nil {
+	case s.p1Err != nil || s.p2Err != nil:
 		pterm.DefaultBasicText.Printf(
 			"Status: %s\n\n",
 			constants.WARNING_BOX.Sprint("IN PROGRESS"),
 		)
-	} else {
+	default:
 		pterm.DefaultBasicText.Printf(
 			"Status: %s\n\n",
 			constants.DONE_BOX.Sprint("DONE"),
