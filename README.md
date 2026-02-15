@@ -8,15 +8,10 @@ This repo contains my solutions to the Advent of Code in Go.
 
 Just install go and compile the binary with the normal `go build` or `go run .`.
 
-The binary accepts the following actions:
-
-### Solve
-
-Intended to execute a given solution. It has two arguments, year and day, to locate
-the intended solution, plus one flag, --example, to pass the example input.
+Execution example:
 
 ```bash
-aoc solve 2023 5 --example
+aoc -year 2023 -day 5 inputs/2025/05.txt
 ```
 
 ## Authors
