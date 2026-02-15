@@ -25,7 +25,7 @@ aoc solve 2023 5 --example
 
 ## License
 
-This project is offered to the public domain. In places where a licence is required,
+This project is offered to the public domain. In countries where a licence is required,
 the project is under [The Unlicense](LICENSE.md) - see the file for details
 
 The puzzles and its inputs are property of [AoC](https://adventofcode.com/). Some precautions have been taken
