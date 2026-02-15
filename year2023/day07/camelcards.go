@@ -30,21 +30,6 @@ var validCardSet = map[rune]struct{}{
 	'2': {},
 }
 
-// String representation of a Card
-func (c Card) String() string {
-	return string(c.value)
-}
-
-// GoString implementation
-func (c Card) GoString() string {
-	return fmt.Sprintf("%c(%d)", c.value, c.Strength())
-}
-
-// Strength of the card
-func (c Card) Strength() int {
-	return c.strength
-}
-
 // Card constructor. It validates the rune is valid. If not,
 // it will return an error.
 func NewCard(
@@ -59,6 +44,21 @@ func NewCard(
 		value:    c,
 		strength: strengthDeterminer(c),
 	}, nil
+}
+
+// String representation of a Card
+func (c Card) String() string {
+	return string(c.value)
+}
+
+// GoString implementation
+func (c Card) GoString() string {
+	return fmt.Sprintf("%c(%d)", c.value, c.Strength())
+}
+
+// Strength of the card
+func (c Card) Strength() int {
+	return c.strength
 }
 
 // Represents the Hand type, based on the given cards
@@ -100,10 +100,6 @@ type Hand struct {
 	HandType HandType
 }
 
-func (h Hand) String() string {
-	return fmt.Sprintf("%s - %v", h.HandType, h.cards)
-}
-
 // Hand constructor from a string, like "32T3K"
 // If something goes wrong while parsing the Cards
 // the error is returned
@@ -139,6 +135,10 @@ func NewHand(
 	result.HandType = handTypeDeterminer(result.cards)
 
 	return result, nil
+}
+
+func (h Hand) String() string {
+	return fmt.Sprintf("%s - %v", h.HandType, h.cards)
 }
 
 // Represents a Rank, aka, a hand in the Camel Cards

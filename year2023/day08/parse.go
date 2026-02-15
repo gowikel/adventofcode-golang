@@ -24,6 +24,18 @@ type Node struct {
 	endNode   bool
 }
 
+func NewNode(
+	name string,
+	snd StartNodeDefiner,
+	end EndNodeDefiner,
+) *Node {
+	return &Node{
+		Name:      name,
+		startNode: snd.Determine(name),
+		endNode:   end.Determine(name),
+	}
+}
+
 // Interface to determine if a Node is a start node
 type StartNodeDefiner interface {
 	Determine(string) bool
@@ -44,18 +56,6 @@ func (n Node) IsStartNode() bool {
 
 func (n Node) IsEndNode() bool {
 	return n.endNode
-}
-
-func NewNode(
-	name string,
-	snd StartNodeDefiner,
-	end EndNodeDefiner,
-) *Node {
-	return &Node{
-		Name:      name,
-		startNode: snd.Determine(name),
-		endNode:   end.Determine(name),
-	}
 }
 
 func ParseNodes(
