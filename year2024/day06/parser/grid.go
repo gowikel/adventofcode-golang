@@ -14,14 +14,14 @@ const (
 )
 
 type Grid struct {
-	data           [][]int
-	blockedCells   [][]bool
-	guardPosition  [2]int
-	guardActive    bool
-	direction      Direction
-	rows           int
-	cols           int
-	visitedCells   int
+	data          [][]int
+	blockedCells  [][]bool
+	guardPosition [2]int
+	guardActive   bool
+	direction     Direction
+	rows          int
+	cols          int
+	visitedCells  int
 }
 
 func newGrid(rows, cols int) *Grid {

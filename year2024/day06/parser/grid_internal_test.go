@@ -6,35 +6,34 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-
 func Test_IsNextCellOutsideGrid(t *testing.T) {
 	tests := []struct {
-		name string
+		name          string
 		guardPosition [2]int
-		direction Direction
-		guardActive bool
-		want bool
+		direction     Direction
+		guardActive   bool
+		want          bool
 	}{
 		{
-			name: "OutsideGridTest",
+			name:          "OutsideGridTest",
 			guardPosition: [2]int{0, 0},
-			direction: DirectionUp,
-			guardActive: true,
-			want: true,
+			direction:     DirectionUp,
+			guardActive:   true,
+			want:          true,
 		},
 		{
-			name: "InsideGridTest",
+			name:          "InsideGridTest",
 			guardPosition: [2]int{0, 0},
-			direction: DirectionRight,
-			guardActive: true,
-			want: false,
+			direction:     DirectionRight,
+			guardActive:   true,
+			want:          false,
 		},
 		{
-			name: "NoGuardTest",
+			name:          "NoGuardTest",
 			guardPosition: [2]int{0, 0},
-			direction: DirectionRight,
-			guardActive: false,
-			want: true,
+			direction:     DirectionRight,
+			guardActive:   false,
+			want:          true,
 		},
 	}
 
@@ -72,19 +71,19 @@ func Test_RemoveGuard(t *testing.T) {
 
 func Test_IsGuardActive(t *testing.T) {
 	tests := []struct {
-		name string
+		name          string
 		isGuardActive bool
-		want bool
+		want          bool
 	}{
 		{
-			name: "Active",
+			name:          "Active",
 			isGuardActive: true,
-			want: true,
+			want:          true,
 		},
 		{
-			name: "Inactive",
+			name:          "Inactive",
 			isGuardActive: false,
-			want: false,
+			want:          false,
 		},
 	}
 
@@ -98,22 +97,21 @@ func Test_IsGuardActive(t *testing.T) {
 	}
 }
 
-
 func Test_IsNextCellBlocked(t *testing.T) {
 	tests := []struct {
-		name string
+		name          string
 		guardPosition [2]int
-		direction Direction
-		guardActive bool
-		want bool
-		blockedCells [][]bool
+		direction     Direction
+		guardActive   bool
+		want          bool
+		blockedCells  [][]bool
 	}{
 		{
-			name: "BlockedTest",
+			name:          "BlockedTest",
 			guardPosition: [2]int{0, 0},
-			direction: DirectionRight,
-			guardActive: true,
-			want: true,
+			direction:     DirectionRight,
+			guardActive:   true,
+			want:          true,
 			blockedCells: [][]bool{
 				{false, true, false},
 				{false, false, false},
@@ -121,11 +119,11 @@ func Test_IsNextCellBlocked(t *testing.T) {
 			},
 		},
 		{
-			name: "NotBlockedTest",
+			name:          "NotBlockedTest",
 			guardPosition: [2]int{0, 0},
-			direction: DirectionRight,
-			guardActive: true,
-			want: false,
+			direction:     DirectionRight,
+			guardActive:   true,
+			want:          false,
 			blockedCells: [][]bool{
 				{false, false, false},
 				{false, true, false},
@@ -149,23 +147,23 @@ func Test_IsNextCellBlocked(t *testing.T) {
 
 func Test_String(t *testing.T) {
 	tests := []struct {
-		name string
-		rows int
-		cols int
+		name          string
+		rows          int
+		cols          int
 		guardPosition [2]int
-		direction Direction
-		guardActive bool
-		blockedCells [][]bool
-		data [][]int
-		want string
+		direction     Direction
+		guardActive   bool
+		blockedCells  [][]bool
+		data          [][]int
+		want          string
 	}{
 		{
-			name: "GuardTop",
-			rows: 1,
-			cols: 3,
+			name:          "GuardTop",
+			rows:          1,
+			cols:          3,
 			guardPosition: [2]int{0, 0},
-			direction: DirectionUp,
-			guardActive: true,
+			direction:     DirectionUp,
+			guardActive:   true,
 			blockedCells: [][]bool{
 				{false, false, false},
 			},
@@ -175,12 +173,12 @@ func Test_String(t *testing.T) {
 			want: "^..\n",
 		},
 		{
-			name: "GuardRight",
-			rows: 1,
-			cols: 3,
+			name:          "GuardRight",
+			rows:          1,
+			cols:          3,
 			guardPosition: [2]int{0, 0},
-			direction: DirectionRight,
-			guardActive: true,
+			direction:     DirectionRight,
+			guardActive:   true,
 			blockedCells: [][]bool{
 				{false, false, false},
 			},
@@ -190,12 +188,12 @@ func Test_String(t *testing.T) {
 			want: ">..\n",
 		},
 		{
-			name: "GuardDown",
-			rows: 1,
-			cols: 3,
+			name:          "GuardDown",
+			rows:          1,
+			cols:          3,
 			guardPosition: [2]int{0, 0},
-			direction: DirectionDown,
-			guardActive: true,
+			direction:     DirectionDown,
+			guardActive:   true,
 			blockedCells: [][]bool{
 				{false, false, false},
 			},
@@ -205,12 +203,12 @@ func Test_String(t *testing.T) {
 			want: "v..\n",
 		},
 		{
-			name: "GuardLeft",
-			rows: 1,
-			cols: 3,
+			name:          "GuardLeft",
+			rows:          1,
+			cols:          3,
 			guardPosition: [2]int{0, 0},
-			direction: DirectionLeft,
-			guardActive: true,
+			direction:     DirectionLeft,
+			guardActive:   true,
 			blockedCells: [][]bool{
 				{false, false, false},
 			},
@@ -220,12 +218,12 @@ func Test_String(t *testing.T) {
 			want: "<..\n",
 		},
 		{
-			name: "NoGuard",
-			rows: 1,
-			cols: 3,
+			name:          "NoGuard",
+			rows:          1,
+			cols:          3,
 			guardPosition: [2]int{0, 0},
-			direction: DirectionRight,
-			guardActive: false,
+			direction:     DirectionRight,
+			guardActive:   false,
 			blockedCells: [][]bool{
 				{false, false, false},
 			},
@@ -235,12 +233,12 @@ func Test_String(t *testing.T) {
 			want: "...\n",
 		},
 		{
-			name: "BlockedAndVisitedCells",
-			rows: 1,
-			cols: 3,
+			name:          "BlockedAndVisitedCells",
+			rows:          1,
+			cols:          3,
 			guardPosition: [2]int{0, 0},
-			direction: DirectionRight,
-			guardActive: true,
+			direction:     DirectionRight,
+			guardActive:   true,
 			blockedCells: [][]bool{
 				{false, true, false},
 			},
@@ -250,12 +248,12 @@ func Test_String(t *testing.T) {
 			want: ">#X\n",
 		},
 		{
-			name: "MultipleLines",
-			rows: 3,
-			cols: 3,
+			name:          "MultipleLines",
+			rows:          3,
+			cols:          3,
 			guardPosition: [2]int{0, 1},
-			direction: DirectionUp,
-			guardActive: true,
+			direction:     DirectionUp,
+			guardActive:   true,
 			blockedCells: [][]bool{
 				{false, false, false},
 				{true, false, false},
