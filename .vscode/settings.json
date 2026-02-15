@@ -1,6 +1,0 @@
-{
-  "go.formatTool": "custom",
-  "go.alternateTools": {
-    "customFormatter": "golines"
-  }
-}
