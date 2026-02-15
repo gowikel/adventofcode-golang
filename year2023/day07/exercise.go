@@ -138,15 +138,16 @@ func BasicHandDeterminer(cards [5]Card) HandType {
 	slices.Sort[[]int](groups)
 	slices.Reverse[[]int](groups)
 
-	if groups[0] == 4 {
+	switch {
+	case groups[0] == 4:
 		return FourOfKind
-	} else if groups[0] == 3 && groups[1] == 2 {
+	case groups[0] == 3 && groups[1] == 2:
 		return FullHouse
-	} else if groups[0] == 3 {
+	case groups[0] == 3:
 		return ThreeOfKind
-	} else if groups[0] == 2 && groups[1] == 2 {
+	case groups[0] == 2 && groups[1] == 2:
 		return TwoPair
-	} else if groups[0] == 2 {
+	case groups[0] == 2:
 		return OnePair
 	}
 
