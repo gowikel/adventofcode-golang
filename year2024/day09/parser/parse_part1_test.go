@@ -4,8 +4,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gowikel/adventofcode-golang/year2024/day09/parser"
 	"github.com/stretchr/testify/assert"
+	"go.eryndalor.dev/adventofcode-golang/year2024/day09/parser"
 )
 
 func TestParsePart1_EmptyInput(t *testing.T) {

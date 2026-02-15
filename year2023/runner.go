@@ -1,17 +1,17 @@
 package year2023
 
 import (
-	"github.com/gowikel/adventofcode-golang/internal/runner"
+	"go.eryndalor.dev/adventofcode-golang/internal/runner"
 
-	D01 "github.com/gowikel/adventofcode-golang/year2023/day01"
-	D02 "github.com/gowikel/adventofcode-golang/year2023/day02"
-	D03 "github.com/gowikel/adventofcode-golang/year2023/day03"
-	D04 "github.com/gowikel/adventofcode-golang/year2023/day04"
-	D05 "github.com/gowikel/adventofcode-golang/year2023/day05"
-	D06 "github.com/gowikel/adventofcode-golang/year2023/day06"
-	D07 "github.com/gowikel/adventofcode-golang/year2023/day07"
-	D08 "github.com/gowikel/adventofcode-golang/year2023/day08"
-	D09 "github.com/gowikel/adventofcode-golang/year2023/day09"
+	D01 "go.eryndalor.dev/adventofcode-golang/year2023/day01"
+	D02 "go.eryndalor.dev/adventofcode-golang/year2023/day02"
+	D03 "go.eryndalor.dev/adventofcode-golang/year2023/day03"
+	D04 "go.eryndalor.dev/adventofcode-golang/year2023/day04"
+	D05 "go.eryndalor.dev/adventofcode-golang/year2023/day05"
+	D06 "go.eryndalor.dev/adventofcode-golang/year2023/day06"
+	D07 "go.eryndalor.dev/adventofcode-golang/year2023/day07"
+	D08 "go.eryndalor.dev/adventofcode-golang/year2023/day08"
+	D09 "go.eryndalor.dev/adventofcode-golang/year2023/day09"
 )
 
 var Solvers = map[int]runner.Solver{

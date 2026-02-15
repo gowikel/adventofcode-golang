@@ -7,7 +7,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/gowikel/adventofcode-golang/internal/utils"
+	"go.eryndalor.dev/adventofcode-golang/internal/utils"
 )
 
 type Exercise struct{}

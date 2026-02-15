@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/gowikel/adventofcode-golang/year2024/day08/parser"
+	"go.eryndalor.dev/adventofcode-golang/year2024/day08/parser"
 )
 
 func parseFile(path string) (result parser.GameInformation, err error) {

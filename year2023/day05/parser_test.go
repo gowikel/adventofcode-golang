@@ -4,8 +4,8 @@ import (
 	"strconv"
 	"testing"
 
-	. "github.com/gowikel/adventofcode-golang/year2023/day05"
 	"github.com/stretchr/testify/assert"
+	. "go.eryndalor.dev/adventofcode-golang/year2023/day05"
 )
 
 func TestParseSeedsLine_WithEmptyString(t *testing.T) {

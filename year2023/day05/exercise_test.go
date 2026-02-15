@@ -4,8 +4,8 @@ import (
 	_ "embed"
 	"testing"
 
-	. "github.com/gowikel/adventofcode-golang/year2023/day05"
 	"github.com/stretchr/testify/assert"
+	. "go.eryndalor.dev/adventofcode-golang/year2023/day05"
 )
 
 //go:embed testdata/seeds.txt

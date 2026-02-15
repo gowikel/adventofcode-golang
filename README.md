@@ -1,4 +1,4 @@
-[![Go Reference](https://pkg.go.dev/badge/github.com/gowikel/adventofcode-golang.svg)](https://pkg.go.dev/github.com/gowikel/adventofcode-golang) [![Go Report Card](https://goreportcard.com/badge/github.com/gowikel/adventofcode-golang)](https://goreportcard.com/report/github.com/gowikel/adventofcode-golang)
+[![Go Reference](https://pkg.go.dev/badge/go.eryndalor.dev/adventofcode-golang.svg)](https://pkg.go.dev/go.eryndalor.dev/adventofcode-golang) [![Go Report Card](https://goreportcard.com/badge/go.eryndalor.dev/adventofcode-golang)](https://goreportcard.com/report/go.eryndalor.dev/adventofcode-golang)
 
 # Advent of Code
 
@@ -33,7 +33,7 @@ task test-all -- # Other params to go test
 **Test only one module**
 
 ```bash
-task test -- github.com/gowikel/adventofcode-golang/year2023/day01
+task test -- go.eryndalor.dev/adventofcode-golang/year2023/day01
 
 # This will also work
 task test -- ./year2023/day01

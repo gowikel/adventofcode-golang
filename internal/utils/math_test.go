@@ -3,8 +3,8 @@ package utils_test
 import (
 	"testing"
 
-	"github.com/gowikel/adventofcode-golang/internal/utils"
 	"github.com/stretchr/testify/assert"
+	"go.eryndalor.dev/adventofcode-golang/internal/utils"
 )
 
 func TestAbs_Zero_Int(t *testing.T) {

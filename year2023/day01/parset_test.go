@@ -3,8 +3,8 @@ package day01_test
 import (
 	"testing"
 
-	. "github.com/gowikel/adventofcode-golang/year2023/day01"
 	"github.com/stretchr/testify/assert"
+	. "go.eryndalor.dev/adventofcode-golang/year2023/day01"
 )
 
 func TestParseInput_ShouldParseSingleNumberStringCorrectly(

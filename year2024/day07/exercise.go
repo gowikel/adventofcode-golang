@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/gowikel/adventofcode-golang/year2024/day07/parser"
-	"github.com/gowikel/adventofcode-golang/year2024/day07/search"
+	"go.eryndalor.dev/adventofcode-golang/year2024/day07/parser"
+	"go.eryndalor.dev/adventofcode-golang/year2024/day07/search"
 )
 
 type Exercise struct{}

@@ -1,7 +1,7 @@
 package day09
 
 import (
-	"github.com/gowikel/adventofcode-golang/internal/runner"
+	"go.eryndalor.dev/adventofcode-golang/internal/runner"
 )
 
 type Exercise struct{}

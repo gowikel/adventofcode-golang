@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/gowikel/adventofcode-golang/year2024/day06/parser"
+	"go.eryndalor.dev/adventofcode-golang/year2024/day06/parser"
 )
 
 type Exercise struct{}
@@ -31,7 +31,7 @@ func (e Exercise) Part2(path string) (int, error) {
 	if err != nil {
 		return 0, fmt.Errorf("part2: %w", err)
 	}
-	
+
 	data := string(contents)
 	g, err := parser.Parse(data)
 	if err != nil {
@@ -51,7 +51,7 @@ func (e Exercise) Part2(path string) (int, error) {
 
 			gcpy := cpy.Clone()
 			gcpy.SetBlockedCellAt(i, j)
-		
+
 			if iterateGridWithCycleDetection(gcpy) {
 				result++
 			}

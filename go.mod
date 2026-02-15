@@ -1,4 +1,4 @@
-module github.com/gowikel/adventofcode-golang
+module go.eryndalor.dev/adventofcode-golang
 
 go 1.24.1
 

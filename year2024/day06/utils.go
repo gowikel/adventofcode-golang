@@ -1,6 +1,6 @@
 package day06
 
-import "github.com/gowikel/adventofcode-golang/year2024/day06/parser"
+import "go.eryndalor.dev/adventofcode-golang/year2024/day06/parser"
 
 var blockers [][]int = [][]int{
 	{6, 3},
@@ -38,10 +38,10 @@ func iterateGridWithCycleDetection(grid *parser.Grid) bool {
 	cols := grid.Cols()
 
 	const (
-		TOP = 0
-		RIGHT = 1
+		TOP    = 0
+		RIGHT  = 1
 		BOTTOM = 2
-		LEFT = 3
+		LEFT   = 3
 	)
 
 	directionMap := initDirectionMap(rows, cols)
@@ -63,18 +63,18 @@ func iterateGridWithCycleDetection(grid *parser.Grid) bool {
 		var cellEntrance int
 
 		switch guardDirection {
-			// Entrance from the left
-			case parser.DirectionRight:
-				cellEntrance = LEFT
-			// Entrance from the right
-			case parser.DirectionLeft:
-				cellEntrance = RIGHT
-			// Entrance from the top
-			case parser.DirectionDown:
-				cellEntrance = TOP
-			// Entrance from the bottom
-			case parser.DirectionUp:
-				cellEntrance = BOTTOM
+		// Entrance from the left
+		case parser.DirectionRight:
+			cellEntrance = LEFT
+		// Entrance from the right
+		case parser.DirectionLeft:
+			cellEntrance = RIGHT
+		// Entrance from the top
+		case parser.DirectionDown:
+			cellEntrance = TOP
+		// Entrance from the bottom
+		case parser.DirectionUp:
+			cellEntrance = BOTTOM
 		}
 
 		if directionMap[x][y][cellEntrance] {

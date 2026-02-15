@@ -3,9 +3,9 @@ package search_test
 import (
 	"testing"
 
-	"github.com/gowikel/adventofcode-golang/year2024/day07/parser"
-	"github.com/gowikel/adventofcode-golang/year2024/day07/search"
 	"github.com/stretchr/testify/assert"
+	"go.eryndalor.dev/adventofcode-golang/year2024/day07/parser"
+	"go.eryndalor.dev/adventofcode-golang/year2024/day07/search"
 )
 
 func TestSearch__one_operand(t *testing.T) {

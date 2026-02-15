@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/gowikel/adventofcode-golang/year2023/day05/intmapper"
+	"go.eryndalor.dev/adventofcode-golang/year2023/day05/intmapper"
 )
 
 // ErrParse is returned when an error has happened during parsing

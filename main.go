@@ -1,13 +1,13 @@
 package main
 
 import (
-	"github.com/gowikel/adventofcode-golang/internal/conf"
-	"github.com/gowikel/adventofcode-golang/internal/runner"
-	"github.com/gowikel/adventofcode-golang/internal/summary"
-	"github.com/gowikel/adventofcode-golang/internal/utils"
-	"github.com/gowikel/adventofcode-golang/year2023"
-	"github.com/gowikel/adventofcode-golang/year2024"
 	"github.com/pterm/pterm"
+	"go.eryndalor.dev/adventofcode-golang/internal/conf"
+	"go.eryndalor.dev/adventofcode-golang/internal/runner"
+	"go.eryndalor.dev/adventofcode-golang/internal/summary"
+	"go.eryndalor.dev/adventofcode-golang/internal/utils"
+	"go.eryndalor.dev/adventofcode-golang/year2023"
+	"go.eryndalor.dev/adventofcode-golang/year2024"
 )
 
 func main() {

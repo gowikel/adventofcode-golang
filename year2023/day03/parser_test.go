@@ -3,8 +3,8 @@ package day03_test
 import (
 	"testing"
 
-	. "github.com/gowikel/adventofcode-golang/year2023/day03"
 	"github.com/stretchr/testify/assert"
+	. "go.eryndalor.dev/adventofcode-golang/year2023/day03"
 )
 
 type GetPointsTestCase struct {

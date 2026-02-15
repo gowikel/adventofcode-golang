@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/gowikel/adventofcode-golang/internal/constants"
-	"github.com/gowikel/adventofcode-golang/internal/runner"
 	"github.com/pterm/pterm"
+	"go.eryndalor.dev/adventofcode-golang/internal/constants"
+	"go.eryndalor.dev/adventofcode-golang/internal/runner"
 )
 
 type Summary struct {

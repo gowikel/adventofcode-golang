@@ -3,8 +3,8 @@ package day02_test
 import (
 	"testing"
 
-	. "github.com/gowikel/adventofcode-golang/year2023/day02"
 	"github.com/stretchr/testify/assert"
+	. "go.eryndalor.dev/adventofcode-golang/year2023/day02"
 )
 
 func TestPowerCubes(t *testing.T) {

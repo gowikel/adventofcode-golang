@@ -4,8 +4,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gowikel/adventofcode-golang/year2024/day07/parser"
 	"github.com/stretchr/testify/assert"
+	"go.eryndalor.dev/adventofcode-golang/year2024/day07/parser"
 )
 
 func TestParse__EmptyFile(t *testing.T) {

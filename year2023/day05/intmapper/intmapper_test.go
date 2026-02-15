@@ -3,8 +3,8 @@ package intmapper_test
 import (
 	"testing"
 
-	. "github.com/gowikel/adventofcode-golang/year2023/day05/intmapper"
 	"github.com/stretchr/testify/assert"
+	. "go.eryndalor.dev/adventofcode-golang/year2023/day05/intmapper"
 )
 
 func TestIsMapped_NoMappings(t *testing.T) {

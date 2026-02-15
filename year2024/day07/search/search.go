@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/gowikel/adventofcode-golang/year2024/day07/parser"
+	"go.eryndalor.dev/adventofcode-golang/year2024/day07/parser"
 )
 
 func Part1(eq parser.Equation) bool {

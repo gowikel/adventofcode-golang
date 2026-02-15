@@ -6,8 +6,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/gowikel/adventofcode-golang/internal/constants"
 	"github.com/pterm/pterm"
+	"go.eryndalor.dev/adventofcode-golang/internal/constants"
 )
 
 type Configuration struct {
