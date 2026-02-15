@@ -25,6 +25,9 @@ aoc solve 2023 5 --example
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE.md) - see the file for details
+This project is offered to the public domain. In places where a licence is required,
+the project is under [The Unlicense](LICENSE.md) - see the file for details
 
-The puzzles and its inputs are property of [AoC](https://adventofcode.com/)
+The puzzles and its inputs are property of [AoC](https://adventofcode.com/). Some precautions have been taken
+to ensure that the inputs remain private.
+If you need to access the inputs, please, visit the [AoC website](https://adventofcode.com/).
