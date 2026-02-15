@@ -2,7 +2,7 @@
 
 # Advent of Code
 
-This repo contains my solutions to the Advent of Code for 2023 in Golang.
+This repo contains my solutions to the Advent of Code in Go.
 
 ## Setup
 
