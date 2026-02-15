@@ -37,9 +37,9 @@ func main() {
 		p1, p1err := r.RunPart1(opts.Day, opts.Input)
 		p2, p2err := r.RunPart2(opts.Day, opts.Input)
 
-		spinner.Stop()
+		_ = spinner.Stop()
 
-		summary := summary.BuildSummary(
+		s := summary.BuildSummary(
 			opts.Year,
 			opts.Day,
 			p1,
@@ -48,6 +48,6 @@ func main() {
 			p2err,
 		)
 
-		summary.RenderSummary()
+		s.RenderSummary()
 	})()
 }

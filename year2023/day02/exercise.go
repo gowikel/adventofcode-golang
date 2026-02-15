@@ -19,7 +19,7 @@ func (e Exercise) Part1(path string) (int, error) {
 	if err != nil {
 		return result, fmt.Errorf("Part1: %w", err)
 	}
-	defer file.Close()
+	defer file.Close() //nolint:errcheck
 
 	scanner := bufio.NewScanner(file)
 	scanner.Split(bufio.ScanLines)
@@ -53,7 +53,7 @@ func (e Exercise) Part2(path string) (int, error) {
 	if err != nil {
 		return result, fmt.Errorf("Part2: %w", err)
 	}
-	defer file.Close()
+	defer file.Close() //nolint:errcheck
 
 	scanner := bufio.NewScanner(file)
 	scanner.Split(bufio.ScanLines)

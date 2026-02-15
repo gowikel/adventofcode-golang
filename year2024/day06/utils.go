@@ -2,15 +2,6 @@ package day06
 
 import "go.eryndalor.dev/adventofcode-golang/year2024/day06/parser"
 
-var blockers [][]int = [][]int{
-	{6, 3},
-	{7, 6},
-	{7, 7},
-	{8, 1},
-	{8, 3},
-	{9, 7},
-}
-
 // Just move the grid until the guard is not active
 func iterateGrid(grid *parser.Grid) {
 	for grid.IsGuardActive() {

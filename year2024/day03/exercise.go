@@ -45,9 +45,10 @@ func (e Exercise) Part2(path string) (int, error) {
 	result := 0
 
 	for _, match := range matches {
-		if match[0] == "do()" {
+		switch match[0] {
+		case "do()":
 			active = true
-		} else if match[0] == "don't()" {
+		case "don't()":
 			active = false
 		}
 

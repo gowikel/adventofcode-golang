@@ -23,24 +23,23 @@ func Parse(data string) (*Grid, error) {
 
 	for i, line := range lines {
 		for j, c := range line {
-			if c == '#' {
+			switch c {
+			case '#':
 				g.blockedCells[i][j] = true
-			} else if c == '^' {
+			case '^', 'v', '>', '<':
 				g.guardPosition = [2]int{i, j}
+				g.guardActive = true
+			}
+
+			switch c {
+			case '^':
 				g.direction = DirectionUp
-				g.guardActive = true
-			} else if c == 'v' {
-				g.guardPosition = [2]int{i, j}
+			case 'v':
 				g.direction = DirectionDown
-				g.guardActive = true
-			} else if c == '>' {
-				g.guardPosition = [2]int{i, j}
+			case '>':
 				g.direction = DirectionRight
-				g.guardActive = true
-			} else if c == '<' {
-				g.guardPosition = [2]int{i, j}
+			case '<':
 				g.direction = DirectionLeft
-				g.guardActive = true
 			}
 		}
 	}

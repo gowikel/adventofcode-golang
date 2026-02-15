@@ -12,7 +12,7 @@ func Parse(data string) ([][]int, error) {
 	var result [][]int
 
 	lineBreaks := strings.Count(data, "\n")
-	slices.Grow[[][]int](result, lineBreaks)
+	result = slices.Grow[[][]int](result, lineBreaks)
 
 	scanner := bufio.NewScanner(strings.NewReader(data))
 	scanner.Split(bufio.ScanLines)

@@ -16,11 +16,7 @@ func AreLevelsSafe(levels []int) bool {
 		return false
 	}
 
-	increasing := true
-	if b < a {
-		increasing = false
-	}
-
+	increasing := b >= a
 	last := b
 
 	for _, c := range levels[2:] {

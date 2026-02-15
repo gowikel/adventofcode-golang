@@ -125,11 +125,12 @@ func ParseDirectionsLine(line string) ([]Direction, error) {
 	var result = make([]Direction, 0, len(line))
 
 	for _, d := range line {
-		if d == 'R' {
+		switch d {
+		case 'R':
 			result = append(result, Right)
-		} else if d == 'L' {
+		case 'L':
 			result = append(result, Left)
-		} else {
+		default:
 			return result, fmt.Errorf("invalid direction found: %q", d)
 		}
 	}

@@ -8,13 +8,8 @@ import (
 	. "go.eryndalor.dev/adventofcode-golang/year2023/day05"
 )
 
-//go:embed testdata/seeds.txt
-var seedsData string
-
 //go:embed testdata/almanac.txt
 var almanacData string
-
-var seedRanges, _ = ParseSeedLineAsRanges(seedsData)
 
 // 0 =>  0   10 => 10   20 => 15   30 => 30   40 => 44
 // 1 => 61   11 => 11   21 => 16   31 => 31   41 => 45

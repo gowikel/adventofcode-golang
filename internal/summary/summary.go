@@ -87,12 +87,15 @@ func (s Summary) renderExecutionTable() {
 	}
 
 	if !errors.Is(s.p1Err, runner.ErrSolverNotImplemented) {
-		pterm.DefaultTable.WithHasHeader().WithData(
+		err := pterm.DefaultTable.WithHasHeader().WithData(
 			pterm.TableData{
 				{"P1", "P2"},
 				{p1Value, p2Value},
 			},
 		).Render()
+		if err != nil {
+			fmt.Printf("P1: %s\nP2: %s\n\n", p1Value, p2Value)
+		}
 	}
 }
 

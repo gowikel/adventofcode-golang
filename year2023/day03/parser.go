@@ -91,7 +91,7 @@ func LocateNumbers(input string, ranges [][3]int) [][3]int {
 				for startTarget != 0 {
 					nextElement := line[startTarget-1]
 
-					if !(nextElement >= '0' && nextElement <= '9') {
+					if nextElement < '0' || nextElement > '9' {
 						break
 					}
 
@@ -102,7 +102,7 @@ func LocateNumbers(input string, ranges [][3]int) [][3]int {
 				for endTarget < len(line) {
 					nextElement := line[endTarget]
 
-					if !(nextElement >= '0' && nextElement <= '9') {
+					if nextElement < '0' || nextElement > '9' {
 						break
 					}
 

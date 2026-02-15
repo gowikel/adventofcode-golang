@@ -14,6 +14,7 @@ func (e Exercise) Part1(path string) (int, error) {
 	if err != nil {
 		return 0, fmt.Errorf("Part1: %w", err)
 	}
+	//nolint:errcheck
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
@@ -43,6 +44,7 @@ func (e Exercise) Part2(path string) (int, error) {
 	if err != nil {
 		return 0, fmt.Errorf("Part2: %w", err)
 	}
+	//nolint:errcheck
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
