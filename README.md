@@ -19,46 +19,8 @@ the intended solution, plus one flag, --example, to pass the example input.
 aoc solve 2023 5 --example
 ```
 
-## Taskfile
-
-To make some task easier, there is a `Taskfile.yml`. Simply install [this](https://taskfile.dev/)
-and run the desired task:
-
-**Test all the files**
-
-```bash
-task test-all -- # Other params to go test
-```
-
-**Test only one module**
-
-```bash
-task test -- go.eryndalor.dev/adventofcode-golang/year2023/day01
-
-# This will also work
-task test -- ./year2023/day01
-```
-
-**Test only one function**
-```bash
-task test -- -run TestIsIncluded_WithStep_InsideRangeTarget_Valid
-```
-
-**Run the binary**
-
-```bash
-task run -- solve 2023 1 --example
-```
-
-**Format code**
-
-```bash
-task fmt
-```
-
 ## Dependencies
 
-- [Taskfile](https://taskfile.dev/) as task manager
 - [pkgsite](https://github.com/golang/pkgsite) to generate the docs
 
 ## Authors
