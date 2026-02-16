@@ -12,7 +12,7 @@ func parseFilePart1(path string) (result *parser.MemoryMap, err error) {
 	if err != nil {
 		return nil, err
 	}
-	defer file.Close() //nolint:errcheck
+	defer file.Close()
 
 	return parser.ParsePart1(file)
 }

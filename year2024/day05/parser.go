@@ -22,7 +22,7 @@ func Parse(path string) (*PageData, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer file.Close() //nolint:errcheck
+	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
 	scanner.Split(bufio.ScanLines)

@@ -14,7 +14,7 @@ func Parse(path string) ([]int, []int, error) {
 	if err != nil {
 		return nil, nil, fmt.Errorf("open: %w", err)
 	}
-	defer file.Close() //nolint:errcheck
+	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
 
