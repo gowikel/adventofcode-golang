@@ -20,52 +20,53 @@ func (e Exercise) Part1(path string) (int, error) {
 
 	for i, line := range lines {
 		for j, c := range line {
-			if c == 'X' {
-				// Can we write XMAS horizontally?
-				if j < len(line)-3 && line[j+1] == 'M' && line[j+2] == 'A' && line[j+3] == 'S' {
-					result++
-				}
+			if c != 'X' {
+				continue
+			}
+			// Can we write XMAS horizontally?
+			if j < len(line)-3 && line[j+1] == 'M' && line[j+2] == 'A' && line[j+3] == 'S' {
+				result++
+			}
 
-				// Can we write XMAS backwards?
-				if j-3 >= 0 && line[j-1] == 'M' && line[j-2] == 'A' && line[j-3] == 'S' {
-					result++
-				}
+			// Can we write XMAS backwards?
+			if j-3 >= 0 && line[j-1] == 'M' && line[j-2] == 'A' && line[j-3] == 'S' {
+				result++
+			}
 
-				// Can we write XMAS vertically?
-				if i < len(lines)-3 && lines[i+1][j] == 'M' && lines[i+2][j] == 'A' &&
-					lines[i+3][j] == 'S' {
-					result++
-				}
+			// Can we write XMAS vertically?
+			if i < len(lines)-3 && lines[i+1][j] == 'M' && lines[i+2][j] == 'A' &&
+				lines[i+3][j] == 'S' {
+				result++
+			}
 
-				// Can we write XMAS vertically backwards?
-				if i-3 >= 0 && lines[i-1][j] == 'M' && lines[i-2][j] == 'A' &&
-					lines[i-3][j] == 'S' {
-					result++
-				}
+			// Can we write XMAS vertically backwards?
+			if i-3 >= 0 && lines[i-1][j] == 'M' && lines[i-2][j] == 'A' &&
+				lines[i-3][j] == 'S' {
+				result++
+			}
 
-				// Can we write XMAS upper-right diagonal?
-				if i-3 >= 0 && j < len(line)-3 && lines[i-1][j+1] == 'M' &&
-					lines[i-2][j+2] == 'A' && lines[i-3][j+3] == 'S' {
-					result++
-				}
+			// Can we write XMAS upper-right diagonal?
+			if i-3 >= 0 && j < len(line)-3 && lines[i-1][j+1] == 'M' &&
+				lines[i-2][j+2] == 'A' && lines[i-3][j+3] == 'S' {
+				result++
+			}
 
-				// Can we write XMAS down-right diagonal?
-				if i < len(lines)-3 && j < len(line)-3 && lines[i+1][j+1] == 'M' &&
-					lines[i+2][j+2] == 'A' && lines[i+3][j+3] == 'S' {
-					result++
-				}
+			// Can we write XMAS down-right diagonal?
+			if i < len(lines)-3 && j < len(line)-3 && lines[i+1][j+1] == 'M' &&
+				lines[i+2][j+2] == 'A' && lines[i+3][j+3] == 'S' {
+				result++
+			}
 
-				// Can we write XMAS down-left diagonal?
-				if i < len(lines)-3 && j-3 >= 0 && lines[i+1][j-1] == 'M' &&
-					lines[i+2][j-2] == 'A' && lines[i+3][j-3] == 'S' {
-					result++
-				}
+			// Can we write XMAS down-left diagonal?
+			if i < len(lines)-3 && j-3 >= 0 && lines[i+1][j-1] == 'M' &&
+				lines[i+2][j-2] == 'A' && lines[i+3][j-3] == 'S' {
+				result++
+			}
 
-				// Can we write XMAS upper-left diagonal?
-				if i-3 >= 0 && j-3 >= 0 && lines[i-1][j-1] == 'M' &&
-					lines[i-2][j-2] == 'A' && lines[i-3][j-3] == 'S' {
-					result++
-				}
+			// Can we write XMAS upper-left diagonal?
+			if i-3 >= 0 && j-3 >= 0 && lines[i-1][j-1] == 'M' &&
+				lines[i-2][j-2] == 'A' && lines[i-3][j-3] == 'S' {
+				result++
 			}
 		}
 	}
