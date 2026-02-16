@@ -9,6 +9,7 @@ import (
 
 func TestParseGame(t *testing.T) {
 	t.Run("Parses the game ID correctly", func(t *testing.T) {
+		t.Parallel()
 		input := "Game 8: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green"
 		got, _ := ParseGame(input)
 		want := 8
@@ -25,6 +26,7 @@ func TestParseGame(t *testing.T) {
 	})
 
 	t.Run("Parses the Cube Sets correctly", func(t *testing.T) {
+		t.Parallel()
 		input := "Game 8: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green"
 		_, got := ParseGame(input)
 		want := []SetCubes{
