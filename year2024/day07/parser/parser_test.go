@@ -14,7 +14,7 @@ func TestParse__EmptyFile(t *testing.T) {
 
 	result, err := parser.Parse(input)
 
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 	assert.Empty(t, result)
 }
 
@@ -24,7 +24,7 @@ func TestParse__EmptyLinesAreIgnored(t *testing.T) {
 
 	result, err := parser.Parse(input)
 
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 	assert.Empty(t, result)
 }
 
@@ -40,7 +40,7 @@ func TestParse__SingleLine(t *testing.T) {
 
 	result, err := parser.Parse(input)
 
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 	assert.Equal(t, expected, result)
 }
 
@@ -60,7 +60,7 @@ func TestParse__MultipleLines(t *testing.T) {
 
 	result, err := parser.Parse(input)
 
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 	assert.Equal(t, expected, result)
 }
 

@@ -26,7 +26,7 @@ func TestDay03Part1(t *testing.T) {
 		got,
 		want,
 	)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 }
 
 func TestDay03Part2(t *testing.T) {
@@ -43,5 +43,5 @@ func TestDay03Part2(t *testing.T) {
 		got,
 		want,
 	)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 }

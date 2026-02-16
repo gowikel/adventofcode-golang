@@ -14,7 +14,7 @@ func TestParsePart1_EmptyInput(t *testing.T) {
 	expected := &parser.MemoryMap{FileInfo: map[int]int{}, MemoryMap: []int{}}
 	got, err := parser.ParsePart1(input)
 
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 	assert.Equal(t, expected, got)
 }
 
@@ -28,7 +28,7 @@ func TestParsePart1_OneElement(t *testing.T) {
 	}
 	got, err := parser.ParsePart1(input)
 
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 	assert.Equal(t, expected, got)
 }
 
@@ -42,7 +42,7 @@ func TestParsePart1_TwoElements(t *testing.T) {
 	}
 
 	got, err := parser.ParsePart1(input)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 	assert.Equal(t, expected, got)
 }
 
@@ -56,7 +56,7 @@ func TestParsePart1_MultipleElements(t *testing.T) {
 	}
 	got, err := parser.ParsePart1(input)
 
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 	assert.Equal(t, expected, got)
 }
 

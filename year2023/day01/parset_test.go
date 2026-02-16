@@ -15,7 +15,7 @@ func TestParseInput_ShouldParseSingleNumberStringCorrectly(
 	result, err := ParseInput(input)
 
 	assert.Equal(t, expected, result)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 }
 
 func TestParseInput_ShouldParseSingleNumberStringWithoutEndingOnNewLine(
@@ -26,7 +26,7 @@ func TestParseInput_ShouldParseSingleNumberStringWithoutEndingOnNewLine(
 	result, err := ParseInput(input)
 
 	assert.Equal(t, expected, result)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 }
 
 func TestParseInput_ShouldParseMultipleNumberStringsCorrectly(
@@ -37,7 +37,7 @@ func TestParseInput_ShouldParseMultipleNumberStringsCorrectly(
 	result, err := ParseInput(input)
 
 	assert.Equal(t, expected, result)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 }
 
 func TestParseInput_ShouldIgnoreEmptyLines(t *testing.T) {
@@ -46,7 +46,7 @@ func TestParseInput_ShouldIgnoreEmptyLines(t *testing.T) {
 	result, err := ParseInput(input)
 
 	assert.Equal(t, expected, result)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 }
 
 func TestParseInput_ShouldHandleInputWithLeadingTrailingSpaces(
@@ -57,7 +57,7 @@ func TestParseInput_ShouldHandleInputWithLeadingTrailingSpaces(
 	result, err := ParseInput(input)
 
 	assert.Equal(t, expected, result)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 }
 
 func TestParseInput_ShouldHandleInputWithLeadingTrailingNonNumericCharacters(
@@ -68,7 +68,7 @@ func TestParseInput_ShouldHandleInputWithLeadingTrailingNonNumericCharacters(
 	result, err := ParseInput(input)
 
 	assert.Equal(t, expected, result)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 }
 
 func TestParseInput_ShouldHandleInputWithOnlyOneNumericCharacter(
@@ -79,7 +79,7 @@ func TestParseInput_ShouldHandleInputWithOnlyOneNumericCharacter(
 	result, err := ParseInput(input)
 
 	assert.Equal(t, expected, result)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 }
 
 func TestParseInput_ShouldIgnoreLinesWithNonNumericCharacters(
@@ -90,7 +90,7 @@ func TestParseInput_ShouldIgnoreLinesWithNonNumericCharacters(
 	result, err := ParseInput(input)
 
 	assert.Equal(t, expected, result)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 }
 
 func TestParseInput_ShouldParseInputWithOnlyTwoNumericCharactersCorrectly(
@@ -101,7 +101,7 @@ func TestParseInput_ShouldParseInputWithOnlyTwoNumericCharactersCorrectly(
 	result, err := ParseInput(input)
 
 	assert.Equal(t, expected, result)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 }
 
 func TestParseInput_ShouldHandleEmptyInput(t *testing.T) {
@@ -110,7 +110,7 @@ func TestParseInput_ShouldHandleEmptyInput(t *testing.T) {
 	result, err := ParseInput(input)
 
 	assert.Equal(t, expected, result)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 }
 
 // Returns the first and last digit of a two-digit number.
@@ -122,7 +122,7 @@ func TestParseNumber_ShouldReturnFirstAndLastDigitOfTwoDigitNumber(
 	result, err := ParseNumber(input)
 
 	assert.Equal(t, expected, result)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 }
 
 // Repeats a one-digit number twice and returns it.
@@ -132,7 +132,7 @@ func TestParseNumber_ShouldRepeatOneDigitNumberTwice(t *testing.T) {
 	result, err := ParseNumber(input)
 
 	assert.Equal(t, expected, result)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 }
 
 // Returns the first and last digit of a number with more than two
@@ -145,7 +145,7 @@ func TestParseNumber_ShouldReturnFirstAndLastDigitOfNumberWithMoreThanTwoDigits(
 	result, err := ParseNumber(input)
 
 	assert.Equal(t, expected, result)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 }
 
 func TestParseNumber_ShouldReturnZeroIfInputIsEmptyString(
@@ -156,7 +156,7 @@ func TestParseNumber_ShouldReturnZeroIfInputIsEmptyString(
 	result, err := ParseNumber(input)
 
 	assert.Equal(t, expected, result)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 }
 
 func TestParseNumber_ShouldHandleNegativeNumbersCorrectly(
@@ -167,7 +167,7 @@ func TestParseNumber_ShouldHandleNegativeNumbersCorrectly(
 	result, err := ParseNumber(input)
 
 	assert.Equal(t, expected, result)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 }
 
 func TestTokenizer_ReturnsData_WhenAtEOFIsFalseAndFirstByteOfDataIsANumber(
@@ -192,7 +192,7 @@ func TestTokenizer_ReturnsData_WhenAtEOFIsFalseAndFirstByteOfDataIsANumber(
 		data[:1],
 		token,
 	)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 }
 
 func TestTokenizer_Returns1_WhenDataStartsWithOne(t *testing.T) {
@@ -214,7 +214,7 @@ func TestTokenizer_Returns1_WhenDataStartsWithOne(t *testing.T) {
 		"Expected token to be [49], but got %v",
 		token,
 	)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 }
 
 func TestTokenizer_Returns2_WhenDataStartsWithTwo(t *testing.T) {
@@ -236,7 +236,7 @@ func TestTokenizer_Returns2_WhenDataStartsWithTwo(t *testing.T) {
 		"Expected token to be [49], but got %v",
 		token,
 	)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 }
 
 func TestTokenizer_Returns0_WhenAtEOFIsTrueAndDataIsEmpty(
@@ -259,7 +259,7 @@ func TestTokenizer_Returns0_WhenAtEOFIsTrueAndDataIsEmpty(
 		"Expected token to be nil, but got %v",
 		token,
 	)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 }
 
 func TestTokenizer_ReturnsData_WhenAtEOFIsFalseAndFirstByteOfDataIsNotANumberOrWord(
@@ -283,5 +283,5 @@ func TestTokenizer_ReturnsData_WhenAtEOFIsFalseAndFirstByteOfDataIsNotANumberOrW
 		"Expected token to be [49], but got %v",
 		token,
 	)
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 }

@@ -13,7 +13,7 @@ func TestParse_EmptyInput(t *testing.T) {
 	reader := strings.NewReader(input)
 	result, err := parser.Parse(reader)
 
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 	assert.Empty(t, result.RoofMap)
 	assert.Equal(t, 0, result.Columns)
 	assert.Equal(t, 0, result.Rows)
@@ -24,7 +24,7 @@ func TestParse_SingleLine_OnlyDots(t *testing.T) {
 	reader := strings.NewReader(input)
 	result, err := parser.Parse(reader)
 
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 	assert.Empty(t, result.RoofMap)
 	assert.Equal(t, 7, result.Columns)
 	assert.Equal(t, 1, result.Rows)
@@ -35,7 +35,7 @@ func TestParse_SingleLine_NewLineEnding(t *testing.T) {
 	reader := strings.NewReader(input)
 	result, err := parser.Parse(reader)
 
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 	assert.Empty(t, result.RoofMap)
 	assert.Equal(t, 7, result.Columns)
 	assert.Equal(t, 1, result.Rows)
@@ -46,7 +46,7 @@ func TestParse_SingleLine_WithCharacters(t *testing.T) {
 	reader := strings.NewReader(input)
 	result, err := parser.Parse(reader)
 
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 	assert.Len(t, result.RoofMap, 1)
 	assert.ElementsMatch(t, result.RoofMap['A'], []parser.Cell{
 		{0, 0},
@@ -62,7 +62,7 @@ func TestParse_SingleLine_WithMultipleCharacters(t *testing.T) {
 	reader := strings.NewReader(input)
 	result, err := parser.Parse(reader)
 
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 	assert.Len(t, result.RoofMap, 2)
 	assert.ElementsMatch(t, result.RoofMap['A'], []parser.Cell{
 		{0, 0},
@@ -82,7 +82,7 @@ func TestParse_MultipleLines_EmptyLines(t *testing.T) {
 	reader := strings.NewReader(input)
 	result, err := parser.Parse(reader)
 
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 	assert.Empty(t, result.RoofMap)
 	assert.Equal(t, 0, result.Columns)
 	assert.Equal(t, 0, result.Rows)
@@ -93,7 +93,7 @@ func TestParse_MultipleLines_WithCharacters(t *testing.T) {
 	reader := strings.NewReader(input)
 	result, err := parser.Parse(reader)
 
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 	assert.Len(t, result.RoofMap, 2)
 
 	assert.ElementsMatch(t, result.RoofMap['A'], []parser.Cell{
