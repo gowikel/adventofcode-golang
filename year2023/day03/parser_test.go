@@ -65,6 +65,7 @@ func TestGetPoints(t *testing.T) {
 
 	for _, testCase := range testCases {
 		t.Run(testCase.description, func(t *testing.T) {
+			t.Parallel()
 			got := GetPoints(testCase.input)
 			want := testCase.expected
 
@@ -196,6 +197,7 @@ func TestGetRanges(t *testing.T) {
 
 	for _, testCase := range testCases {
 		t.Run(testCase.description, func(t *testing.T) {
+			t.Parallel()
 			got := GetRanges(testCase.input, testCase.points)
 			want := testCase.expected
 
@@ -287,6 +289,7 @@ func TestLocateNumbers(t *testing.T) {
 
 	for _, testCase := range testCases {
 		t.Run(testCase.description, func(t *testing.T) {
+			t.Parallel()
 			got := LocateNumbers(testCase.input, testCase.ranges)
 			want := testCase.expected
 
@@ -329,6 +332,7 @@ func TestGetGears(t *testing.T) {
 
 	for _, testCase := range testCases {
 		t.Run(testCase.description, func(t *testing.T) {
+			t.Parallel()
 			got := GetGears(testCase.input)
 			want := testCase.expected
 

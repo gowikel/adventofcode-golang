@@ -39,6 +39,7 @@ func Test_IsNextCellOutsideGrid(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			g := newGrid(3, 3)
 			g.guardPosition = tt.guardPosition
 			g.direction = tt.direction
@@ -89,6 +90,7 @@ func Test_IsGuardActive(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			g := &Grid{
 				guardActive: tt.isGuardActive,
 			}
@@ -134,6 +136,7 @@ func Test_IsNextCellBlocked(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			g := newGrid(3, 3)
 			g.guardPosition = tt.guardPosition
 			g.direction = tt.direction
@@ -270,6 +273,7 @@ func Test_String(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			g := newGrid(tt.rows, tt.cols)
 			g.guardPosition = tt.guardPosition
 			g.direction = tt.direction
