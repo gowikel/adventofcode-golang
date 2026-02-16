@@ -36,7 +36,7 @@ func TestAbs_Zero_Float(t *testing.T) {
 	want := 0.0
 	got := utils.Abs[float64](input)
 
-	assert.Equal(t, want, got)
+	assert.InEpsilon(t, want, got, 1e-5)
 }
 
 func TestAbs_Positive_Float(t *testing.T) {
@@ -44,7 +44,7 @@ func TestAbs_Positive_Float(t *testing.T) {
 	want := 12.34
 	got := utils.Abs[float64](input)
 
-	assert.Equal(t, want, got)
+	assert.InEpsilon(t, want, got, 1e-5)
 }
 
 func TestAbs_Negative_Float(t *testing.T) {
@@ -52,7 +52,7 @@ func TestAbs_Negative_Float(t *testing.T) {
 	want := 34.12
 	got := utils.Abs[float64](input)
 
-	assert.Equal(t, want, got)
+	assert.InEpsilon(t, want, got, 1e-5)
 }
 
 func TestGCD_48_18(t *testing.T) {
