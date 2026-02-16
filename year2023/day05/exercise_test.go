@@ -39,10 +39,8 @@ func TestFindSeedPointsToTest_EmptySeedRange(t *testing.T) {
 }
 
 func TestFindSeedPointsToTest_OneRange_OneElement(t *testing.T) {
-	input := []SeedRange{}
-
 	sr := NewSeedRange(1, 1)
-	input = append(input, sr)
+	input := []SeedRange{sr}
 
 	want := []int{1}
 	got := FindSeedPointsToTest(input, almanacEntries)
@@ -58,10 +56,8 @@ func TestFindSeedPointsToTest_OneRange_OneElement(t *testing.T) {
 }
 
 func TestFindSeedPointsToTest_OneRange_TwoElements(t *testing.T) {
-	input := []SeedRange{}
-
 	sr := NewSeedRange(1, 2)
-	input = append(input, sr)
+	input := []SeedRange{sr}
 
 	want := []int{1, 2}
 	got := FindSeedPointsToTest(input, almanacEntries)
@@ -79,12 +75,10 @@ func TestFindSeedPointsToTest_OneRange_TwoElements(t *testing.T) {
 func TestFindSeedPointsToTest_OneRange_ThreeElements_SameRange(
 	t *testing.T,
 ) {
-	input := []SeedRange{}
-
 	// 1 => 61, 2 => 62, 3 => 63
 	// 61, 62, 63
 	sr := NewSeedRange(1, 3)
-	input = append(input, sr)
+	input := []SeedRange{sr}
 
 	want := []int{1, 3}
 	got := FindSeedPointsToTest(input, almanacEntries)
@@ -102,12 +96,10 @@ func TestFindSeedPointsToTest_OneRange_ThreeElements_SameRange(
 func TestFindSeedPointsToTest_OneRange_ThreeElements_DifferentRange(
 	t *testing.T,
 ) {
-	input := []SeedRange{}
-
 	// 34 => 34, 35 =>  7, 36 => 40
 	// 34, 7, 40
 	sr := NewSeedRange(34, 3)
-	input = append(input, sr)
+	input := []SeedRange{sr}
 
 	want := []int{34, 35, 36}
 	got := FindSeedPointsToTest(input, almanacEntries)
@@ -125,12 +117,10 @@ func TestFindSeedPointsToTest_OneRange_ThreeElements_DifferentRange(
 func TestFindSeedPointsToTest_OneLargeRange_SameRange(
 	t *testing.T,
 ) {
-	input := []SeedRange{}
-
 	// 36 => 40, 37 => 41, 38 => 42, 39 => 43, 40 => 44, 41 => 45
 	// => 40, 41, 42, 43, 44, 45
 	sr := NewSeedRange(36, 6)
-	input = append(input, sr)
+	input := []SeedRange{sr}
 
 	want := []int{36, 41}
 	got := FindSeedPointsToTest(input, almanacEntries)
@@ -149,11 +139,10 @@ func TestFindSeedPointsToTest_OneLargeRange_TwoRanges(
 	t *testing.T,
 ) {
 	t.Skip("Broken. No intention to fix it")
-	input := []SeedRange{}
 
 	// 30 => 30, 31 => 31, 32 => 32, 33 => 33, 34 => 34, 35 =>  7
 	sr := NewSeedRange(30, 6)
-	input = append(input, sr)
+	input := []SeedRange{sr}
 
 	want := []int{30, 34, 35}
 	got := FindSeedPointsToTest(input, almanacEntries)
@@ -174,10 +163,9 @@ func TestFindSeedPointsToTest_OneLargeRange_FullSet(
 	t.Skip(
 		"Broken. The algorithm is good enough to remove most seeds, but not all.",
 	)
-	input := []SeedRange{}
 
 	sr := NewSeedRange(0, 50)
-	input = append(input, sr)
+	input := []SeedRange{sr}
 
 	want := []int{
 		0,
