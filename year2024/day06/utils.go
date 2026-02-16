@@ -15,7 +15,7 @@ func iterateGrid(grid *parser.Grid) {
 func initDirectionMap(rows, cols int) [][][4]bool {
 	result := make([][][4]bool, rows)
 
-	for i := 0; i < rows; i++ {
+	for i := range rows {
 		result[i] = make([][4]bool, cols)
 	}
 

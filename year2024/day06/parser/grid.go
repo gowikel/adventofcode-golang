@@ -28,7 +28,7 @@ func newGrid(rows, cols int) *Grid {
 	data := make([][]int, rows)
 	blockedCells := make([][]bool, rows)
 
-	for i := 0; i < rows; i++ {
+	for i := range rows {
 		data[i] = make([]int, cols)
 		blockedCells[i] = make([]bool, cols)
 	}
@@ -101,8 +101,8 @@ func (g *Grid) IsNextCellBlocked() bool {
 func (g *Grid) String() string {
 	var sb strings.Builder
 
-	for i := 0; i < g.rows; i++ {
-		for j := 0; j < g.cols; j++ {
+	for i := range g.rows {
+		for j := range g.cols {
 			switch {
 			case g.guardActive && i == g.guardPosition[0] && j == g.guardPosition[1]:
 				switch g.direction {
@@ -184,10 +184,10 @@ func (g *Grid) Clone() *Grid {
 	data := make([][]int, g.rows)
 	blockedCells := make([][]bool, g.rows)
 
-	for i := 0; i < g.rows; i++ {
+	for i := range g.rows {
 		data[i] = make([]int, g.cols)
 		blockedCells[i] = make([]bool, g.cols)
-		for j := 0; j < g.cols; j++ {
+		for j := range g.cols {
 			data[i][j] = g.data[i][j]
 			blockedCells[i][j] = g.blockedCells[i][j]
 		}

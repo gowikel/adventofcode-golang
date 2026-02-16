@@ -96,7 +96,7 @@ func ParseSeedLineAsRanges(line string) ([]SeedRange, error) {
 	}
 
 	fields := strings.Fields(line)
-	for i := 0; i < len(fields)/2; i++ {
+	for i := range len(fields) / 2 {
 		startIndex := i * 2
 		lenIndex := startIndex + 1
 

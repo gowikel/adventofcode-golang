@@ -12,8 +12,7 @@ func SortRanksByStrength(a, b Rank) int {
 	// If two hands have the same hand type, then the
 	// cards are compared one by one. The first one
 	// that is higher wins
-	for i := 0; i < len(a.cards); i++ {
-		aCard := a.cards[i]
+	for i, aCard := range a.cards {
 		bCard := b.cards[i]
 
 		if aCard.Strength() > bCard.Strength() {

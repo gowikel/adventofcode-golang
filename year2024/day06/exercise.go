@@ -45,8 +45,8 @@ func (e Exercise) Part2(path string) (int, error) {
 
 	iterateGrid(g)
 
-	for i := 0; i < g.Rows(); i++ {
-		for j := 0; j < g.Cols(); j++ {
+	for i := range g.Rows() {
+		for j := range g.Cols() {
 			if g.IsCellBlocked(i, j) || g.GetVisitsAt(i, j) == 0 {
 				continue
 			}

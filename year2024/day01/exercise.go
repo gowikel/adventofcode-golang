@@ -27,8 +27,7 @@ func (e Exercise) Part1(path string) (int, error) {
 	})
 
 	result := 0
-	for i := 0; i < len(l1); i++ {
-		a := l1[i]
+	for i, a := range l1 {
 		b := l2[i]
 
 		diff := int(math.Abs(float64(a - b)))

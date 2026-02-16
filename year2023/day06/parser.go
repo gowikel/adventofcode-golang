@@ -61,8 +61,7 @@ func Parse(data string) ([]Race, error) {
 
 	result = slices.Grow[[]Race](result, len(timeFields))
 
-	for i := 0; i < len(timeFields); i++ {
-		timeText := timeFields[i]
+	for i, timeText := range timeFields {
 		distanceText := distanceFields[i]
 
 		var time, distance int
