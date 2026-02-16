@@ -26,8 +26,8 @@ type Node struct {
 
 func NewNode(
 	name string,
-	snd StartNodeDefiner,
-	end EndNodeDefiner,
+	snd NodeDefiner,
+	end NodeDefiner,
 ) *Node {
 	return &Node{
 		Name:      name,
@@ -37,12 +37,7 @@ func NewNode(
 }
 
 // Interface to determine if a Node is a start node
-type StartNodeDefiner interface {
-	Determine(string) bool
-}
-
-// Interface to determine if a Node is a end node
-type EndNodeDefiner interface {
+type NodeDefiner interface {
 	Determine(string) bool
 }
 
@@ -60,8 +55,8 @@ func (n Node) IsEndNode() bool {
 
 func ParseNodes(
 	data string,
-	snd StartNodeDefiner,
-	end EndNodeDefiner,
+	snd NodeDefiner,
+	end NodeDefiner,
 ) (startNodes []*Node, err error) {
 	var nodes = make(map[string]*Node)
 
@@ -141,8 +136,8 @@ func ParseDirectionsLine(line string) ([]Direction, error) {
 func getOrCreateNode(
 	nodes map[string]*Node,
 	key string,
-	snd StartNodeDefiner,
-	end EndNodeDefiner,
+	snd NodeDefiner,
+	end NodeDefiner,
 ) *Node {
 	key = strings.TrimSpace(key)
 	if node, ok := nodes[key]; ok {
