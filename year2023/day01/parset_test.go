@@ -117,6 +117,7 @@ func TestParseInput_ShouldHandleEmptyInput(t *testing.T) {
 func TestParseNumber_ShouldReturnFirstAndLastDigitOfTwoDigitNumber(
 	t *testing.T,
 ) {
+	t.Parallel()
 	input := "42"
 	expected := 42
 	result, err := ParseNumber(input)
@@ -127,6 +128,7 @@ func TestParseNumber_ShouldReturnFirstAndLastDigitOfTwoDigitNumber(
 
 // Repeats a one-digit number twice and returns it.
 func TestParseNumber_ShouldRepeatOneDigitNumberTwice(t *testing.T) {
+	t.Parallel()
 	input := "5"
 	expected := 55
 	result, err := ParseNumber(input)
@@ -140,6 +142,7 @@ func TestParseNumber_ShouldRepeatOneDigitNumberTwice(t *testing.T) {
 func TestParseNumber_ShouldReturnFirstAndLastDigitOfNumberWithMoreThanTwoDigits(
 	t *testing.T,
 ) {
+	t.Parallel()
 	input := "12345"
 	expected := 15
 	result, err := ParseNumber(input)
@@ -151,6 +154,7 @@ func TestParseNumber_ShouldReturnFirstAndLastDigitOfNumberWithMoreThanTwoDigits(
 func TestParseNumber_ShouldReturnZeroIfInputIsEmptyString(
 	t *testing.T,
 ) {
+	t.Parallel()
 	input := ""
 	expected := 0
 	result, err := ParseNumber(input)
@@ -162,6 +166,7 @@ func TestParseNumber_ShouldReturnZeroIfInputIsEmptyString(
 func TestParseNumber_ShouldHandleNegativeNumbersCorrectly(
 	t *testing.T,
 ) {
+	t.Parallel()
 	input := "-42"
 	expected := -42
 	result, err := ParseNumber(input)
@@ -173,6 +178,7 @@ func TestParseNumber_ShouldHandleNegativeNumbersCorrectly(
 func TestTokenizer_ReturnsData_WhenAtEOFIsFalseAndFirstByteOfDataIsANumber(
 	t *testing.T,
 ) {
+	t.Parallel()
 	data := []byte("1")
 	atEOF := false
 	advance, token, err := Tokenizer(data, atEOF)
@@ -196,6 +202,7 @@ func TestTokenizer_ReturnsData_WhenAtEOFIsFalseAndFirstByteOfDataIsANumber(
 }
 
 func TestTokenizer_Returns1_WhenDataStartsWithOne(t *testing.T) {
+	t.Parallel()
 	data := []byte("one")
 	atEOF := false
 	advance, token, err := Tokenizer(data, atEOF)
@@ -218,6 +225,7 @@ func TestTokenizer_Returns1_WhenDataStartsWithOne(t *testing.T) {
 }
 
 func TestTokenizer_Returns2_WhenDataStartsWithTwo(t *testing.T) {
+	t.Parallel()
 	data := []byte("two")
 	atEOF := false
 	advance, token, err := Tokenizer(data, atEOF)
@@ -242,6 +250,7 @@ func TestTokenizer_Returns2_WhenDataStartsWithTwo(t *testing.T) {
 func TestTokenizer_Returns0_WhenAtEOFIsTrueAndDataIsEmpty(
 	t *testing.T,
 ) {
+	t.Parallel()
 	data := []byte{}
 	atEOF := true
 	advance, token, err := Tokenizer(data, atEOF)
@@ -265,6 +274,7 @@ func TestTokenizer_Returns0_WhenAtEOFIsTrueAndDataIsEmpty(
 func TestTokenizer_ReturnsData_WhenAtEOFIsFalseAndFirstByteOfDataIsNotANumberOrWord(
 	t *testing.T,
 ) {
+	t.Parallel()
 	data := []byte("a")
 	atEOF := false
 	advance, token, err := Tokenizer(data, atEOF)
