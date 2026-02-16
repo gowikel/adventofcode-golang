@@ -44,6 +44,7 @@ func (e Exercise) Part2(path string) (int, error) {
 }
 
 func parseFile(path string) (result []parser.Equation, err error) {
+	// #nosec G304 -- Path is controlled by the user running the solution, not external input
 	file, err := os.Open(path)
 	if err != nil {
 		return nil, fmt.Errorf("unable to open file: %w", err)

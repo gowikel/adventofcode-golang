@@ -8,6 +8,7 @@ import (
 )
 
 func parseFile(path string) (result parser.GameInformation, err error) {
+	// #nosec G304 -- Path is controlled by the user running the solution, not external input
 	file, err := os.Open(path)
 	if err != nil {
 		return result, fmt.Errorf("parseFile: %w", err)

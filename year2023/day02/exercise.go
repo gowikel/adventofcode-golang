@@ -15,6 +15,7 @@ type Exercise struct{}
 func (e Exercise) Part1(path string) (int, error) {
 	var result int
 
+	// #nosec G304 -- Path is controlled by the user running the solution, not external input
 	file, err := os.Open(path)
 	if err != nil {
 		return result, fmt.Errorf("Part1: %w", err)
@@ -49,6 +50,7 @@ func (e Exercise) Part1(path string) (int, error) {
 func (e Exercise) Part2(path string) (int, error) {
 	var result int
 
+	// #nosec G304 -- Path is controlled by the user running the solution, not external input
 	file, err := os.Open(path)
 	if err != nil {
 		return result, fmt.Errorf("Part2: %w", err)

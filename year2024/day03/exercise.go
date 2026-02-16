@@ -11,6 +11,7 @@ type Exercise struct{}
 
 func (e Exercise) Part1(path string) (int, error) {
 	regex := regexp.MustCompile(`mul\((\d{1,3}),(\d{1,3})\)`)
+	// #nosec G304 -- Path is controlled by the user running the solution, not external input
 	contents, err := os.ReadFile(path)
 	if err != nil {
 		return 0, fmt.Errorf("Part1: %w", err)

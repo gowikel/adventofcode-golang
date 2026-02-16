@@ -17,6 +17,7 @@ func Parse(path string) (*PageData, error) {
 	before_rules := make(map[int][]int)
 	pages := make([][]int, 0)
 
+	// #nosec G304 -- Path is controlled by the user running the solution, not external input
 	file, err := os.Open(path)
 	if err != nil {
 		return nil, err
