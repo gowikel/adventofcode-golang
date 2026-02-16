@@ -38,7 +38,7 @@ func NewNode(
 
 // Interface to determine if a Node is a start node
 type NodeDefiner interface {
-	Determine(string) bool
+	Determine(name string) bool
 }
 
 func (n Node) String() string {
