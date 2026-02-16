@@ -103,7 +103,8 @@ func (g *Grid) String() string {
 
 	for i := 0; i < g.rows; i++ {
 		for j := 0; j < g.cols; j++ {
-			if g.guardActive && i == g.guardPosition[0] && j == g.guardPosition[1] {
+			switch {
+			case g.guardActive && i == g.guardPosition[0] && j == g.guardPosition[1]:
 				switch g.direction {
 				case DirectionRight:
 					sb.WriteRune('>')
@@ -114,11 +115,11 @@ func (g *Grid) String() string {
 				case DirectionDown:
 					sb.WriteRune('v')
 				}
-			} else if g.blockedCells[i][j] {
+			case g.blockedCells[i][j]:
 				sb.WriteRune('#')
-			} else if g.data[i][j] > 0 {
+			case g.data[i][j] > 0:
 				sb.WriteRune('X')
-			} else {
+			default:
 				sb.WriteRune('.')
 			}
 		}
