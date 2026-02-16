@@ -120,11 +120,12 @@ func EnhancedParseInput(input string) ([]int, error) {
 //
 // This function panics if the input is not a number.
 func ParseNumber(input string) (int, error) {
-	if len(input) == 0 {
+	switch len(input) {
+	case 0:
 		return 0, nil
-	} else if len(input) == 1 {
+	case 1:
 		input = strings.Repeat(input, 2)
-	} else {
+	default:
 		// handle negative numbers
 		if input[0] == '-' && len(input) > 3 {
 			input = input[0:2] + string(input[len(input)-1])
