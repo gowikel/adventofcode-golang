@@ -182,21 +182,18 @@ func WildcardHandDeterminer(cards [5]Card) HandType {
 	slices.Reverse[[]int](groups)
 
 	// May happen, 'JJJJA'
-	if groups[0]+wildcards == 5 {
+	switch {
+	case groups[0]+wildcards == 5:
 		return FiveOfKind
-	} else if groups[0]+wildcards == 4 {
+	case groups[0]+wildcards == 4:
 		return FourOfKind
-	} else if (groups[0]+wildcards == 3 && groups[1] == 2) ||
-		(groups[0] == 3 && groups[1]+wildcards == 2) {
-
+	case groups[0]+wildcards == 3 && groups[1] == 2 || groups[0] == 3 && groups[1]+wildcards == 2:
 		return FullHouse
-	} else if groups[0]+wildcards == 3 {
+	case groups[0]+wildcards == 3:
 		return ThreeOfKind
-	} else if (groups[0]+wildcards == 2 && groups[1] == 2) ||
-		(groups[0] == 2 && groups[1]+wildcards == 2) {
-
+	case groups[0]+wildcards == 2 && groups[1] == 2 || groups[0] == 2 && groups[1]+wildcards == 2:
 		return TwoPair
-	} else if groups[0]+wildcards == 2 {
+	case groups[0]+wildcards == 2:
 		return OnePair
 	}
 
