@@ -34,6 +34,7 @@ func (e Exercise) Part1(path string) (int, error) {
 func (e Exercise) Part2(path string) (int, error) {
 	regex := regexp.MustCompile(`mul\((\d{1,3}),(\d{1,3})\)|do\(\)|don't\(\)`)
 
+	// #nosec G304 -- Path is controlled by the user running the solution, not external input
 	contents, err := os.ReadFile(path)
 	if err != nil {
 		return 0, fmt.Errorf("Part2: %w", err)
